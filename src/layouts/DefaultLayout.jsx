@@ -1,9 +1,12 @@
-export const DefaultLayout = () => {
-    return (
-        <>
-            <div className="text-red-500">
-                Default layout
-            </div>
-        </>
-    )
-}
+import Header from "../components/Header/Header";
+import Footer from "../components/Footer/Footer";
+
+export const DefaultLayout = ({ children }) => {
+  return (
+    <div className="wrapper">
+      <Header />
+      <div className="content">{children}</div>
+      <Footer />
+    </div>
+  );
+};

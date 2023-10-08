@@ -7,6 +7,9 @@ module.exports = {
                 primaryColor: '#007AFE',
                 textColor: '#252525',
             },
+            fontFamily: {
+                'chewy': ['Chewy']
+            }
         },
     },
     plugins: [],
