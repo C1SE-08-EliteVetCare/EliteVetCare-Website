@@ -76,7 +76,7 @@ const ResetPassword = () => {
                   />
                 ))}
               </div>
-              <button className="bg-primaryColor text-white w-full py-3 mb-3 rounded-3xl">Xác nhận</button>
+              <button className="bg-primaryColor text-white w-full py-3 mb-3 rounded-3xl hover:bg-blue-600">Xác nhận</button>
             </form>
             <div className="mb-10">
               <p>Quay lại trang <FontAwesomeIcon icon={faDiamondTurnRight}/>

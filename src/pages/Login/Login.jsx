@@ -39,8 +39,8 @@ const Login = () => {
                        className="block w-full mb-6 px-4 py-3 border-2 rounded-lg text-gray-900 shadow-lg bg-transparent appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                        placeholder=" " onChange={(e) => setEmail(e.target.value)} value={email} />
                 <label htmlFor="floating_outlined_email"
-                       className="absolute text-base text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-3">Email
-                  hoặc số điện thoại</label>
+                       className="absolute text-base text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-3">Địa Chỉ Email
+                  </label>
               </div>
               <div className="relative mb-6">
                 <input type={hiddenPass ? "password" : "text"} id="floating_outlined_password"
@@ -67,7 +67,7 @@ const Login = () => {
               <div className="text-right mb-5">
                 <Link to="/forgot-password" className="text-primaryColor">Quên mật khẩu ?</Link>
               </div>
-              <button className="bg-primaryColor text-white w-full py-3 mb-3 rounded-3xl">Đăng Nhập</button>
+              <button className="bg-primaryColor text-white w-full py-3 mb-3 rounded-3xl hover:bg-blue-600">Đăng Nhập</button>
             </form>
             <div className="text-right mb-10">
               <p>Bạn chưa có tài khoản?

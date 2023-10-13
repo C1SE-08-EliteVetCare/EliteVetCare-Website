@@ -11,7 +11,10 @@ const DropDownUser = ({ isDropDown }) => {
     >
       <div className="px-4 py-3 text-sm text-gray-900">
         <div className="font-medium text-primaryColor">{isPetOwner ? "Chủ thú cưng" : "Bác sĩ"}</div>
-        <div className="truncate">quangquoc@1542002@gmail.com</div>
+        <div className="truncate" data-toggle="dropdown">Dương Quang Quốc</div>
+        <div id="tooltip-default" role="tooltip" className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+          Tooltip content
+        </div>
       </div>
       <ul className="py-2 text-sm text-gray-700"
           aria-labelledby="dropdownAvatarNameButton">

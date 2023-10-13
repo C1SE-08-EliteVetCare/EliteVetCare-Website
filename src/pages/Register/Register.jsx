@@ -29,14 +29,14 @@ const Register = () => {
                        placeholder=" " onChange={(e) => setUsername(e.target.value)} value={username} />
                 <label htmlFor="floating_outlined_username"
                        className="absolute text-base text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-3">Tên
-                  đăng nhập</label>
+                  hiển thị</label>
               </div>
               <div className="relative mb-6">
                 <input type="text" id="floating_outlined_email"
                        className="block w-full mb-6 px-4 py-3 border-2 rounded-lg text-gray-900 shadow-lg bg-transparent appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                        placeholder=" " onChange={(e) => setEmail(e.target.value)} value={email} />
                 <label htmlFor="floating_outlined_email"
-                       className="absolute text-base text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-3">Email
+                       className="absolute text-base text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-3">Địa chỉ Email
                 </label>
               </div>
               <div className="relative mb-6">
@@ -91,7 +91,7 @@ const Register = () => {
                        className="absolute text-base text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-3">Số điện thoại
                 </label>
               </div>
-              <button className="bg-primaryColor text-white w-full py-3 mb-3 rounded-3xl">Đăng Ký</button>
+              <button className="bg-primaryColor text-white w-full py-3 mb-3 rounded-3xl hover:bg-blue-600">Đăng Ký</button>
             </form>
             <div className="text-right mb-10">
               <p>Bạn đã có tài khoản?
