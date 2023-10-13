@@ -10,7 +10,7 @@ const Header = () => {
   const router = useLocation();
 
   return (
-    <header className="top-0 left-0 right-0 w-full bg-[#f9f9f9] z-50 shadow-sm">
+    <header className="sticky top-0 left-0 right-0 w-full bg-[#f9f9f9] z-50 shadow-md">
       <div
         className="container mx-auto h-[76px] flex justify-around sm:px-3 md:px-10 lg:px-10 lg:grid lg:grid-flow-col">
         <div className="flex items-center">
