@@ -6,7 +6,7 @@ import banner from "../../assets/images/login-banner.png";
 
 const Register = () => {
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
+  const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [cfPassword, setCfPassword] = useState("");
@@ -26,10 +26,9 @@ const Register = () => {
               <div className="relative mb-6">
                 <input type="text" id="floating_outlined_username"
                        className="block w-full mb-6 px-4 py-3 border-2 rounded-lg text-gray-900 shadow-lg bg-transparent appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                       placeholder=" " onChange={(e) => setUsername(e.target.value)} value={username} />
+                       placeholder=" " onChange={(e) => setFullName(e.target.value)} value={fullName} />
                 <label htmlFor="floating_outlined_username"
-                       className="absolute text-base text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-3">Tên
-                  hiển thị</label>
+                       className="absolute text-base text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-3">Họ và tên</label>
               </div>
               <div className="relative mb-6">
                 <input type="text" id="floating_outlined_email"

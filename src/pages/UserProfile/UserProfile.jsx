@@ -77,14 +77,14 @@ const UserProfile = () => {
           {/*  <label className="text-left text-lg font-normal mb-2 ">Địa chỉ phòng khám</label>*/}
           {/*  <input placeholder="" className="w-full px-5 py-2 rounded-sm bg-inputColor focus:outline-primaryColor cursor-not-allowed" disabled/>*/}
           {/*</div>*/}
-          {<div className="flex flex-row col-span-2 mt-4 gap-4 justify-self-end">
+          <div className="flex flex-row col-span-2 mt-4 gap-4 justify-self-end">
             <button className="px-5 py-2 rounded-sm bg-inputColor focus:outline-primaryColor hover:bg-gray-200">Hủy
             </button>
             <button
               className={`px-3 py-2 rounded-sm text-white ${changed ? "bg-primaryColor hover:bg-blue-600" : "bg-blue-400 cursor-not-allowed"}`}>Lưu
               thay đổi
             </button>
-          </div>}
+          </div>
         </form>
       </div>
       <div className="col-span-2">
