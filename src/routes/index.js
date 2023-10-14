@@ -9,6 +9,7 @@ import UserLayout from "../layouts/UserLayout";
 import AppointmentList from "../pages/AppointmentList/AppointmentList";
 import ChangePassword from "../pages/UserProfile/ChangePassword";
 import PetProfile from "../pages/PetList/PetProfile";
+import ManageAppointment from "../pages/ManageAppointment/ManageAppointment";
 
 // Public routes
 const publicRoutes = [
@@ -22,6 +23,7 @@ const publicRoutes = [
   { path: "/pet-owner/pets", component: PetList, layout: UserLayout },
   { path: "/pet-owner/pets/:id", component: PetProfile, layout: UserLayout },
   { path: "/pet-owner/appointments", component: AppointmentList, layout: UserLayout },
+  { path: "/vet/manage-appointments", component: ManageAppointment, layout: UserLayout },
 ];
 
 // Private routes
