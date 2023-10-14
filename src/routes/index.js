@@ -13,22 +13,22 @@ import ManageAppointment from "../pages/ManageAppointment/ManageAppointment";
 
 // Public routes
 const publicRoutes = [
-  { path: "/", component: Home },
-  { path: "/register", component: Register, layout: null },
-  { path: "/login", component: Login, layout: null },
-  { path: "/forgot-password", component: ForgotPassword, layout: null },
-  { path: "/reset-password", component: ResetPassword, layout: null },
-  { path: "/profile", component: UserProfile },
-  { path: "/profile/change-password", component: ChangePassword, layout: UserLayout },
-  { path: "/pet-owner/pets", component: PetList, layout: UserLayout },
-  { path: "/pet-owner/pets/:id", component: PetProfile, layout: UserLayout },
-  { path: "/pet-owner/appointments", component: AppointmentList, layout: UserLayout },
+    {path: "/", component: Home},
+    {path: "/register", component: Register, layout: null},
+    {path: "/login", component: Login, layout: null},
+    {path: "/forgot-password", component: ForgotPassword, layout: null},
+    {path: "/reset-password", component: ResetPassword, layout: null},
+    {path: "/profile", component: UserProfile},
+    {path: "/profile/change-password", component: ChangePassword, layout: UserLayout},
+    {path: "/pet-owner/pets", component: PetList, layout: UserLayout},
+    {path: "/pet-owner/pets/:id", component: PetProfile, layout: UserLayout},
+    {path: "/pet-owner/appointments", component: AppointmentList, layout: UserLayout},
   { path: "/vet/manage-appointments", component: ManageAppointment, layout: UserLayout },
 ];
 
 // Private routes
 const privateRoutes = [];
 
-export { publicRoutes, privateRoutes };
+export {publicRoutes, privateRoutes};
 
 
