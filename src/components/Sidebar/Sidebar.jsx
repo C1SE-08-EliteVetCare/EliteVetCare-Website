@@ -83,8 +83,8 @@ const Sidebar = () => {
                 <ul
                   className={`${dropdownStates.apDropdown || router.pathname.includes("/appointment") ? "block" : "hidden"}`}>
                   <li>
-                    <Link to="/user/appointment"
-                          className={`${router.pathname.includes("/user/appointment") ? "text-primaryColor" : "text-gray-500"} flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100`}>Dánh
+                    <Link to="/pet-owner/appointments"
+                          className={`${router.pathname.includes("/pet-owner/appointment") ? "text-primaryColor" : "text-gray-500"} flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100`}>Danh
                       sách cuộc hẹn</Link>
                   </li>
                 </ul>
