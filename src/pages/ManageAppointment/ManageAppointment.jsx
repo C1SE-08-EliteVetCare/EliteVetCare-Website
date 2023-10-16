@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircleInfo, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {motion} from "framer-motion";
@@ -6,105 +6,104 @@ import Pagination from "../../components/Pagination/Pagination";
 
 const ManageAppointment = () => {
     const [appointment, setAppointment] = useState({})
-    const listAppointmentExample = [{
-        id: 1,
-        name: "Duơng Quang Quốc",
-        phone: "0764891440",
-        address: "Đà Nẵng",
-        date: "15/10/2020",
-        time: "9:00 AM",
-        status: 1,
-        servicePackage: "Vaccination"
-    }, {
-        id: 2,
-        name: "Duơng Quang Quốc",
-        phone: "0764891440",
-        address: "Đà Nẵng",
-        date: "15/10/2020",
-        time: "9:00 AM",
-        status: 2,
-        servicePackage: "Vaccination"
-    }, {
-        id: 3,
-        name: "Duơng Quang Quốc",
-        phone: "0764891440",
-        address: "Đà Nẵng",
-        date: "15/10/2020",
-        time: "9:00 AM",
-        status: 3,
-        servicePackage: "Vaccination"
-    }, {
-        id: 4,
-        name: "Duơng Quang Quốc",
-        phone: "0764891440",
-        address: "Đà Nẵng",
-        date: "15/10/2020",
-        time: "9:00 AM",
-        status: 1,
-        servicePackage: "Vaccination"
-    }, {
-        id: 5,
-        name: "Duơng Quang Quốc",
-        phone: "0764891440",
-        address: "Đà Nẵng",
-        date: "15/10/2020",
-        time: "9:00 AM",
-        status: 2,
-        servicePackage: "Vaccination"
-    }, {
-        id: 6,
-        name: "Duơng Quang Quốc",
-        phone: "0764891440",
-        address: "Đà Nẵng",
-        date: "15/10/2020",
-        time: "9:00 AM",
-        status: 3,
-        servicePackage: "Vaccination"
-    }, {
-        id: 7,
-        name: "Duơng Quang Quốc",
-        phone: "0764891440",
-        address: "Đà Nẵng",
-        date: "15/10/2020",
-        time: "9:00 AM",
-        status: 3,
-        servicePackage: "Vaccination"
-    }, {
-        id: 8,
-        name: "Duơng Quang Quốc",
-        phone: "0764891440",
-        address: "Đà Nẵng",
-        date: "15/10/2020",
-        time: "9:00 AM",
-        status: 3,
-        servicePackage: "Vaccination"
-    }, {
-        id: 9,
-        name: "Duơng Quang Quốc",
-        phone: "0764891440",
-        address: "Đà Nẵng",
-        date: "15/10/2020",
-        time: "9:00 AM",
-        status: 3,
-        servicePackage: "Vaccination"
-    }, {
-        id: 10,
-        name: "Duơng Quang Quốc",
-        phone: "0764891440",
-        address: "Đà Nẵng",
-        date: "15/10/2020",
-        time: "9:00 AM",
-        status: 3,
-        servicePackage: "Vaccination"
-    },];
-    const [showModal, setShowModal] = useState(true);
-    const apRef = useRef();
+    const listAppointmentExample = [
+        {
+            id: 1,
+            name: "Duơng Quang Quốc",
+            phone: "0764891440",
+            address: "Đà Nẵng",
+            date: "15/10/2020",
+            time: "9:00 AM",
+            status: 1,
+            servicePackage: "Vaccination"
+        }, {
+            id: 2,
+            name: "Duơng Quang Quốc",
+            phone: "0764891440",
+            address: "Đà Nẵng",
+            date: "15/10/2020",
+            time: "9:00 AM",
+            status: 2,
+            servicePackage: "Vaccination"
+        }, {
+            id: 3,
+            name: "Duơng Quang Quốc",
+            phone: "0764891440",
+            address: "Đà Nẵng",
+            date: "15/10/2020",
+            time: "9:00 AM",
+            status: 3,
+            servicePackage: "Vaccination"
+        }, {
+            id: 4,
+            name: "Duơng Quang Quốc",
+            phone: "0764891440",
+            address: "Đà Nẵng",
+            date: "15/10/2020",
+            time: "9:00 AM",
+            status: 1,
+            servicePackage: "Vaccination"
+        }, {
+            id: 5,
+            name: "Duơng Quang Quốc",
+            phone: "0764891440",
+            address: "Đà Nẵng",
+            date: "15/10/2020",
+            time: "9:00 AM",
+            status: 2,
+            servicePackage: "Vaccination"
+        }, {
+            id: 6,
+            name: "Duơng Quang Quốc",
+            phone: "0764891440",
+            address: "Đà Nẵng",
+            date: "15/10/2020",
+            time: "9:00 AM",
+            status: 3,
+            servicePackage: "Vaccination"
+        }, {
+            id: 7,
+            name: "Duơng Quang Quốc",
+            phone: "0764891440",
+            address: "Đà Nẵng",
+            date: "15/10/2020",
+            time: "9:00 AM",
+            status: 3,
+            servicePackage: "Vaccination"
+        }, {
+            id: 8,
+            name: "Duơng Quang Quốc",
+            phone: "0764891440",
+            address: "Đà Nẵng",
+            date: "15/10/2020",
+            time: "9:00 AM",
+            status: 3,
+            servicePackage: "Vaccination"
+        }, {
+            id: 9,
+            name: "Duơng Quang Quốc",
+            phone: "0764891440",
+            address: "Đà Nẵng",
+            date: "15/10/2020",
+            time: "9:00 AM",
+            status: 3,
+            servicePackage: "Vaccination"
+        }, {
+            id: 10,
+            name: "Duơng Quang Quốc",
+            phone: "0764891440",
+            address: "Đà Nẵng",
+            date: "15/10/2020",
+            time: "9:00 AM",
+            status: 3,
+            servicePackage: "Vaccination"
+        },];
+    const [showModal, setShowModal] = useState(false);
     const handleShowModal = (e) => {
-        const id = e.target.closest('ul').getAttribute("data-id")
+        const id = parseInt(e.target.closest('ul').getAttribute("data-id"))
         console.log(id);
         setShowModal(!showModal);
-        setAppointment(listAppointmentExample.filter(item => item.id == id)[0])
-        console.log(appointment)
+        setAppointment(listAppointmentExample.filter(item => item.id === id)[0])
     }
     return (<>
         <div className="w-[78%] bg-white py-4 px-8 shadow-2xl">
@@ -123,7 +122,7 @@ const ManageAppointment = () => {
                         <option>Đã nhận</option>
                         <option>Đang xử lý</option>
                         4
-                        <option>Đã lg chối</option>
+                        <option>Đã từ chối</option>
                     </select>
                     <button
                         className="px-5 py-2 rounded-lg border-2 border-gray-400 focus:outline-primaryColor hover:bg-gray-200">Xuất
@@ -149,7 +148,7 @@ const ManageAppointment = () => {
                     nhận</li>) : item.status === 2 ? (
                     <li className="col-span-2 py-1 px-6 bg-yellow-200 rounded-xl">Đang xử lý</li>) : (
                     <li className="col-span-2 py-1 px-6 bg-red-400 rounded-xl">Đã hủy</li>)}
-                <motion.li whileHover={{scale: 1.2}} className="col-span-1 hover:text-primaryColor">
+                <motion.li whileHover={{scale: 1.2}} className="text-xl text-gray-400 col-span-1 hover:text-primaryColor">
                     <FontAwesomeIcon icon={faCircleInfo} onClick={handleShowModal}/></motion.li>
             </ul>))}
             {listAppointmentExample.length >= 10 && <Pagination/>}

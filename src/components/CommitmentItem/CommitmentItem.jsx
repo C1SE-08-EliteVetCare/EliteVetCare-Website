@@ -60,7 +60,7 @@ const CommitmentItem = () => {
                                 fillRule="evenodd"></path>
                         </g>
                     </svg>
-                    <span className="text-2xl ml-4">Chuyên nghiệp</span>
+                    <span className="text-2xl ml-3">Chuyên nghiệp</span>
                 </motion.li>
             </ul>
         </div>
