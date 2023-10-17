@@ -12,6 +12,10 @@ import PetProfile from "../pages/PetList/PetProfile";
 import ManageAppointment from "../pages/ManageAppointment/ManageAppointment";
 import MakeAppoiment from "../pages/MakeAppoiment/MakeAppoiment";
 import Chatbot from "../pages/ChatBot/ChatBot";
+import ManageUserAccount from "../pages/Admin/ManageUserAccoun";
+import DetailUserAccount from "../pages/Admin/DetailUserAccount";
+import Revice from "../pages/Admin/ReciveFeedback";
+import AdminLayout from "../layouts/AdminLayout";
 const publicRoutes = [
     { path: "/", component: Home },
     { path: "/register", component: Register, layout: null },
@@ -44,6 +48,21 @@ const publicRoutes = [
         path: "/chatbot",
         component: Chatbot,
         layout: null,
+    },
+    {
+        path: "/admin/manageaccount",
+        component: ManageUserAccount,
+        layout: AdminLayout,
+    },
+    {
+        path: "/admin/detailuseraccount",
+        component: DetailUserAccount,
+        layout: AdminLayout,
+    },
+    {
+        path: "/admin/revice",
+        component: Revice,
+        layout: AdminLayout,
     },
 ];
 

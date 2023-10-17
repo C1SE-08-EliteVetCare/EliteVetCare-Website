@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
-import Sidebar from "../../components/Sidebar/Sidebar";
+import Sidebar from "../../components/Admin/Siderbar";
 import Address from "../../components/Address/Address";
 
-const UserProfile = () => {
+const DetailUserAccount = () => {
     const changed = false;
     const [username, setUsername] = useState("");
     const [fullName, setFullName] = useState("");
@@ -18,24 +18,23 @@ const UserProfile = () => {
     const fileRef = useRef();
 
     return (
-        <div className="max-w-screen-xl mx-auto my-9 grid grid-flow-col">
-            <Sidebar />
-            <div className="bg-white py-4 px-8 col-span-4 shadow-2xl">
-                <h1 className="text-2xl font-medium text-primaryColor text-start mb-4">
-                    Hồ sơ của tôi
+        <div className="max-w-screen-xl container mx-auto my-9 grid grid-flow-col">
+            <div className="bg-white py-1 px-1 col-span-4 shadow-2xl">
+                <h1 className="text-2xl font-medium text-black text-start mb-4">
+                    Thông tin chi tiết
                 </h1>
-                {/*<span className="text-red-500 block mb-4">Vui lòng cập nhật đầy đủ thông tin của bạn</span>*/}
-                {/*<div className="flex flex-row col-span-2 mt-4 gap-4 justify-self-end">*/}
-                {/*  <button*/}
-                {/*    className="px-3 py-2 rounded-sm text-primaryColor"><FontAwesomeIcon icon={faEdit}/> Chỉnh sửa*/}
-                {/*  </button>*/}
-                {/*</div>*/}
                 <form className="grid grid-cols-2 gap-x-9 gap-y-4">
                     <div className="flex flex-col">
-                        <label className="text-left text-lg font-normal mb-2 ">
-                            Tên hiển thị
+                        <label
+                            htmlFor="username"
+                            className="text-left text-lg font-normal mb-2"
+                        >
+                            Tên đăng nhập
+                            <p> Nam</p>
                         </label>
                         <input
+                            type="text"
+                            id="username"
                             placeholder=""
                             className="w-full px-5 py-2 rounded-sm bg-inputColor focus:outline-primaryColor"
                             value={username}
@@ -43,10 +42,15 @@ const UserProfile = () => {
                         />
                     </div>
                     <div className="flex flex-col">
-                        <label className="text-left text-lg font-normal mb-2 ">
+                        <label
+                            htmlFor="fullName"
+                            className="text-left text-lg font-normal mb-2"
+                        >
                             Họ và tên
                         </label>
                         <input
+                            type="text"
+                            id="fullName"
                             placeholder=""
                             className="w-full px-5 py-2 rounded-sm bg-inputColor focus:outline-primaryColor"
                             value={fullName}
@@ -54,10 +58,15 @@ const UserProfile = () => {
                         />
                     </div>
                     <div className="flex flex-col">
-                        <label className="text-left text-lg font-normal mb-2 ">
+                        <label
+                            htmlFor="birthYear"
+                            className="text-left text-lg font-normal mb-2"
+                        >
                             Năm sinh
                         </label>
                         <input
+                            type="text"
+                            id="birthYear"
                             placeholder=""
                             className="w-full px-5 py-2 rounded-sm bg-inputColor focus:outline-primaryColor"
                             value={birthYear}
@@ -65,10 +74,14 @@ const UserProfile = () => {
                         />
                     </div>
                     <div className="flex flex-col">
-                        <label className="text-left text-lg font-normal mb-2 ">
+                        <label
+                            htmlFor="gender"
+                            className="text-left text-lg font-normal mb-2"
+                        >
                             Giới tính
                         </label>
                         <select
+                            id="gender"
                             className="w-full px-5 py-2 rounded-sm bg-inputColor focus:outline-primaryColor"
                             value={gender}
                             onChange={(e) => setGender(e.target.value)}
@@ -79,10 +92,15 @@ const UserProfile = () => {
                         </select>
                     </div>
                     <div className="flex flex-col">
-                        <label className="text-left text-lg font-normal mb-2 ">
+                        <label
+                            htmlFor="email"
+                            className="text-left text-lg font-normal mb-2"
+                        >
                             Email
                         </label>
                         <input
+                            type="email"
+                            id="email"
                             placeholder=""
                             className="w-full px-5 py-2 rounded-sm bg-inputColor focus:outline-primaryColor"
                             value={email}
@@ -90,10 +108,15 @@ const UserProfile = () => {
                         />
                     </div>
                     <div className="flex flex-col">
-                        <label className="text-left text-lg font-normal mb-2 ">
+                        <label
+                            htmlFor="phone"
+                            className="text-left text-lg font-normal mb-2"
+                        >
                             Số điện thoại
                         </label>
                         <input
+                            type="tel"
+                            id="phone"
                             placeholder=""
                             className="w-full px-5 py-2 rounded-sm bg-inputColor focus:outline-primaryColor"
                             value={phone}
@@ -109,37 +132,20 @@ const UserProfile = () => {
                         setWard={setWard}
                     />
                     <div className="flex flex-col">
-                        <label className="text-left text-lg font-normal mb-2 ">
+                        <label
+                            htmlFor="detailAddress"
+                            className="text-left text-lg font-normal mb-2"
+                        >
                             Số nhà, tên đường
                         </label>
                         <input
+                            type="text"
+                            id="detailAddress"
                             placeholder=""
                             className="w-full px-5 py-2 rounded-sm bg-inputColor focus:outline-primaryColor"
                             value={detailAddress}
                             onChange={(e) => setDetailAddress(e.target.value)}
                         />
-                    </div>
-                    {/*<div className="flex flex-col col-span-1">*/}
-                    {/*  <label className="text-left text-lg font-normal mb-2 ">Phòng khám công tác</label>*/}
-                    {/*  <input placeholder="" className="w-full px-5 py-2 rounded-sm bg-inputColor focus:outline-primaryColor cursor-not-allowed" disabled/>*/}
-                    {/*</div>*/}
-                    {/*<div className="flex flex-col col-span-1">*/}
-                    {/*  <label className="text-left text-lg font-normal mb-2 ">Địa chỉ phòng khám</label>*/}
-                    {/*  <input placeholder="" className="w-full px-5 py-2 rounded-sm bg-inputColor focus:outline-primaryColor cursor-not-allowed" disabled/>*/}
-                    {/*</div>*/}
-                    <div className="flex flex-row col-span-2 mt-4 gap-4 justify-self-end">
-                        <button className="px-5 py-2 rounded-sm bg-inputColor focus:outline-primaryColor hover:bg-gray-200">
-                            Hủy
-                        </button>
-                        <button
-                            className={`px-3 py-2 rounded-sm text-white ${
-                                changed
-                                    ? "bg-primaryColor hover:bg-blue-600"
-                                    : "bg-blue-400 cursor-not-allowed"
-                            }`}
-                        >
-                            Lưu thay đổi
-                        </button>
                     </div>
                 </form>
             </div>
@@ -172,4 +178,4 @@ const UserProfile = () => {
     );
 };
 
-export default UserProfile;
+export default DetailUserAccount;
