@@ -59,14 +59,14 @@ const Sidebar = () => {
                                     <FontAwesomeIcon icon={faChevronDown}/>
                                 </button>
                                 <ul
-                                    className={`${dropdownStates.petDropdown || router.pathname.includes("/pets") ? "block" : "hidden"}`}>
+                                    className={`${dropdownStates.petDropdown || router.pathname.includes("/pet") ? "block" : "hidden"}`}>
                                     <li>
                                         <Link to="/pet-owner/pets"
-                                              className={`${router.pathname.includes("/pet-owner/pet") ? "text-primaryColor" : "text-gray-500"} flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100`}>Hồ
+                                              className={`${router.pathname.includes("/pet-owner/pets") ? "text-primaryColor" : "text-gray-500"} flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100`}>Hồ
                                             sơ thú cưng</Link>
                                     </li>
                                     <li>
-                                        <Link to="/pet-owner/pets/condition"
+                                        <Link to="/pet-owner/pets"
                                               className={`${router.pathname.includes("/pet-owner/pet-condition") ? "text-primaryColor" : "text-gray-500"} flex items-center w-full p-2 text-gray-500 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100`}>Tình
                                             trạng thú cưng</Link>
                                     </li>
