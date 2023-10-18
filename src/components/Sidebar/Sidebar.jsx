@@ -4,7 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCalendarAlt, faChevronDown, faPaw, faUser} from "@fortawesome/free-solid-svg-icons";
 
 const Sidebar = () => {
-    const isPetOwner = true;
+    const isPetOwner = false;
     const [dropdownStates, setDropdownStates] = useState({
         userDropdown: false,
         petDropdown: false,
@@ -101,10 +101,10 @@ const Sidebar = () => {
                                     <FontAwesomeIcon icon={faChevronDown}/>
                                 </button>
                                 <ul
-                                    className={`${dropdownStates.apDropdown || router.pathname.includes("/vet/appointment") ? "block" : "hidden"}`}>
+                                    className={`${dropdownStates.apDropdown || router.pathname.includes("/vet/manage-appointments") ? "block" : "hidden"}`}>
                                     <li>
-                                        <Link to="/vet/appointment"
-                                              className={`${router.pathname.includes("/vet/appointment") ? "text-primaryColor" : "text-gray-500"} flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100`}>Danh
+                                        <Link to="/vet/manage-appointments"
+                                              className={`${router.pathname.includes("/vet/manage-appointments") ? "text-primaryColor" : "text-gray-500"} flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100`}>Danh
                                             sách cuộc hẹn</Link>
                                     </li>
                                 </ul>
@@ -118,15 +118,15 @@ const Sidebar = () => {
                                     <FontAwesomeIcon icon={faChevronDown}/>
                                 </button>
                                 <ul
-                                    className={`${dropdownStates.petDropdown || router.pathname.includes("/pets") ? "block" : "hidden"}`}>
+                                    className={`${dropdownStates.petDropdown || router.pathname.includes("vet/pet") ? "block" : "hidden"}`}>
                                     <li>
                                         <Link to="/vet/pets"
                                               className={`${router.pathname.includes("/vet/pets") ? "text-primaryColor" : "text-gray-500"} flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100`}>Danh
                                             sách thú cưng</Link>
                                     </li>
                                     <li>
-                                        <Link to="/vet/pets/advide"
-                                              className={`${router.pathname.includes("/vet/pets/advide") ? "text-primaryColor" : "text-gray-500"} flex items-center w-full p-2 text-gray-500 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100`}>Đánh
+                                        <Link to="/vet/pets"
+                                              className={`${router.pathname.includes("/vet/pet-advice") ? "text-primaryColor" : "text-gray-500"} flex items-center w-full p-2 text-gray-500 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100`}>Đánh
                                             giá & lời khuyên</Link>
                                     </li>
                                 </ul>

@@ -12,7 +12,7 @@ const PetProfile = () => {
         <>
             <div className="w-[78%] h-fit bg-white py-4 px-8 shadow-2xl">
                 <div className="flex justify-between">
-                    <h1 className="text-2xl font-medium text-primaryColor text-start mb-4">Hồ sơ thú cưng</h1>
+                    <h1 className="text-xl font-medium text-primaryColor text-start mb-4">Hồ sơ thú cưng</h1>
                     <motion.button whileHover={{scale: 1.1}} className="text-primaryColor hover:text-blue-700"
                                    onClick={() => setShowModal(!showModal)}>
                         <FontAwesomeIcon icon={faEdit} className="mx-2"/>
