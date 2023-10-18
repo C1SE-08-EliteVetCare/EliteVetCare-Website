@@ -79,8 +79,8 @@ const ReciveFeedback = () => {
                                 5 sao trung bình dựa trên 15 bài đánh giá
                             </h1>
                         </div>
-                        <div class=" bg-[#e1e1eb] w-full h-full  border border-white p-1">
-                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 bg-gray-200">
+                        <div class=" bg-[#ffffff] w-full h-full  border border-white p-1">
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 bg-white">
                                 <div className="bg-white p-4 text-left">
                                     <i> Đánh giá chức năng đặt lịch </i>
                                 </div>
@@ -109,8 +109,7 @@ const ReciveFeedback = () => {
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="border-t border-black">
+                            <div class="border-t border-black p-3">
                                 <div className="grid grid-cols-1 lg:grid-cols-1 gap-4 bg-white">
                                     <div className="flex flex-row items-center">
                                         <label className="text-gray-700 text-sm font-bold text-left mr-2">
@@ -145,8 +144,8 @@ const ReciveFeedback = () => {
                                 </div>
                             </div>
                         </div>
-                        <div class=" bg-[#e1e1eb] w-full h-full  border border-white p-1">
-                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 bg-gray-200">
+                        <div class=" bg-[#ffffff] w-full h-full  border border-white p-1">
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 bg-white">
                                 <div className="bg-white p-4 text-left">
                                     <i> Đánh giá chức năng đặt lịch </i>
                                 </div>
@@ -175,8 +174,7 @@ const ReciveFeedback = () => {
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="border-t border-black">
+                            <div class="border-t border-black p-3">
                                 <div className="grid grid-cols-1 lg:grid-cols-1 gap-4 bg-white">
                                     <div className="flex flex-row items-center">
                                         <label className="text-gray-700 text-sm font-bold text-left mr-2">
@@ -211,8 +209,8 @@ const ReciveFeedback = () => {
                                 </div>
                             </div>
                         </div>
-                        <div class=" bg-[#e1e1eb] w-full h-full  border border-white p-1">
-                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 bg-gray-200">
+                        <div class=" bg-[#ffffff] w-full h-full  border border-white p-1">
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 bg-white">
                                 <div className="bg-white p-4 text-left">
                                     <i> Đánh giá chức năng đặt lịch </i>
                                 </div>
@@ -241,8 +239,7 @@ const ReciveFeedback = () => {
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="border-t border-black">
+                            <div class="border-t border-black p-3">
                                 <div className="grid grid-cols-1 lg:grid-cols-1 gap-4 bg-white">
                                     <div className="flex flex-row items-center">
                                         <label className="text-gray-700 text-sm font-bold text-left mr-2">
@@ -277,8 +274,8 @@ const ReciveFeedback = () => {
                                 </div>
                             </div>
                         </div>
-                        <div class=" bg-[#e1e1eb] w-full h-full  border border-white p-1">
-                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 bg-gray-200">
+                        <div class=" bg-[#ffffff] w-full h-full  border border-white p-1">
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 bg-white">
                                 <div className="bg-white p-4 text-left">
                                     <i> Đánh giá chức năng đặt lịch </i>
                                 </div>
@@ -307,8 +304,7 @@ const ReciveFeedback = () => {
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="border-t border-black">
+                            <div class="border-t border-black p-3">
                                 <div className="grid grid-cols-1 lg:grid-cols-1 gap-4 bg-white">
                                     <div className="flex flex-row items-center">
                                         <label className="text-gray-700 text-sm font-bold text-left mr-2">
