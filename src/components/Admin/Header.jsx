@@ -20,7 +20,7 @@ const HeaderAD = () => {
                     <h1 className=" text-xl font-medium pl-2  text-black p-5">
                         Administrator
                     </h1>
-                    <div className=" mx-3 text-xl font-medium pl-2  text-black">
+                    <div className=" mx-4 text-xl font-medium pl-2  text-black">
                         <p> Dashboard</p>
                     </div>
                 </div>

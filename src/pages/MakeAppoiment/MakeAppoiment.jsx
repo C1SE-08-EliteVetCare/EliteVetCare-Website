@@ -21,7 +21,7 @@ function MakeAppoiment() {
     };
 
     return (
-        <div className="wrapper bg-[#a7b7ec] text-white font-bold py-36 px-36 rounded">
+        <div className="wrapper bg-[#bdcdda] text-white font-bold py-36 px-36 rounded">
             <div className="make bg-white border border-white rounded-lg px-2 h-[calc(100% - 50px)] w-125 h-3/4 flex flex-col justify-center mx-auto">
                 <h1 className="flex w-638 h-101 flex-col justify-center flex-shrink-0 text-black text-center font-Kiwi-Maru text-2xl font-bold leading-normal">
                     ĐẶT LỊCH KHÁM BỆNH

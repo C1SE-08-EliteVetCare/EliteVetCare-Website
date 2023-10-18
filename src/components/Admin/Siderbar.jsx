@@ -24,10 +24,10 @@ const Sidebar = () => {
     return (
         <aside
             id="sidebar-multi-level-sidebar"
-            className="w-64 col-span-2"
+            className="w-64 fixed top-0  bottom-0 col-span-4  my-10 p-6"
             aria-label="Sidebar"
         >
-            <div className="px-4 py-4">
+            <div className="h-full px-4 py-4 overflow-y-auto bg-white border-r-2 border-r-gray-200 rounded-2xl">
                 <ul className="space-y-2 font-medium">
                     <li>
                         <button
@@ -38,7 +38,7 @@ const Sidebar = () => {
                                 icon={faUser}
                                 className="text-gray-700"
                             />
-                            <span className="flex-1 ml-3 text-left whitespace-nowrap text-gray-400">
+                            <span className="flex-1 ml-3 text-left whitespace-nowrap text-gray-600">
                                 Tài khoản
                             </span>
                         </button>
