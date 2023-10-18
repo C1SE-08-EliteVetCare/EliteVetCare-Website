@@ -21,7 +21,7 @@ const UserProfile = () => {
         <div className="max-w-screen-xl mx-auto my-9 grid grid-flow-col">
             <Sidebar/>
             <div className="bg-white py-4 px-8 col-span-4 shadow-2xl">
-                <h1 className="text-2xl font-medium text-primaryColor text-start mb-4">Hồ sơ của tôi</h1>
+                <h1 className="text-xl font-medium text-primaryColor text-start mb-4">Hồ sơ của tôi</h1>
                 {/*<span className="text-red-500 block mb-4">Vui lòng cập nhật đầy đủ thông tin của bạn</span>*/}
                 {/*<div className="flex flex-row col-span-2 mt-4 gap-4 justify-self-end">*/}
                 {/*  <button*/}

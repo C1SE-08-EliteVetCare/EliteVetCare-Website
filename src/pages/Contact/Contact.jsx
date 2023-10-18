@@ -20,7 +20,7 @@ const Contact = () => {
 
     return (
         <div>
-            <div className="container mb-14 mx-auto px-6 md:px-4 lg:px-0">
+            <div className="w-full mb-14 mx-auto px-6 md:px-4 lg:px-0">
                 <div className="relative">
                     <img
                         className="h-full w-full object-cover rounded-xl"
@@ -135,7 +135,7 @@ const Contact = () => {
                         <FontAwesomeIcon icon={faEnvelope}/>
                     </div>
                     <h4 className="text-center font-bold my-4 text-[24px]">Email</h4>
-                    <p className="text-[#666666] text-[16px] font-medium text-center">quochuy@gmail.com</p>
+                    <p className="text-[#666666] text-[16px] font-medium text-center">elitevetcare@gmail.com</p>
                 </div>
                 <div className="">
                     <div className=" text-[36px] text-primaryColor text-center">

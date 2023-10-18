@@ -25,7 +25,7 @@ const Footer = () => {
                         </div>
                         <div>
                             <h3 className="mb-2 text-xl font-bold text-primaryColor">Liên hệ</h3>
-                            <span className="block text-sm font-normal">Email : quochuy@gmail.com</span>
+                            <span className="block text-sm font-normal">Email : elitevetcare@gmail.com</span>
                             <span className="block text-sm font-normal mb-4">SDT: 0978123456</span>
                         </div>
                         <div>
