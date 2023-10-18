@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import DropDownUser from "../DropDownUser/DropDownUser";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
+import DropDownAdmin from "./DropDownAdmin";
 
 const HeaderAD = () => {
     const isLogin = true; // Điều kiện đăng nhập
@@ -62,7 +63,7 @@ const HeaderAD = () => {
                                 </svg>
                             </button>
 
-                            <DropDownUser isDropDown={isDropDown} />
+                            <DropDownAdmin isDropDown={isDropDown} />
                         </div>
                     ) : (
                         <div>

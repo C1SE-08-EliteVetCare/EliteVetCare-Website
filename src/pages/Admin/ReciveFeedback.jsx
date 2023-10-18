@@ -8,7 +8,7 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const ReciveFeedback = () => {
     return (
-        <div className=" bg-[#bdcdda] w-full h-full  border border-white p-16">
+        <div className=" bg-[#bdcdda] w-full h-full  border border-white p-6">
             <div>
                 <div className=" bg-[#F9FBFF]  mx-auto  border border-white p-2">
                     <div className="App p-2 flex items-center justify-between">

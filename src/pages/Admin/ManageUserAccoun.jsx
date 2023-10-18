@@ -9,7 +9,7 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const ManageUserAccount = () => {
     return (
-        <div className=" bg-[#bdcdda] w-full h-full  border border-white p-4">
+        <div className=" bg-[#bdcdda] w-full h-full  border border-white p-8">
             <div>
                 <div className=" bg-[#F9FBFF]  mx-auto  border border-white p-2">
                     <div className="App p-2 flex items-center justify-between">

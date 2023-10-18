@@ -24,7 +24,7 @@ const Sidebar = () => {
     return (
         <aside
             id="sidebar-multi-level-sidebar"
-            className="w-64 col-span-1"
+            className="w-64 col-span-2"
             aria-label="Sidebar"
         >
             <div className="px-4 py-4">
