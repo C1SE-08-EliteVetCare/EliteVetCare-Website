@@ -15,6 +15,12 @@ import Feedback from "../pages/Feedback/Feedback";
 import Contact from "../pages/Contact/Contact";
 import PetAdvice from "../pages/TrackingPet/PetAdvice";
 import TrackingPet from "../pages/TrackingPet/TrackingPet";
+import MakeAppoiment from "../pages/MakeAppoiment/MakeAppoiment";
+import Chatbot from "../pages/ChatBot/ChatBot";
+import ManageUserAccount from "../pages/Admin/ManageUserAccoun";
+import DetailUserAccount from "../pages/Admin/DetailUserAccount";
+import Revice from "../pages/Admin/ReciveFeedback";
+import AdminLayout from "../layouts/AdminLayout";
 
 // Public routes
 const publicRoutes = [
@@ -51,6 +57,15 @@ const publicRoutes = [
     { path: "/vet/pets/", component: TrackingPet, layout: UserLayout },
     { path: "/vet/pets/:id", component: PetProfile, layout: UserLayout },
     { path: "/vet/pet-advice/:id", component: PetAdvice, layout: UserLayout },
+    {
+        path: "/makeappoiment",
+        component: MakeAppoiment,
+    },
+    {
+        path: "/chatbot",
+        component: Chatbot,
+        layout: null,
+    },
     {
         path: "/admin/manageaccount",
         component: ManageUserAccount,
