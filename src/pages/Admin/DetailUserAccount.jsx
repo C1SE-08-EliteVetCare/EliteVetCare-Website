@@ -13,15 +13,12 @@ const DetailUserAccount = () => {
     const [gender, setGender] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
-    const [detailAddress, setDetailAddress] = useState("");
-    const [province, setProvince] = useState({});
-    const [district, setDistrict] = useState({});
-    const [ward, setWard] = useState({});
-    // const [avatar, setAvatar] = useState( null);
+    const [address, setAddress] = useState({});
+    const [status, setStatus] = useState({});
     const fileRef = useRef();
 
     return (
-        <div className=" bg-[#bdcdda] w-full h-full  border border-white p-8">
+        <div className=" bg-[#F3F7FA] w-full h-full  border border-white p-8">
             <div>
                 <div className=" bg-[#ffffff] w-full h-ful  p-4">
                     <div className="button rounded-full bg-white  bg-[#F9FBFF] items-center justify-center w-[60px] h-[35px] p-1">

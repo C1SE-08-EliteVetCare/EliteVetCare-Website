@@ -64,7 +64,6 @@ const publicRoutes = [
     {
         path: "/chatbot",
         component: Chatbot,
-        layout: null,
     },
     {
         path: "/admin/manageaccount",
