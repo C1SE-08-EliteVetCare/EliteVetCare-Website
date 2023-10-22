@@ -58,15 +58,16 @@ const publicRoutes = [
     { path: "/vet/pets/:id", component: PetProfile, layout: UserLayout },
     { path: "/vet/pet-advice/:id", component: PetAdvice, layout: UserLayout },
     {
-        path: "/makeappoiment",
+        path: "/make-appointment",
         component: MakeAppoiment,
     },
     {
         path: "/chatbot",
         component: Chatbot,
+        layout: null,
     },
     {
-        path: "/admin/manageaccount",
+        path: "/admin/manage-account",
         component: ManageUserAccount,
         layout: AdminLayout,
     },
