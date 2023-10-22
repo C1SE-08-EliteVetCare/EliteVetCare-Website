@@ -30,7 +30,7 @@ const Header = () => {
                         <Link to="/make-appointment">
                             <p
                                 className={`mr-14 text-lg font-medium hover:text-primaryColor transition-all duration-300 linear 
-                  ${router.pathname === "/service" ? "text-primaryColor" : "text-black"}`}>Đặt lịch
+                  ${router.pathname === "/make-appointment" ? "text-primaryColor" : "text-black"}`}>Đặt lịch
                             </p>
                         </Link>
                     </li>
