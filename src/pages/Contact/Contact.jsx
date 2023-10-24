@@ -145,7 +145,7 @@ const Contact = () => {
                     <p className="text-[#666666] text-[16px] font-medium text-center">10:00 am to 9:00 pm</p>
                 </div>
             </div>
-            <div className="w-full h-[500px] mb-16 relative">
+            <div className="w-full h-[450px] mb-16">
                 <Map/>
             </div>
         </div>
