@@ -1,20 +1,25 @@
-import React, {useMemo} from 'react';
-import {GoogleMap, MarkerF, useLoadScript} from "@react-google-maps/api";
+import React, {useState} from 'react';
+import ReactMapGL, {FullscreenControl, GeolocateControl, Marker, NavigationControl} from 'react-map-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 const Map = () => {
-    const { isLoaded } = useLoadScript({
-        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY,
+    const [viewState, setViewState] = useState({
+        latitude: 16.059942,
+        longitude: 108.209742,
+        zoom: 17
     })
-    const center = useMemo(()=> {
-        return {lat: 16.059942, lng: 108.209742}
-    }, [])
-    if (!isLoaded) return <div>Loading...</div>
     return (
-        <>
-            <GoogleMap zoom={18} center={center} mapContainerClassName="relative w-full h-full">
-                <MarkerF position={center}/>
-            </GoogleMap>
-        </>
+        <ReactMapGL {...viewState}
+                    mapboxAccessToken={process.env.REACT_APP_MAPBOX_API_KEY}
+                    transitionDuration='200'
+                    mapStyle="mapbox://styles/quangquoc154/clo4dm2y300og01pf4o3mg3pm"
+                    onMove={(evt) => setViewState(evt.viewState)}
+        >
+            <Marker longitude="108.209742" latitude="16.059942"/>
+            <GeolocateControl/>
+            <FullscreenControl/>
+            <NavigationControl/>
+        </ReactMapGL>
     );
 };
 
