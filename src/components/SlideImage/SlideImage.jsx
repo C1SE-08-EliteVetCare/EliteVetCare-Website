@@ -3,7 +3,7 @@ import Slider from "react-slick"
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const Slide = ({images}) => {
+const SlideImage = ({images}) => {
     const settings = {
         dots: false,
         infinite: true,
@@ -79,4 +79,4 @@ const Slide = ({images}) => {
     );
 };
 
-export default Slide;
+export default SlideImage;
