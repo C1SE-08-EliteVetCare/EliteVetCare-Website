@@ -27,23 +27,23 @@ const Header = () => {
                         </Link>
                     </li>
                     <li className="block">
-                        <Link to="/">
+                        <Link to="/make-appointment">
                             <p
                                 className={`mr-14 text-lg font-medium hover:text-primaryColor transition-all duration-300 linear 
-                  ${router.pathname === "/service" ? "text-primaryColor" : "text-black"}`}>Đặt lịch
+                  ${router.pathname === "/make-appointment" ? "text-primaryColor" : "text-black"}`}>Đặt lịch
                             </p>
                         </Link>
                     </li>
                     <li className="block">
-                        <Link to="/">
+                        <Link to="/contact">
                             <p
                                 className={`mr-14 text-lg font-medium hover:text-primaryColor transition-all duration-300 linear 
-                  ${router.pathname === "/feedback" ? "text-primaryColor" : "text-black"}`}>Liên hệ
+                  ${router.pathname === "/contact" ? "text-primaryColor" : "text-black"}`}>Liên hệ
                             </p>
                         </Link>
                     </li>
                     <li className="block">
-                        <Link to="/">
+                        <Link to="/feedback">
                             <p
                                 className={`mr-14 text-lg font-medium hover:text-primaryColor transition-all duration-300 linear 
                   ${router.pathname === "/feedback" ? "text-primaryColor" : "text-black"}`}>Đánh giá

@@ -54,7 +54,7 @@ const PetList = () => {
     ];
     return (
         <div className="w-[78%] bg-white py-4 px-8 shadow-2xl">
-            <h1 className="text-2xl font-medium text-primaryColor text-start mb-4">Danh sách thú cưng</h1>
+            <h1 className="text-xl font-medium text-primaryColor text-start mb-4">Danh sách thú cưng</h1>
             {listPetExample.length > 0 ? (
                 <div className="p-2">
                     <ul className="grid md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-y-12">

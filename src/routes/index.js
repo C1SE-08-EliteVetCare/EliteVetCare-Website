@@ -10,18 +10,27 @@ import AppointmentList from "../pages/AppointmentList/AppointmentList";
 import ChangePassword from "../pages/UserProfile/ChangePassword";
 import PetProfile from "../pages/PetList/PetProfile";
 import ManageAppointment from "../pages/ManageAppointment/ManageAppointment";
+import PetCondition from "../pages/PetCondition/PetCondition";
+import Feedback from "../pages/Feedback/Feedback";
+import Contact from "../pages/Contact/Contact";
+import PetAdvice from "../pages/TrackingPet/PetAdvice";
+import TrackingPet from "../pages/TrackingPet/TrackingPet";
 import MakeAppoiment from "../pages/MakeAppoiment/MakeAppoiment";
 import Chatbot from "../pages/ChatBot/ChatBot";
 import ManageUserAccount from "../pages/Admin/ManageUserAccoun";
 import DetailUserAccount from "../pages/Admin/DetailUserAccount";
 import Revice from "../pages/Admin/ReciveFeedback";
 import AdminLayout from "../layouts/AdminLayout";
+
+// Public routes
 const publicRoutes = [
     { path: "/", component: Home },
     { path: "/register", component: Register, layout: null },
     { path: "/login", component: Login, layout: null },
     { path: "/forgot-password", component: ForgotPassword, layout: null },
     { path: "/reset-password", component: ResetPassword, layout: null },
+    { path: "/feedback", component: Feedback },
+    { path: "/contact", component: Contact },
     { path: "/profile", component: UserProfile },
     {
         path: "/profile/change-password",
@@ -30,6 +39,11 @@ const publicRoutes = [
     },
     { path: "/pet-owner/pets", component: PetList, layout: UserLayout },
     { path: "/pet-owner/pets/:id", component: PetProfile, layout: UserLayout },
+    {
+        path: "/pet-owner/pet-condition/:id",
+        component: PetCondition,
+        layout: UserLayout,
+    },
     {
         path: "/pet-owner/appointments",
         component: AppointmentList,
@@ -40,16 +54,20 @@ const publicRoutes = [
         component: ManageAppointment,
         layout: UserLayout,
     },
+    { path: "/vet/pets/", component: TrackingPet, layout: UserLayout },
+    { path: "/vet/pets/:id", component: PetProfile, layout: UserLayout },
+    { path: "/vet/pet-advice/:id", component: PetAdvice, layout: UserLayout },
     {
-        path: "/makeappoiment",
+        path: "/make-appointment",
         component: MakeAppoiment,
     },
     {
         path: "/chatbot",
         component: Chatbot,
+        layout: null,
     },
     {
-        path: "/admin/manageaccount",
+        path: "/admin/manage-account",
         component: ManageUserAccount,
         layout: AdminLayout,
     },
