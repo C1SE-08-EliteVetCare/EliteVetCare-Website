@@ -13,7 +13,7 @@ const ReciveFeedback = () => {
     const [content, setContent] = useState("");
 
     return (
-        <div className=" bg-[#F3F7FA] w-full h-full  border border-white p-6">
+        <div className=" bg-[#F3F7FA] w-full h-full   p-6">
             <div>
                 <div className=" bg-[#ffff]  mx-auto  border border-white p-2">
                     <div className="App bg-[#ffff] p-2 flex items-center justify-between">

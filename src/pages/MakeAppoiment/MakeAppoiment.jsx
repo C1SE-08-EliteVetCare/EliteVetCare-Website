@@ -23,14 +23,14 @@ function MakeAppoiment() {
     return (
         <div className="wrapper bg-[#E6EBFB] text-white font-bold py-16 px-36 rounded">
             <div className="make bg-white border border-white rounded-lg px-24 h-[calc(100% - 50px)] w-125 h-3/4 flex flex-col justify-center mx-auto">
-                <h1 className="flex w-1256 h-101 flex-col justify-center flex-shrink-0 text-black text-center font-Kiwi-Maru text-2xl  leading-normal">
+                <h1 className="flex w-638 h-101 flex-col justify-center flex-shrink-0 text-black text-center text-3xl font-normal font-Kiwi-Maru  leading-normal p-4">
                     ĐẶT LỊCH KHÁM BỆNH
                 </h1>
                 <div className=" grid grid-cols-1 lg:grid-cols-4 gap-4 bg-white p-4">
                     <div className="bg-white col-span-2 p-4 text-left">
                         <div className="w-full bg-white p-3">
                             <label className="text-gray-700 text-sm font-bold text-right">
-                                Họ và tên:
+                                Họ và Tên:
                             </label>{" "}
                             <input
                                 type="text"

@@ -30,8 +30,11 @@ const ManageUserAccount = () => {
     const ActiveMembers = ["search", "arrange", "esxport"];
 
     return (
-        <div className="bg-[#F3F7FA] w-full h-full border border-white p-8">
-            <div>
+        <div className="bg-[#F3F7FA] w-full h-full  p-8">
+            <div
+                className="bg-[#fff] border border-white p-6"
+                style={{ borderRadius: "10px" }}
+            >
                 <div className="bg-[#ffff] mx-auto border border-white p-2">
                     <div className="App p-2 flex items-center justify-between">
                         <div style={{ textAlign: "left" }}>
@@ -156,8 +159,10 @@ const ManageUserAccount = () => {
                         </tbody>
                     </table>
                 </div>
+                <div className="border border-white py-6">
+                    <PaginationAdmin isPagination={PaginationAdmin} />
+                </div>
             </div>
-            <PaginationAdmin isPagination={PaginationAdmin} />
         </div>
     );
 };
