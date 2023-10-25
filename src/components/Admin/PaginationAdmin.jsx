@@ -4,7 +4,7 @@ import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 const Pagination = () => {
     return (
-        <div className=" text-right mt-2 p-6 bg-[#FFF]">
+        <div className=" text-right mt-2 p-6 bg-[#FFF] border border-white">
             <nav aria-label="Page navigation example">
                 <ul className="inline-flex  text-base h-10 mx-2">
                     <li>
