@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Chart from "react-apexcharts";
 import {motion} from "framer-motion";
-import Slide from "../../components/Slide/Slide";
+import SlideImage from "../../components/SlideImage/SlideImage";
 
 const PetAdvice = () => {
     const images = [
@@ -123,7 +123,7 @@ const PetAdvice = () => {
                 {/*<img*/}
                 {/*    src="https://thietbithuyvietnam.com/wp-content/uploads/2020/01/10-e1577931867792.jpg"*/}
                 {/*    alt="anh thuc te" className="w-full rounded-lg object-cover"/>*/}
-                <Slide images={images}/>
+                <SlideImage images={images}/>
             </div>
             <div className="w-[70%] mx-auto mt-8 mb-4 grid grid-cols-2 gap-x-7 gap-y-4">
                 <div className="">

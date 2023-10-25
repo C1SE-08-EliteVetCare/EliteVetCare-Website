@@ -123,7 +123,7 @@ const ManageAppointment = () => {
                         <option>Đang xử lý</option>
                         4
                         <option>Đã từ chối</option>
-                    </select>
+                    </select>`
                     <button
                         className="px-5 py-2 rounded-lg border-2 border-gray-400 focus:outline-primaryColor hover:bg-gray-200">Xuất
                         file

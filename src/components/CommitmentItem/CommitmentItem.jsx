@@ -4,7 +4,7 @@ import {motion} from "framer-motion";
 const CommitmentItem = () => {
     return (
         <div className="mt-10 mb-16 p-4 rounded-xl">
-            <h1 className="text-4xl font-bold text-primaryColor mb-8">Cam kết dịch vụ</h1>
+            <h1 className="text-4xl font-bold text-primaryColor mb-8">Cam Kết Dịch Vụ</h1>
             <ul className="grid lg:grid-cols-4 lg:gap-12 md:grid-cols-2 grid-cols-1 gap-3 px-10">
                 <motion.li whileHover={{scale: 1.1}} className="flex items-center p-2 bg-[#fdefe6] rounded-2xl">
                     <svg className="w-16 h-16 p-2" fill="#007AFE" version="1.1" id="Capa_1"

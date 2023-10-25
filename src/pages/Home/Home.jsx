@@ -3,8 +3,11 @@ import bgHome1 from "../../assets/images/bg-home-1.png";
 import map from "../../assets/images/map.png";
 import {motion} from "framer-motion";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faMapPin} from "@fortawesome/free-solid-svg-icons";
+import {faMapPin, faQuoteLeft, faQuoteRight} from "@fortawesome/free-solid-svg-icons";
 import CommitmentItem from "../../components/CommitmentItem/CommitmentItem";
+import SlideFeedback from "../../components/SlideFeedback/SlideFeedback";
+import {Link} from "react-router-dom";
+import React from "react";
 
 const Home = () => {
     return (
@@ -70,6 +73,10 @@ const Home = () => {
                 </div>
             </div>
 
+            <div className="mt-16 mb-16 rounded-xl">
+                <SlideFeedback/>
+            </div>
+
             <div className="relative h-[350px] mt-10 mb-16 drop-shadow-2xl bg-[#E8F0FA] rounded-xl">
                 <img
                     className="h-full w-full object-cover rounded-xl"
@@ -77,15 +84,13 @@ const Home = () => {
                     alt="banner 2"
                 />
                 <div className="absolute left-[4%] top-[35%] w-[40%] text-start">
-          <span className="text-primaryColor text-2xl font-bold">
-            <FontAwesomeIcon icon={faMapPin} className="mr-2"/> Khu vực hoạt động
-          </span>
+                    <span className="text-primaryColor text-2xl font-bold">
+                    <FontAwesomeIcon icon={faMapPin} className="mr-2"/> Khu vực hoạt động
+                    </span>
                     <h1 className="text-4xl font-bold leading-[52px]">
                         Thành Phố Đà Nẵng
                     </h1>
-                    <span className="text-lg font-normal">
-            Một số phòng khám nổi bật:
-          </span>
+                    <span className="text-lg font-normal">Một số phòng khám nổi bật:</span>
                     <p className="text-primaryColor text-lg font-bold">Love Pet, Hữu Nghị và Thủy Sông Hàn.</p>
                     <motion.a
                         whileHover={{scale: 1.2}}
