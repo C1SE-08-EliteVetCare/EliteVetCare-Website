@@ -21,6 +21,7 @@ import ManageUserAccount from "../pages/Admin/ManageUserAccoun";
 import DetailUserAccount from "../pages/Admin/DetailUserAccount";
 import Revice from "../pages/Admin/ReciveFeedback";
 import AdminLayout from "../layouts/AdminLayout";
+import LoginSuccess from "../pages/LoginSuccess/LoginSuccess";
 
 // Public routes
 const publicRoutes = [
@@ -77,10 +78,15 @@ const publicRoutes = [
         layout: AdminLayout,
     },
     {
-        path: "/admin/revice",
+        path: "/admin/reviews",
         component: Revice,
         layout: AdminLayout,
     },
+    {
+        path: "/login-success/:tokenGoogle",
+        component: LoginSuccess,
+        layout: null
+    }
 ];
 
 // Private routes

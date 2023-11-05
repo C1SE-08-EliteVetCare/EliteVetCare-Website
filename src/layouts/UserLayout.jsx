@@ -8,7 +8,7 @@ const UserLayout = ({children}) => {
         <div className="wrapper">
             <Header/>
             <div className="content">
-                <div className="max-w-screen-xl mx-auto my-9 flex justify-between">
+                <div className="max-w-screen-2xl mx-auto my-9 flex justify-between">
                     <Sidebar/>
                     {children}
                 </div>
