@@ -1,13 +1,86 @@
-import React, {useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEye, faEyeSlash} from "@fortawesome/free-solid-svg-icons";
-import {Link} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import banner from "../../assets/images/login-banner.png"
+import {toast} from "sonner";
+import {Spinner} from "@material-tailwind/react";
+import * as authService from '../../services/authService'
+import * as userService from '../../services/userService'
+import authContext from "../../context/authContext";
 
 const Login = () => {
+    const navigate = useNavigate()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [hiddenPass, setHiddenPass] = useState(true);
+    const [submit, setSubmit] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const {setAuth} = useContext(authContext)
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.state?.toastMessage !== undefined) {
+            location.state?.type !== 'error' ? toast.success(location.state?.toastMessage) : toast.error(location.state?.toastMessage);
+            navigate(location.pathname, { replace: true, state: {} });
+        }
+    }, []);
+
+    useEffect(() => {
+        if (submit) {
+            const fetchAuth = async () => {
+                const authentication = await authService.login(email, password)
+                if (authentication.statusCode === 200) {
+                    setLoading(false)
+                    setSubmit(false)
+                    const accessToken = authentication.response.accessToken;
+                    const refreshToken = authentication.response.refreshToken;
+                    const getUser = await userService.getCurrentUser(accessToken)
+                    const {fullName, avatar, role} = getUser.response
+                    setAuth({accessToken, refreshToken, email, fullName, avatar, role})
+                    localStorage.setItem('auth', JSON.stringify({accessToken, refreshToken, email, fullName, avatar, role}))
+
+                    navigate('/', {state: {toastMessage: 'Đăng nhập thành công'}})
+                } else {
+                    setLoading(false)
+                    setSubmit(false)
+                    if (authentication.error.message === 'User not found or not active') {
+                        toast.error("Người dùng không tồn tại hoặc đã bị khóa")
+                    } else {
+                        toast.error("Mật khẩu không chính xác")
+                    }
+                }
+            }
+            fetchAuth();
+        }
+    }, [email, navigate, password, submit])
+
+
+    const validateInput = () => {
+        const emailRegex = /\S+@\S+\.\S+/;
+        const isEmailValid = emailRegex.test(email);
+
+        if (isEmailValid && email.endsWith('@gmail.com')) {
+            // email is valid and ends with "@gmail.com"
+            setSubmit(true);
+            setLoading(true);
+        } else {
+            // email is not valid or does not end with "@gmail.com"
+            setSubmit(false);
+            setLoading(false);
+            toast.error('Email phải bao gồm đuôi "@gmail.com"');
+        }
+    }
+    const handleLogin = (e) => {
+        e.preventDefault()
+        validateInput()
+
+    }
+
+    const handleLoginGoogle = async () => {
+        const googleLoginURL = `${process.env.REACT_APP_SERVER_URL}/auth/google/login`
+        window.open(googleLoginURL, '_self')
+    }
 
     return (
         <div className="h-screen flex items-center bg-[#E6EBFB]">
@@ -19,12 +92,9 @@ const Login = () => {
                         <h1 className="text-base font-normal">Chào mừng đến với EliteVetCare dịch vụ phòng khám thú y
                             tại Đà
                             Nẵng</h1>
-                        <form action="" className="mt-9">
-                            {/*<input type="text"*/}
-                            {/*       className="w-full mb-6 px-4 py-3 border-2 border-b-gray-400 rounded-lg shadow-lg outline-none"*/}
-                            {/*       placeholder="Email hoặc số điện thoại" value={email}*/}
-                            {/*       onChange={(e) => setEmail(e.target.value)} />*/}
+                        <div className="mt-9">
                             <button
+                                onClick={handleLoginGoogle}
                                 className="w-full mb-3 px-4 py-3 flex justify-center gap-2 border-2 rounded-lg hover:border-blue-600 transition duration-150">
                                 <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg"
                                      loading="lazy"
@@ -36,8 +106,14 @@ const Login = () => {
                                 <span className="">Hoặc</span>
                                 <div className="w-[125px] h-0.5 bg-gray-300 bg-opacity-60 rounded-[100px]"/>
                             </div>
+                        </div>
+                        <form action="" onSubmit={(e) => handleLogin(e)} className="">
+                            {/*<input type="text"*/}
+                            {/*       className="w-full mb-6 px-4 py-3 border-2 border-b-gray-400 rounded-lg shadow-lg outline-none"*/}
+                            {/*       placeholder="Email hoặc số điện thoại" value={email}*/}
+                            {/*       onChange={(e) => setEmail(e.target.value)} />*/}
                             <div className="relative mb-6">
-                                <input type="text" id="floating_outlined_email"
+                                <input type="email" id="floating_outlined_email" required
                                        className="block w-full mb-6 px-4 py-3 border-2 rounded-lg text-gray-900 shadow-lg bg-transparent appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                        placeholder=" " onChange={(e) => setEmail(e.target.value)} value={email}/>
                                 <label htmlFor="floating_outlined_email"
@@ -46,7 +122,7 @@ const Login = () => {
                                 </label>
                             </div>
                             <div className="relative mb-6">
-                                <input type={hiddenPass ? "password" : "text"} id="floating_outlined_password"
+                                <input type={hiddenPass ? "password" : "text"} id="floating_outlined_password" required
                                        className="block w-full px-4 py-3 border-2 rounded-lg text-gray-900 shadow-lg bg-transparent appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                        placeholder=" " onChange={(e) => setPassword(e.target.value)} value={password}/>
                                 <label htmlFor="floating_outlined_password"
@@ -71,8 +147,14 @@ const Login = () => {
                                 <Link to="/forgot-password" className="text-primaryColor">Quên mật khẩu ?</Link>
                             </div>
                             <button
-                                className="bg-primaryColor text-white w-full py-3 mb-3 rounded-3xl hover:bg-blue-600">Đăng
-                                Nhập
+                                className="bg-primaryColor text-white w-full py-3 mb-3 rounded-3xl hover:bg-blue-600 active:opacity-80">
+                                {loading ? (
+                                    <div className='flex items-center justify-center'>
+                                        <Spinner className="h-6 w-6 mr-4"/> <span>Đang tải....</span>
+                                    </div>
+                                ) : (
+                                    <span>Đăng Nhập</span>
+                                )}
                             </button>
                         </form>
                         <div className="text-right mb-10">

@@ -1,10 +1,12 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {Link, useLocation} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCalendarAlt, faChevronDown, faPaw, faUser} from "@fortawesome/free-solid-svg-icons";
+import AuthContext from "../../context/authContext";
 
 const Sidebar = () => {
-    const isPetOwner = false;
+    const {auth} = useContext(AuthContext)
+    const isPetOwner = true;
     const [dropdownStates, setDropdownStates] = useState({
         userDropdown: false,
         petDropdown: false,
@@ -48,7 +50,7 @@ const Sidebar = () => {
                             </li>
                         </ul>
                     </li>
-                    {isPetOwner ? (
+                    {auth.role && auth.role.id === 2 ? (
                         <>
                             <li>
                                 <button

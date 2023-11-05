@@ -3,15 +3,26 @@ import bgHome1 from "../../assets/images/bg-home-1.png";
 import map from "../../assets/images/map.png";
 import {motion} from "framer-motion";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faMapPin, faQuoteLeft, faQuoteRight} from "@fortawesome/free-solid-svg-icons";
+import {faMapPin, } from "@fortawesome/free-solid-svg-icons";
 import CommitmentItem from "../../components/CommitmentItem/CommitmentItem";
 import SlideFeedback from "../../components/SlideFeedback/SlideFeedback";
-import {Link} from "react-router-dom";
-import React from "react";
+import React, { useEffect} from "react";
+import {useLocation, useNavigate} from "react-router-dom";
+import {toast} from "sonner";
 
 const Home = () => {
+    const location = useLocation()
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (location.state?.toastMessage !== undefined) {
+            toast.success(location.state?.toastMessage);
+            navigate(location.pathname, { replace: true, state: {} });
+        }
+    }, []);
+
+
     return (
-        <main className="container max-w-screen-xl mx-auto mt-8">
+        <main className="container max-w-screen-2xl mx-auto mt-8">
             <div className="relative h-[500px] mt-10 mb-16 p-4 bg-[#E8F0FA] rounded-xl">
                 <img
                     className="h-full w-full object-cover rounded-xl"

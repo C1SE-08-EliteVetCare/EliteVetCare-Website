@@ -18,7 +18,7 @@ const UserProfile = () => {
     const fileRef = useRef();
 
     return (
-        <div className="max-w-screen-xl mx-auto my-9 grid grid-flow-col">
+        <div className="max-w-screen-2xl mx-auto my-9 grid grid-flow-col">
             <Sidebar />
             <div className="bg-white py-4 px-8 col-span-4 shadow-2xl">
                 <h1 className="text-xl font-medium text-primaryColor text-start mb-4">Hồ sơ của tôi</h1>
