@@ -49,10 +49,10 @@ const Sidebar = () => {
                         >
                             <li>
                                 <Link
-                                    to="/profile"
+                                    to="/admin/manage-account"
                                     className="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100"
                                 >
-                                    Hồ sơ
+                                    Danh sách
                                 </Link>
                             </li>
                         </ul>
@@ -79,18 +79,10 @@ const Sidebar = () => {
                         >
                             <li>
                                 <Link
-                                    to="/reviews"
+                                    to="/admin/revice"
                                     className="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100"
                                 >
                                     Xem đánh giá
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    to="/write-review"
-                                    className="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover-bg-gray-100"
-                                >
-                                    Viết đánh giá
                                 </Link>
                             </li>
                         </ul>
@@ -101,9 +93,15 @@ const Sidebar = () => {
                                 icon={faSignOutAlt}
                                 className="text-red-600"
                             />
-                            <span className="flex-1 ml-3 text-left whitespace-nowrap text-red-600">
-                                Đăng xuất
-                            </span>
+
+                            <Link
+                                to="/login"
+                                className="flex items-center w-full transition duration-75 rounded-lg group hover:bg-gray-100"
+                            >
+                                <span className="flex-1 ml-3 text-left whitespace-nowrap text-red-600">
+                                    Đăng xuất
+                                </span>
+                            </Link>
                         </button>
                     </li>
                 </ul>

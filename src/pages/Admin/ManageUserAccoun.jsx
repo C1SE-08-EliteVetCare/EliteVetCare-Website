@@ -6,6 +6,7 @@ import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import PaginationAdmin from "../../components/Admin/PaginationAdmin";
+import { Link } from "react-router-dom";
 
 const ManageUserAccount = () => {
     const userList = [
@@ -39,7 +40,10 @@ const ManageUserAccount = () => {
                     <div className="App p-2 flex items-center justify-between">
                         <div style={{ textAlign: "left" }}>
                             <h1>Danh sách người dùng</h1>
-                            <i class="text-green-700" style={{ width: "20%" }}>
+                            <i
+                                className="text-green-700"
+                                style={{ width: "20%" }}
+                            >
                                 Active Members
                             </i>
                         </div>
@@ -81,29 +85,29 @@ const ManageUserAccount = () => {
                         </div>
                     </div>
                 </div>
-                <div class="w-full h-full bg-white rounded-lg shadow-lg">
-                    <table class="min-w-full border-collapse w-full">
+                <div className="w-full h-full bg-white rounded-lg shadow-lg">
+                    <table className="min-w-full border-collapse w-full">
                         <thead>
-                            <tr class="text-gray-500">
-                                <th class="py-2 px-4 border-t border-gray-300 bg-white">
+                            <tr className="text-gray-500">
+                                <th className="py-2 px-4 border-t border-gray-300 bg-white">
                                     Họ và tên
                                 </th>
-                                <th class="py-2 px-4 border-t border-gray-300 bg-white">
+                                <th className="py-2 px-4 border-t border-gray-300 bg-white">
                                     Tên người dùng
                                 </th>
-                                <th class="py-2 px-4 border-t border-gray-300 bg-white">
+                                <th className="py-2 px-4 border-t border-gray-300 bg-white">
                                     Email
                                 </th>
-                                <th class="py-2 px-4 border-t border-gray-300 bg-white">
+                                <th className="py-2 px-4 border-t border-gray-300 bg-white">
                                     Vai trò
                                 </th>
-                                <th class="py-2 px-4 border-t border-gray-300 bg-white">
+                                <th className="py-2 px-4 border-t border-gray-300 bg-white">
                                     Trạng thái
                                 </th>
-                                <th class="py-2 px-4 border-t border-gray-300 bg-white">
+                                <th className="py-2 px-4 border-t border-gray-300 bg-white">
                                     Ngày đăng ký
                                 </th>
-                                <th class="py-2 px-4 border-t border-gray-300 bg-white">
+                                <th className="py-2 px-4 border-t border-gray-300 bg-white">
                                     Chi tiết
                                 </th>
                             </tr>
@@ -112,18 +116,18 @@ const ManageUserAccount = () => {
                         <tbody>
                             {userList.map((user, index) => (
                                 <tr key={index}>
-                                    <td class="py-2 px-4 border-t border-gray-300">
+                                    <td className="py-2 px-4 border-t border-gray-300">
                                         {user.name}
                                     </td>
-                                    <td class="py-2 px-4 border-t border-gray-300">
+                                    <td className="py-2 px-4 border-t border-gray-300">
                                         {user.username}
                                     </td>
-                                    <td class="py-2 px-4 border-t border-gray-300">
+                                    <td className="py-2 px-4 border-t border-gray-300">
                                         {user.email}
                                     </td>
-                                    <td class="py-2 px-4 border-t border-gray-300">
+                                    <td className="py-2 px-4 border-t border-gray-300">
                                         <select
-                                            class="py-2 px-4 border-t border-gray-300 bg-gray-100 w-full"
+                                            className="py-2 px-4 border-t border-gray-300 bg-gray-100 w-full"
                                             style={{ borderRadius: "10px" }}
                                         >
                                             <option value="option1">
@@ -137,7 +141,7 @@ const ManageUserAccount = () => {
                                             </option>
                                         </select>
                                     </td>
-                                    <td class="py-2 px-4 border-t border-gray-300">
+                                    <td className="py-2 px-4 border-t border-gray-300">
                                         {user.status === "Đã kích hoạt" ? (
                                             <span className="text-green-600">
                                                 {user.status}
@@ -148,11 +152,18 @@ const ManageUserAccount = () => {
                                             </span>
                                         )}
                                     </td>
-                                    <td class="py-2 px-4 border-t border-gray-300">
+                                    <td className="py-2 px-4 border-t border-gray-300">
                                         {user.registrationDate}
                                     </td>
-                                    <td class="py-2 px-4 border-t border-gray-300">
-                                        <FontAwesomeIcon icon={faCircleInfo} />
+                                    <td className="py-2 px-4 border-t border-gray-300">
+                                        <Link
+                                            to="/admin/detailuseraccount"
+                                            className="flex items-center w-full  transition duration-75 rounded-lg pl-5 group hover:bg-gray-100"
+                                        >
+                                            <FontAwesomeIcon
+                                                icon={faCircleInfo}
+                                            />
+                                        </Link>
                                     </td>
                                 </tr>
                             ))}
