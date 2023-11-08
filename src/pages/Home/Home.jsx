@@ -3,23 +3,23 @@ import bgHome1 from "../../assets/images/bg-home-1.png";
 import map from "../../assets/images/map.png";
 import {motion} from "framer-motion";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faMapPin, } from "@fortawesome/free-solid-svg-icons";
+import {faMapPin,} from "@fortawesome/free-solid-svg-icons";
 import CommitmentItem from "../../components/CommitmentItem/CommitmentItem";
 import SlideFeedback from "../../components/SlideFeedback/SlideFeedback";
-import React, { useEffect} from "react";
-import {useLocation, useNavigate} from "react-router-dom";
-import {toast} from "sonner";
+import React, {useEffect} from "react";
+import * as userService from "../../services/userService";
 
 const Home = () => {
-    const location = useLocation()
-    const navigate = useNavigate()
-    useEffect(() => {
-        if (location.state?.toastMessage !== undefined) {
-            toast.success(location.state?.toastMessage);
-            navigate(location.pathname, { replace: true, state: {} });
-        }
-    }, []);
-
+    // useEffect(() => {
+    //     const accessToken = localStorage.getItem('access-token')
+    //     if (accessToken) {
+    //         (async () => {
+    //             const accessToken = localStorage.getItem('access-token')
+    //             const getUser = await userService.getCurrentUser(accessToken)
+    //             console.log(getUser.response)
+    //         })()
+    //     }
+    // }, []);
 
     return (
         <main className="container max-w-screen-2xl mx-auto mt-8">
@@ -65,6 +65,7 @@ const Home = () => {
                     className="h-full w-full object-cover rounded-xl"
                     src={bgHome1}
                     alt="banner 2"
+                    loading="lazy"
                 />
                 <div className="absolute right-[4%] top-[40%] w-[40%] text-end">
                     <h1 className="text-primaryColor text-4xl font-bold leading-[52px] mb-5">
@@ -93,6 +94,7 @@ const Home = () => {
                     className="h-full w-full object-cover rounded-xl"
                     src={map}
                     alt="banner 2"
+                    loading="lazy"
                 />
                 <div className="absolute left-[4%] top-[35%] w-[40%] text-start">
                     <span className="text-primaryColor text-2xl font-bold">
