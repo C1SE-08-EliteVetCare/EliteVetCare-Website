@@ -1,4 +1,4 @@
-import request from "../utils/httpRequest";
+import * as request from "../utils/httpRequest";
 
 export const getCurrentUser = async (accessToken) => {
     try {

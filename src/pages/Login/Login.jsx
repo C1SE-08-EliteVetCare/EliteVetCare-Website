@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEye, faEyeSlash} from "@fortawesome/free-solid-svg-icons";
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import banner from "../../assets/images/login-banner.png"
 import {toast} from "sonner";
 import {Spinner} from "@material-tailwind/react";
@@ -17,30 +17,26 @@ const Login = () => {
     const [submit, setSubmit] = useState(false)
     const [loading, setLoading] = useState(false)
     const {setAuth} = useContext(authContext)
-    const location = useLocation();
-
-    useEffect(() => {
-        if (location.state?.toastMessage !== undefined) {
-            location.state?.type !== 'error' ? toast.success(location.state?.toastMessage) : toast.error(location.state?.toastMessage);
-            navigate(location.pathname, { replace: true, state: {} });
-        }
-    }, []);
 
     useEffect(() => {
         if (submit) {
-            const fetchAuth = async () => {
+             (async () => {
                 const authentication = await authService.login(email, password)
                 if (authentication.statusCode === 200) {
                     setLoading(false)
                     setSubmit(false)
                     const accessToken = authentication.response.accessToken;
                     const refreshToken = authentication.response.refreshToken;
+                    localStorage.setItem('access-token', accessToken)
+                    localStorage.setItem('refresh-token', refreshToken)
+
                     const getUser = await userService.getCurrentUser(accessToken)
                     const {fullName, avatar, role} = getUser.response
-                    setAuth({accessToken, refreshToken, email, fullName, avatar, role})
-                    localStorage.setItem('auth', JSON.stringify({accessToken, refreshToken, email, fullName, avatar, role}))
+                    setAuth({email, fullName, avatar, role})
+                    localStorage.setItem('auth', JSON.stringify({email, fullName, avatar, role}))
 
-                    navigate('/', {state: {toastMessage: 'Đăng nhập thành công'}})
+                    navigate('/')
+                    toast.success("Đăng nhập thành công")
                 } else {
                     setLoading(false)
                     setSubmit(false)
@@ -50,10 +46,9 @@ const Login = () => {
                         toast.error("Mật khẩu không chính xác")
                     }
                 }
-            }
-            fetchAuth();
+            })();
         }
-    }, [email, navigate, password, submit])
+    }, [email, navigate, password, setAuth, submit])
 
 
     const validateInput = () => {
@@ -113,7 +108,7 @@ const Login = () => {
                             {/*       placeholder="Email hoặc số điện thoại" value={email}*/}
                             {/*       onChange={(e) => setEmail(e.target.value)} />*/}
                             <div className="relative mb-6">
-                                <input type="email" id="floating_outlined_email" required
+                                <input type="email" id="floating_outlined_email" autoComplete="email" required
                                        className="block w-full mb-6 px-4 py-3 border-2 rounded-lg text-gray-900 shadow-lg bg-transparent appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                        placeholder=" " onChange={(e) => setEmail(e.target.value)} value={email}/>
                                 <label htmlFor="floating_outlined_email"
@@ -122,7 +117,7 @@ const Login = () => {
                                 </label>
                             </div>
                             <div className="relative mb-6">
-                                <input type={hiddenPass ? "password" : "text"} id="floating_outlined_password" required
+                                <input type={hiddenPass ? "password" : "text"} id="floating_outlined_password" autoComplete="password" required
                                        className="block w-full px-4 py-3 border-2 rounded-lg text-gray-900 shadow-lg bg-transparent appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                        placeholder=" " onChange={(e) => setPassword(e.target.value)} value={password}/>
                                 <label htmlFor="floating_outlined_password"

@@ -7,7 +7,7 @@ import {faFacebook, faInstagram} from "@fortawesome/free-brands-svg-icons";
 const Footer = () => {
     return (
         <footer className="bg-[#f9f9f9] bottom-0">
-            <div className="mx-auto w-full max-w-screen-xl p-4 py-6">
+            <div className="mx-auto w-full max-w-screen-2xl p-4 py-6">
                 <div className="flex justify-between">
                     <div className="flex items-start text-primaryColor">
                         <img src={logo} className="h-11 mr-3" alt="logo"/>

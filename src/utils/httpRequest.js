@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const request = axios.create({
+const instance = axios.create({
     baseURL: process.env.REACT_APP_SERVER_URL
 });
 
@@ -9,15 +9,51 @@ const requestAddress = axios.create({
 });
 
 export const get = async (endpoint, options = {}) => {
-    return await request.get(endpoint, options);
+    return await instance.get(endpoint, options);
 };
 
 export const post = async (endpoint, options = {}) => {
-    return await request.post(endpoint, options);
+    return await instance.post(endpoint, options);
 };
 
 export const getAddress = async (endpoint, options = {}) => {
     return await requestAddress.get(endpoint, options);
 };
 
-export default request;
+let isRefreshing = false
+instance.interceptors.response.use(
+    (res) => res,
+    async (error) => {
+        const originalRequest = error.config;
+        if (error.response.status === 401 && !isRefreshing) {
+            console.log('Access token expired')
+            isRefreshing = true
+            try {
+                console.log("call api refresh token")
+                const refreshToken = localStorage.getItem('refresh-token')
+
+                const result = await instance.post(`${process.env.REACT_APP_SERVER_URL}/auth/refresh-token`, null, {
+                    headers: {Authorization: `Bearer ${refreshToken}`}
+                })
+
+                const accessToken = result.data.accessToken;
+                localStorage.setItem('access-token', accessToken)
+                originalRequest.headers['Authorization'] = `Bearer ${accessToken}`
+            } catch (error) {
+                if (error.response.status === 401) {
+                    console.log('Refresh token expired')
+                    localStorage.removeItem('access-token')
+                    localStorage.removeItem('refresh-token')
+                    localStorage.removeItem('auth')
+                    window.location.href = '/login'
+                }
+                return Promise.reject(error)
+            } finally {
+                isRefreshing = false
+            }
+        }
+        return Promise.reject(error)
+    }
+)
+
+export default instance;

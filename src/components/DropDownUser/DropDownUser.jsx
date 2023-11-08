@@ -2,18 +2,19 @@ import React, {useContext} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCalendarAlt, faDoorOpen, faPaw, faUserAlt} from "@fortawesome/free-solid-svg-icons";
 import {motion} from 'framer-motion'
-import {NavLink, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {toast} from "sonner";
 import AuthContext from "../../context/authContext";
 
 const DropDownUser = ({isDropDown}) => {
-    const {auth, setAuth} = useContext(AuthContext)
-    const isPetOwner = true;
     const navigate = useNavigate()
+    const {auth, setAuth} = useContext(AuthContext)
     const handleLogout = () => {
         setAuth({})
         localStorage.removeItem('auth')
-        navigate('/')
+        localStorage.removeItem('access-token')
+        localStorage.removeItem('refresh-token')
+        navigate('/login')
         toast.success("Đăng xuất thành công")
     }
 
@@ -83,9 +84,9 @@ const DropDownUser = ({isDropDown}) => {
             <div
                 className="flex items-center py-2 hover:border-y-rose-700 hover:bg-red-500 hover:text-white rounded transition-all duration-300 linear">
                 <FontAwesomeIcon className="mx-4" icon={faDoorOpen}/>
-                <NavLink to='/'
-                    onClick={() => handleLogout()}
-                   className="block px-1 py-1.5 text-sm">Đăng xuất</NavLink>
+                <button className="block px-1 py-1.5 text-sm" onClick={handleLogout}>
+                    Đăng xuất
+                </button>
             </div>
         </motion.div>
     );

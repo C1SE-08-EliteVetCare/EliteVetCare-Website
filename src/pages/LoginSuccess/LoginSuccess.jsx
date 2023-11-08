@@ -4,6 +4,7 @@ import * as authService from "../../services/authService";
 import * as userService from "../../services/userService";
 import AuthContext from "../../context/authContext";
 import {Spinner} from "@material-tailwind/react";
+import {toast} from "sonner";
 
 const LoginSuccess = () => {
     const params = useParams()
@@ -11,7 +12,7 @@ const LoginSuccess = () => {
     const {setAuth} = useContext(AuthContext)
 
     useEffect(() => {
-        const fetchAuth = async () => {
+        (async () => {
             const authentication = await authService.loginGoogleSuccess(params.tokenGoogle)
 
             if (authentication.statusCode === 200) {
@@ -20,17 +21,21 @@ const LoginSuccess = () => {
                 const getUser = await userService.getCurrentUser(accessToken)
 
                 const {email, fullName, avatar, role} = getUser.response
-                setAuth({accessToken, refreshToken, email, fullName, avatar, role})
-                localStorage.setItem('auth', JSON.stringify({accessToken, refreshToken, email, fullName, avatar, role}))
-                navigate('/', {state: {toastMessage: 'Đăng nhập thành công'}})
+                setAuth({email, fullName, avatar, role})
+                localStorage.setItem('access-token', accessToken)
+                localStorage.setItem('refresh-token', refreshToken)
+                localStorage.setItem('auth', JSON.stringify({email, fullName, avatar, role}))
+
+                navigate('/')
+                toast.success('Đăng nhập thành công')
             } else {
                 if (authentication.statusCode === 400 && authentication.error.message === 'The account has been locked') {
-                    navigate('/login', {state: {type: 'error', toastMessage: 'Tài khoản đã bị khóa'}})
+                    navigate('/login')
+                    toast.error('Tài khoản đã bị khóa')
                 }
             }
-        }
-        fetchAuth();
-    }, [])
+        })();
+    }, [navigate, params.tokenGoogle, setAuth])
 
     return (
         <div className="flex justify-center items-center h-screen">
