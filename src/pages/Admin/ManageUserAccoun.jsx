@@ -4,6 +4,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import PaginationAdmin from "../../components/Admin/PaginationAdmin";
+import { Link } from "react-router-dom";
 
 const ManageUserAccount = () => {
     const userList = [
@@ -109,7 +110,10 @@ const ManageUserAccount = () => {
                     <div className="App p-2 flex items-center justify-between">
                         <div style={{ textAlign: "left" }}>
                             <h1>Danh sách người dùng</h1>
-                            <i className="text-green-700" style={{ width: "20%" }}>
+                            <i
+                                className="text-green-700"
+                                style={{ width: "20%" }}
+                            >
                                 Active Members
                             </i>
                         </div>
@@ -222,7 +226,14 @@ const ManageUserAccount = () => {
                                         {user.registrationDate}
                                     </td>
                                     <td className="py-2 px-4 border-t border-gray-300">
-                                        <FontAwesomeIcon icon={faCircleInfo} />
+                                        <Link
+                                            to="/admin/detailuseraccount"
+                                            className="flex items-center w-full  transition duration-75 rounded-lg pl-5 group hover:bg-gray-100"
+                                        >
+                                            <FontAwesomeIcon
+                                                icon={faCircleInfo}
+                                            />
+                                        </Link>
                                     </td>
                                 </tr>
                             ))}

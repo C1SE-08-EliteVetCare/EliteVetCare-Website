@@ -23,12 +23,14 @@ import Revice from "../pages/Admin/ReciveFeedback";
 import AdminLayout from "../layouts/AdminLayout";
 import LoginSuccess from "../pages/LoginSuccess/LoginSuccess";
 
+import VerifyEmail from "../pages/ForgotPassword/VerifyEmail";
 // Public routes
 const publicRoutes = [
     { path: "/", component: Home },
     { path: "/register", component: Register, layout: null },
     { path: "/login", component: Login, layout: null },
     { path: "/forgot-password", component: ForgotPassword, layout: null },
+    { path: "/verify-email", component: VerifyEmail, layout: null },
     { path: "/reset-password", component: ResetPassword, layout: null },
     { path: "/feedback", component: Feedback },
     { path: "/contact", component: Contact },
@@ -85,8 +87,8 @@ const publicRoutes = [
     {
         path: "/login-success/:tokenGoogle",
         component: LoginSuccess,
-        layout: null
-    }
+        layout: null,
+    },
 ];
 
 // Private routes

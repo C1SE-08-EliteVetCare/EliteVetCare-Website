@@ -30,7 +30,8 @@ const Sidebar = () => {
             <div className="h-full px-4 py-4 overflow-y-auto bg-white border-r-2 border-r-gray-200 rounded-2xl">
                 <ul className="space-y-2 font-medium">
                     <li>
-                        <Link to="/admin/manage-account"
+                        <Link
+                            to="/admin/manage-account"
                             className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100"
                             // onClick={() => toggleDropdown("userDropdown")}
                         >
@@ -42,23 +43,24 @@ const Sidebar = () => {
                                 Tài khoản
                             </span>
                         </Link>
-                        {/*<ul*/}
-                        {/*    className={`${*/}
-                        {/*        dropdownStates.userDropdown ? "block" : "hidden"*/}
-                        {/*    }`}*/}
-                        {/*>*/}
-                        {/*    <li>*/}
-                        {/*        <Link*/}
-                        {/*            to="/profile"*/}
-                        {/*            className="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100"*/}
-                        {/*        >*/}
-                        {/*            Hồ sơ*/}
-                        {/*        </Link>*/}
-                        {/*    </li>*/}
-                        {/*</ul>*/}
+                        <ul
+                            className={`${
+                                dropdownStates.userDropdown ? "block" : "hidden"
+                            }`}
+                        >
+                            <li>
+                                <Link
+                                    to="/admin/manage-account"
+                                    className="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100"
+                                >
+                                    Danh sách
+                                </Link>
+                            </li>
+                        </ul>
                     </li>
                     <li>
-                        <Link to="/admin/reviews"
+                        <Link
+                            to="/admin/reviews"
                             className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100"
                             onClick={() => toggleDropdown("reviewDropdown")}
                         >
@@ -70,30 +72,22 @@ const Sidebar = () => {
                                 Đánh giá
                             </span>
                         </Link>
-                        {/*<ul*/}
-                        {/*    className={`${*/}
-                        {/*        dropdownStates.reviewDropdown*/}
-                        {/*            ? "block"*/}
-                        {/*            : "hidden"*/}
-                        {/*    }`}*/}
-                        {/*>*/}
-                        {/*    <li>*/}
-                        {/*        <Link*/}
-                        {/*            to="/reviews"*/}
-                        {/*            className="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100"*/}
-                        {/*        >*/}
-                        {/*            Xem đánh giá*/}
-                        {/*        </Link>*/}
-                        {/*    </li>*/}
-                        {/*    <li>*/}
-                        {/*        <Link*/}
-                        {/*            to="/write-review"*/}
-                        {/*            className="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover-bg-gray-100"*/}
-                        {/*        >*/}
-                        {/*            Viết đánh giá*/}
-                        {/*        </Link>*/}
-                        {/*    </li>*/}
-                        {/*</ul>*/}
+                        <ul
+                            className={`${
+                                dropdownStates.reviewDropdown
+                                    ? "block"
+                                    : "hidden"
+                            }`}
+                        >
+                            <li>
+                                <Link
+                                    to="/admin/revice"
+                                    className="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100"
+                                >
+                                    Xem đánh giá
+                                </Link>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <button className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100">
@@ -101,9 +95,15 @@ const Sidebar = () => {
                                 icon={faSignOutAlt}
                                 className="text-red-600"
                             />
-                            <span className="flex-1 ml-3 text-left whitespace-nowrap text-red-600">
-                                Đăng xuất
-                            </span>
+
+                            <Link
+                                to="/login"
+                                className="flex items-center w-full transition duration-75 rounded-lg group hover:bg-gray-100"
+                            >
+                                <span className="flex-1 ml-3 text-left whitespace-nowrap text-red-600">
+                                    Đăng xuất
+                                </span>
+                            </Link>
                         </button>
                     </li>
                 </ul>
