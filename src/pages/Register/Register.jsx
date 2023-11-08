@@ -61,6 +61,7 @@ const Register = () => {
                         phone
                     );
                     if (register.statusCode === 201) {
+                        localStorage.setItem("verify-email", email);
                         setLoading(false);
                         navigate("/verify-email");
                     }

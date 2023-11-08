@@ -38,12 +38,12 @@ const VerifyEmail = () => {
         const otp = `${otp1}${otp2}${otp3}${otp4}${otp5}${otp6}`;
 
         try {
-            const verifyResponse = await authServices(
-                "nguyenphihien1011@gmail.com",
+            const verifyResponse = await authServices.verify(
+                localStorage.getItem("verify-email"),
                 otp
             );
-            if (verifyResponse.success) {
-                setAuth(true);
+            if (verifyResponse.statusCode === 200) {
+                localStorage.removeItem("verify-email");
                 navigate("/login");
             } else {
                 console.log("Xác minh không thành công:", verifyResponse.error);
@@ -56,7 +56,6 @@ const VerifyEmail = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         handleVerify();
-        navigate("/login");
     };
 
     return (
@@ -65,7 +64,7 @@ const VerifyEmail = () => {
                 <div
                     className="text-center"
                     action=""
-                    onSubmit={(e) => handleSubmit(e)}
+                    onSubmit={(e) => handleVerify(e)}
                 >
                     <div className="w-[70%] m-auto">
                         <div className="flex items-center justify-center p-4">
@@ -183,7 +182,7 @@ const VerifyEmail = () => {
                             </div>
                             <button
                                 className="bg-primaryColor text-white w-full py-2 mb-2 rounded-3xl hover:bg-blue-600"
-                                onClick={handleSubmit}
+                                onClick={(e) => handleSubmit(e)}
                             >
                                 Xác nhận
                             </button>
