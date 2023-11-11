@@ -15,7 +15,7 @@ import Feedback from "../pages/Feedback/Feedback";
 import Contact from "../pages/Contact/Contact";
 import PetAdvice from "../pages/TrackingPet/PetAdvice";
 import TrackingPet from "../pages/TrackingPet/TrackingPet";
-import MakeAppoiment from "../pages/MakeAppoiment/MakeAppoiment";
+import MakeAppointment from "../pages/MakeAppointment/MakeAppointment";
 import Chatbot from "../pages/ChatBot/ChatBot";
 import ManageUserAccount from "../pages/Admin/ManageUserAccoun";
 import DetailUserAccount from "../pages/Admin/DetailUserAccount";
@@ -62,7 +62,7 @@ const publicRoutes = [
     { path: "/vet/pet-advice/:id", component: PetAdvice, layout: UserLayout },
     {
         path: "/make-appointment",
-        component: MakeAppoiment,
+        component: MakeAppointment,
     },
     {
         path: "/chatbot",

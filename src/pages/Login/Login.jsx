@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { Link, useNavigate } from "react-router-dom";
+import React, {useContext, useEffect, useState} from "react";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faEye, faEyeSlash} from "@fortawesome/free-solid-svg-icons";
+import {Link, useNavigate} from "react-router-dom";
 import banner from "../../assets/images/login-banner.png";
-import { toast } from "sonner";
-import { Spinner } from "@material-tailwind/react";
+import {toast} from "sonner";
+import {Spinner} from "@material-tailwind/react";
 import * as authService from "../../services/authService";
 import * as userService from "../../services/userService";
 import authContext from "../../context/authContext";
@@ -16,7 +16,7 @@ const Login = () => {
     const [hiddenPass, setHiddenPass] = useState(true);
     const [submit, setSubmit] = useState(false);
     const [loading, setLoading] = useState(false);
-    const { setAuth } = useContext(authContext);
+    const {setAuth} = useContext(authContext);
 
     useEffect(() => {
         if (submit) {
@@ -33,11 +33,11 @@ const Login = () => {
                     const getUser = await userService.getCurrentUser(
                         accessToken
                     );
-                    const { fullName, avatar, role } = getUser.response;
-                    setAuth({ email, fullName, avatar, role });
+                    const {fullName, avatar, phone, role} = getUser.response;
+                    setAuth({email, fullName,phone, avatar, role});
                     localStorage.setItem(
                         "auth",
-                        JSON.stringify({ email, fullName, avatar, role })
+                        JSON.stringify({email, fullName, phone, avatar, role})
                     );
 
                     navigate("/");
@@ -85,7 +85,8 @@ const Login = () => {
 
     return (
         <div className="h-screen flex items-center bg-[#E6EBFB]">
-            <div className="w-full bg-white sm:w-[80%] lg:w-[75%] lg:grid lg:grid-cols-10 shadow-xl m-auto my-auto rounded-[20px] pb-4 lg:pb-0">
+            <div
+                className="w-full bg-white sm:w-[80%] lg:w-[75%] lg:grid lg:grid-cols-10 shadow-xl m-auto my-auto rounded-[20px] pb-4 lg:pb-0">
                 <div className="text-center lg:col-span-4">
                     <div className="w-[70%] m-auto">
                         <h1 className="text-primaryColor text-3xl font-bold pt-10 pb-3">
@@ -109,9 +110,9 @@ const Login = () => {
                                 <span>Đăng nhập với Google</span>
                             </button>
                             <div className="mb-3 flex items-center justify-around">
-                                <div className="w-[125px] h-0.5 bg-gray-300 bg-opacity-60 rounded-[100px]" />
+                                <div className="w-[125px] h-0.5 bg-gray-300 bg-opacity-60 rounded-[100px]"/>
                                 <span className="">Hoặc</span>
-                                <div className="w-[125px] h-0.5 bg-gray-300 bg-opacity-60 rounded-[100px]" />
+                                <div className="w-[125px] h-0.5 bg-gray-300 bg-opacity-60 rounded-[100px]"/>
                             </div>
                         </div>
                         <form
@@ -187,10 +188,11 @@ const Login = () => {
                                     Quên mật khẩu ?
                                 </Link>
                             </div>
-                            <button className="bg-primaryColor text-white w-full py-3 mb-3 rounded-3xl hover:bg-blue-600 active:opacity-80">
+                            <button
+                                className="bg-primaryColor text-white w-full py-3 mb-3 rounded-3xl hover:bg-blue-600 active:opacity-80">
                                 {loading ? (
                                     <div className="flex items-center justify-center">
-                                        <Spinner className="h-6 w-6 mr-4" />{" "}
+                                        <Spinner className="h-6 w-6 mr-4"/>{" "}
                                         <span>Đang tải....</span>
                                     </div>
                                 ) : (

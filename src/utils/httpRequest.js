@@ -44,8 +44,8 @@ instance.interceptors.response.use(
                 const refreshToken = localStorage.getItem("refresh-token");
 
                 const result = await instance.post(
-                    `${process.env.REACT_APP_SERVER_URL}/auth/refresh-token`,
-                    null,
+                    `/auth/refresh-token`,
+                    {},
                     {
                         headers: { Authorization: `Bearer ${refreshToken}` },
                     }
@@ -53,9 +53,8 @@ instance.interceptors.response.use(
 
                 const accessToken = result.data.accessToken;
                 localStorage.setItem("access-token", accessToken);
-                originalRequest.headers[
-                    "Authorization"
-                ] = `Bearer ${accessToken}`;
+                originalRequest.headers["Authorization"] = `Bearer ${accessToken}`;
+                return Promise.resolve(instance(originalRequest))
             } catch (error) {
                 if (error.response.status === 401) {
                     console.log("Refresh token expired");

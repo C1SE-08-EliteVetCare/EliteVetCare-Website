@@ -81,10 +81,10 @@ const DropDownUser = ({isDropDown}) => {
                     )
                 }
             </ul>
-            <div
+            <div onClick={handleLogout}
                 className="flex items-center py-2 hover:border-y-rose-700 hover:bg-red-500 hover:text-white rounded transition-all duration-300 linear">
                 <FontAwesomeIcon className="mx-4" icon={faDoorOpen}/>
-                <button className="block px-1 py-1.5 text-sm" onClick={handleLogout}>
+                <button className="block px-1 py-1.5 text-sm">
                     Đăng xuất
                 </button>
             </div>

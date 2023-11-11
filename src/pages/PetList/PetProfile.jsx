@@ -3,9 +3,10 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faDiamondTurnRight, faEdit, faMars, faVenus, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {motion} from "framer-motion";
 import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 const PetProfile = () => {
-    const gender = 1;
+    const selectPet = useSelector((state) => state.pets.selectedPet);
     const avaterRef = useRef();
     const [showModal, setShowModal] = useState(false);
     return (
@@ -23,11 +24,11 @@ const PetProfile = () => {
                     <div>
                         <div className="flex justify-between items-center p-4 shadow-2xl rounded-2xl">
                             <div className="flex flex-col text-start">
-                                <span className="text-lg font-bold">Titi</span>
-                                <p className="w-[300px] text-normal truncate">Loài: Chó</p>
-                                <p className="w-[300px] text-normal truncate">Tuổi: 16 tháng</p>
+                                <span className="text-lg font-bold">{selectPet.name}</span>
+                                <p className="w-[300px] text-normal truncate">Loài: {selectPet.species}</p>
+                                <p className="w-[300px] text-normal truncate">Tuổi: {selectPet.age} tháng</p>
                             </div>
-                            {gender === 1 ? (
+                            {selectPet.gender === "Đực" ? (
                                 <FontAwesomeIcon className="bg-primaryColor p-2 rounded-md text-white" icon={faMars}/>
                             ) : (
                                 <FontAwesomeIcon className="bg-pink-500 p-2 rounded-md text-white" icon={faVenus}/>
@@ -37,22 +38,22 @@ const PetProfile = () => {
                         <ul className="mt-2 grid grid-cols-3 gap-2">
                             <li className="flex flex-col p-2 bg-green-100 rounded-xl shadow-md">
                                 <h3>Giống</h3>
-                                <span className="font-bold text-green-900">Bulldog</span>
+                                <span className="font-bold text-green-900">{selectPet.breed}</span>
                             </li>
                             <li className="flex flex-col p-2 bg-green-100 rounded-xl shadow-md">
                                 <h3>Cân nặng</h3>
-                                <span className="font-bold text-green-900">42 kg</span>
+                                <span className="font-bold text-green-900">{selectPet.weight} kg</span>
                             </li>
                             <li className="flex flex-col p-2 bg-green-100 rounded-xl shadow-md">
                                 <h3>Màu lông</h3>
-                                <span className="font-bold text-green-900">Trắng xám</span>
+                                <span className="font-bold text-green-900">{selectPet.furColor}</span>
                             </li>
                         </ul>
                     </div>
                     <div>
                         <h2 className="text-xl font-medium text-primaryColor p-4">Hình ảnh</h2>
                         <img className="w-[275px] h-72 object-cover rounded-2xl"
-                             src="https://ph-files.imgix.net/75c2cda9-e2c3-4bcd-a0b1-0595daba1844.png?auto=format&fit=crop"
+                             src={selectPet.avatar}
                              alt="anh thu cung"/>
                     </div>
                 </div>

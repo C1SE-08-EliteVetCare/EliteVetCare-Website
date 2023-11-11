@@ -12,13 +12,14 @@ const Select = ({label, options, value, setValue, type, reset, name}) => {
     return (
         <div className="flex flex-col">
             <label htmlFor="address" className="text-left text-lg font-normal mb-2 ">{label}</label>
-            <select className="w-full px-5 py-2 rounded-sm bg-inputColor focus:outline-primaryColor"
-                    name="address" id="address"
-                    value={value.name}
-                    onChange={(e) => setValue({
-                        id: e.target.selectedOptions[0].getAttribute("data-id"),
-                        name: e.target.value
-                    })}>
+            <select
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 focus:outline-primaryColor"
+                name="address" id="address"
+                value={value.name}
+                onChange={(e) => setValue({
+                    id: e.target.selectedOptions[0].getAttribute("data-id"),
+                    name: e.target.value
+                })}>
 
                 <option value="">--- Chọn {label} ---</option>
                 {options?.map((item, index) => (

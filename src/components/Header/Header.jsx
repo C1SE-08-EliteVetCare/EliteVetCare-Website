@@ -12,7 +12,7 @@ const Header = () => {
     const router = useLocation();
 
     useEffect(() => {
-        if(Object.keys(auth).length === 0) {
+        if (Object.keys(auth).length === 0) {
             setIsLogin(false)
         } else {
             setIsLogin(true)
@@ -78,7 +78,8 @@ const Header = () => {
                                         src={`${auth?.avatar || "https://vnn-imgs-a1.vgcloud.vn/image1.ictnews.vn/_Files/2020/03/17/trend-avatar-1.jpg"}`}
                                         alt="user photo"
                                     />
-                                    <span className="block max-w-[128px] truncate">{auth?.email?.split('@')[0] || null}</span>
+                                    <span
+                                        className="block max-w-[128px] truncate">{auth?.email?.split('@')[0] || null}</span>
                                     <svg
                                         className="w-2.5 h-2.5 ml-2.5"
                                         aria-hidden="true"
