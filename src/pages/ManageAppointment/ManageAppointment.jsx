@@ -6,7 +6,7 @@ import Pagination from "../../components/Pagination/Pagination";
 
 const ManageAppointment = () => {
     const [appointment, setAppointment] = useState({})
-    const listAppointmentExample = [
+    const listAppointmentExample =  [
         {
             id: 1,
             name: "Duơng Quang Quốc",

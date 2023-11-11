@@ -8,14 +8,13 @@ const Address = ({province, setProvince, district, setDistrict, ward, setWard}) 
     const [wards, setWards] = useState([]);
 
     useEffect(() => {
-        const fetchProvince = async () => {
+        (async () => {
             const response = await getProvinces();
             if (response.status === 200) {
                 setProvinces(response.data?.results);
             }
             // const responseDistrict = await getDistrict("497");
-        };
-        fetchProvince();
+        })();
     }, []);
 
     useEffect(() => {
