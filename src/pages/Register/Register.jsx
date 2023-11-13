@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import banner from "../../assets/images/login-banner.png";
-import AuthContext from "../../context/authProvider";
+import AuthContext from "../../context/authContext";
 import * as registerServices from "../../services/registerService";
 import { toast } from "react-toastify";
-import * as authServices from "../../services/authService";
 
 const Register = () => {
     const { setAuth } = useContext(AuthContext);

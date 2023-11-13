@@ -10,7 +10,7 @@ import AppointmentList from "../pages/AppointmentList/AppointmentList";
 import ChangePassword from "../pages/UserProfile/ChangePassword";
 import PetProfile from "../pages/PetList/PetProfile";
 import ManageAppointment from "../pages/ManageAppointment/ManageAppointment";
-import PetCondition from "../pages/PetCondition/PetCondition";
+import UpdatePetCondition from "../pages/PetCondition/UpdatePetCondition";
 import Feedback from "../pages/Feedback/Feedback";
 import Contact from "../pages/Contact/Contact";
 import PetAdvice from "../pages/TrackingPet/PetAdvice";
@@ -23,7 +23,8 @@ import Revice from "../pages/Admin/ReciveFeedback";
 import AdminLayout from "../layouts/AdminLayout";
 import LoginSuccess from "../pages/LoginSuccess/LoginSuccess";
 
-import VerifyEmail from "../pages/ForgotPassword/VerifyEmail";
+import VerifyEmail from "../pages/Register/VerifyEmail";
+import PetCondition from "../pages/PetCondition/PetCondition";
 // Public routes
 const publicRoutes = [
     { path: "/", component: Home },
