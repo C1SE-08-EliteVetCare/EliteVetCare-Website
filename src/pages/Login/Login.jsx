@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEye, faEyeSlash} from "@fortawesome/free-solid-svg-icons";
+import {faEye, faEyeSlash, faHome} from "@fortawesome/free-solid-svg-icons";
 import {Link, useNavigate} from "react-router-dom";
 import banner from "../../assets/images/login-banner.png";
 import {toast} from "sonner";
@@ -8,6 +8,7 @@ import {Spinner} from "@material-tailwind/react";
 import * as authService from "../../services/authService";
 import * as userService from "../../services/userService";
 import authContext from "../../context/authContext";
+import {motion} from "framer-motion";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -34,7 +35,7 @@ const Login = () => {
                         accessToken
                     );
                     const {fullName, avatar, phone, role} = getUser.response;
-                    setAuth({email, fullName,phone, avatar, role});
+                    setAuth({email, fullName, phone, avatar, role});
                     localStorage.setItem(
                         "auth",
                         JSON.stringify({email, fullName, phone, avatar, role})
@@ -88,8 +89,11 @@ const Login = () => {
             <div
                 className="w-full bg-white sm:w-[80%] lg:w-[75%] lg:grid lg:grid-cols-10 shadow-xl m-auto my-auto rounded-[20px] pb-4 lg:pb-0">
                 <div className="text-center lg:col-span-4">
+                    <motion.div whileHover={{scale: 1.5}} className="w-fit m-4">
+                        <Link to="/"><FontAwesomeIcon className="w-6 h-6 text-primaryColor object-left" icon={faHome}/></Link>
+                    </motion.div>
                     <div className="w-[70%] m-auto">
-                        <h1 className="text-primaryColor text-3xl font-bold pt-10 pb-3">
+                        <h1 className="text-primaryColor text-3xl font-bold pt-2 pb-3">
                             Đăng Nhập
                         </h1>
                         <h1 className="text-base font-normal">

@@ -1,28 +1,74 @@
-import React, {useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {motion} from 'framer-motion'
-import {format} from 'date-fns';
+import * as appointmentService from "../../services/appointmentService"
+import AuthContext from "../../context/authContext";
+import {toast} from "sonner";
+import {Spinner} from "@material-tailwind/react";
+import {format} from "date-fns";
 
 function MakeAppointment() {
-    const [name, setName] = useState("");
-    const [phoneNumber, setPhoneNumber] = useState("");
-    const [selectedDate, setSelectedDate] = useState(new Date());
-    const [time, setTime] = useState("");
-    const [selectedClinicAddress, setSelectedClinicAddress] = useState("");
-    const [selectedService, setSelectedService] = useState("");
+    const currentTime = new Date().toLocaleTimeString('en-US', {
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+    });
+    const {auth} = useContext(AuthContext)
+    const accessToken = localStorage.getItem('access-token')
 
-    const handleSubmit = (e) => {
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [time, setTime] = useState(currentTime);
+    const [selectedClinic, setSelectedClinic] = useState(0);
+    const [clinics, setClinics] = useState([]);
+    const [selectedService, setSelectedService] = useState("");
+    const [loading, setLoading] = useState(false)
+    const [submit, setSubmit] = useState(false)
+
+    useEffect(() => {
+        (async () => {
+            const clinicList = await appointmentService.getClinic()
+            if (clinicList.statusCode === 200) {
+                console.log(clinicList.response)
+                setClinics(clinicList.response)
+            }
+        })()
+    }, []);
+
+    const handleBooking = (e) => {
         e.preventDefault();
-        console.log("Name:", name);
-        console.log("Phone Number:", phoneNumber);
-        console.log("Selected Date:", format(new Date(selectedDate), 'yyyy-MM-dd'));
-        console.log("Selected Time:", time);
-        console.log("Selected Service:", selectedService);
-        console.log("Selected Clinic_address:", selectedClinicAddress);
+        if (!selectedDate || !time || !selectedService || !selectedClinic) {
+            toast.warning("Vui lòng nhập đầy đủ thông tin")
+            return;
+        }
+        setLoading(true)
+        setSubmit(true)
     };
+
+    useEffect(() => {
+        if (submit) {
+            (async () => {
+                const booking = await appointmentService.makeAppointment(accessToken, {
+                    appointmentDate: format(new Date(selectedDate), 'yyyy-MM-dd'),
+                    appointmentTime: time,
+                    servicePackage: selectedService,
+                    clinicId: selectedClinic
+                })
+                if (booking.statusCode === 201) {
+                    setLoading(false)
+                    setSubmit(false)
+                    toast.success("Đặt lịch thành công. Vui lòng chờ phòng khám xử lý")
+                } else {
+                    setLoading(false)
+                    setSubmit(false)
+                    toast.error("Đặt lịch không thành công")
+                }
+            })()
+        }
+    }, [submit])
 
     return (
         <div className="wrapper bg-[#E6EBFB] text-white font-bold py-16 px-36 rounded">
-            <div className="make bg-white border border-white rounded-lg px-16 h-[calc(100% - 50px)] w-[85%] h-3/4 flex flex-col justify-center mx-auto">
+            <div
+                className="make bg-white border border-white rounded-lg px-16 h-[calc(100% - 50px)] w-[85%] h-3/4 flex flex-col justify-center mx-auto">
                 <h1 className="flex w-638 h-101 flex-col justify-center flex-shrink-0 text-black text-center text-3xl font-normal font-Kiwi-Maru  leading-normal p-4">
                     ĐẶT LỊCH KHÁM BỆNH
                 </h1>
@@ -35,10 +81,9 @@ function MakeAppointment() {
                         <input
                             type="text"
                             id="name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            required
-                            className="input-field w-full bg-[#FFF] text-black rounded-lg border border-solid px-4 py-2"
+                            value={auth.fullName}
+                            className="input-field w-full bg-[#FFF] text-black rounded-lg border border-solid px-4 py-2 cursor-not-allowed"
+                            disabled
                         />
                     </div>
                     <div className="w-full bg-white p-3">
@@ -48,10 +93,9 @@ function MakeAppointment() {
                         <input
                             type="text"
                             id="phone"
-                            value={phoneNumber}
-                            onChange={(e) => setPhoneNumber(e.target.value)}
-                            required
-                            className="input-field w-full bg-[#FFF] text-black rounded-lg border border-solid px-4 py-2"
+                            value={auth.phone}
+                            className="input-field w-full bg-[#FFF] text-black rounded-lg border border-solid px-4 py-2 cursor-not-allowed"
+                            disabled
                         />
                     </div>
                     <div className="w-full bg-white p-0 grid grid-cols-1 lg:grid-cols-4">
@@ -97,6 +141,7 @@ function MakeAppointment() {
                             value={selectedService}
                             onChange={(e) => setSelectedService(e.target.value)}
                             className="input-field w-full bg-[#FFF] text-black rounded-lg border border-solid px-4 py-2"
+                            required
                         >
                             <option value="">--- Chọn gói khám ---</option>
                             <option value="Khám định kỳ">Khám dịnh kỳ</option>
@@ -112,52 +157,36 @@ function MakeAppointment() {
                         </label>
                         <select
                             id="selectOption"
-                            value={selectedClinicAddress}
+                            value={selectedClinic}
                             className="input-field w-full bg-[#FFF] text-black rounded-lg border border-solid px-4 py-2"
-                            onChange={(e) => setSelectedClinicAddress(e.target.value)}
+                            onChange={(e) => setSelectedClinic(e.target.value)}
                         >
                             <option value="">--- Chọn địa chỉ phòng khám ---</option>
-                            <option value="386/1 Núi Thành, Q.Hải Châu">
-                                386/1 Núi Thành, Q.Hải Châu
-                            </option>
-                            <option value="22 Phạm Như Xương">
-                                22 Phạm Như Xương
-                            </option>
-                            <option value="23 Đặng Dung, Hòa Khánh Bắc, Quận Liên
-                                    Chiểu, Vietnam">
-                                23 Đặng Dung, Hòa Khánh Bắc, Quận Liên
-                                Chiểu, Vietnam
-                            </option>
+                            {clinics.map((item) => (
+                                <option key={item.id} value={item.id}
+                                        onChange={(e) => setSelectedClinic(e.target.value)}>
+                                    {item.name} - {item.streetAddress}, {item.ward}, {item.district}, {item.city}
+                                </option>
+                            ))}
                         </select>
                     </div>
                 </div>
                 <motion.button whileHover={{scale: 1.1}}
-                               className="w-22 p-4 bg-primaryColor my-10 mx-96 rounded-full"
+                               className="py-4 px-12 bg-primaryColor my-10 mx-auto rounded-full"
                                type="submit"
-                               onClick={handleSubmit}
+                               onClick={handleBooking}
                 >
-                    Đặt lịch
+                    {loading ? (
+                        <div className="flex items-center justify-center">
+                            <Spinner className="h-6 w-6 mr-4"/>{" "}
+                            <span>Đang đặt....</span>
+                        </div>
+                    ) : (
+                        <span>Đặt lịch</span>
+                    )}
                 </motion.button>
             </div>
-            {/*<div className="bg-white col-span-2 p-4 text-left">*/}
-            {/*    /!*<div className="w-full bg-white p-3">*!/*/}
-            {/*    /!*    <label className="text-gray-700 text-sm font-bold text-right">*!/*/}
-            {/*    /!*        Địa chỉ:*!/*/}
-            {/*    /!*    </label>*!/*/}
-            {/*    /!*    <input*!/*/}
-            {/*    /!*        type="text"*!/*/}
-            {/*    /!*        id="address"*!/*/}
-            {/*    /!*        value={address}*!/*/}
-            {/*    /!*        onChange={(e) => setAddress(e.target.value)}*!/*/}
-            {/*    /!*        required*!/*/}
-            {/*    /!*        className="input-field w-full bg-[#FFF] text-black rounded-lg border border-solid px-4 py-2"*!/*/}
-            {/*    /!*    />*!/*/}
-            {/*    /!*</div>*!/*/}
-
-            {/*</div>*/}
-
         </div>
-        // </div>
     );
 }
 

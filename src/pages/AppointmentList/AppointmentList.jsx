@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import noDataImg from "../../assets/vectors/no data.svg";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
@@ -7,72 +7,54 @@ import Pagination from "../../components/Pagination/Pagination";
 import AppointmentItem from "../../components/AppointmentItem/AppointmentItem";
 import * as appointmentService from "../../services/appointmentService"
 import Search from "../../components/Search/Search";
+import {useDispatch, useSelector} from "react-redux";
+import {setActiveTab, setAppointments, setFilters, setLoading, setPagination} from "../../redux/actions/appointments";
 
 const AppointmentList = () => {
     const accessToken = localStorage.getItem('access-token')
-    const [appointments, setAppointments] = useState([])
-    const [loading, setLoading] = useState(true)
-    const [activeTab, setActiveTab] = useState(0);
-
-    const [pagination, setPagination] = useState({
-        page: 1,
-        totalPages: 1
-    })
-    const [filters, setFilters] = useState({
-        limit: 3,
-        page: 1,
-        status: null,
-        search: ''
-    })
+    const dispatch = useDispatch()
+    const {appointments, loading, activeTab, pagination, filters} = useSelector(
+        (state) => state.appointments
+    );
 
     useEffect(() => {
         (async () => {
             const appointList = await appointmentService.getAppointment(accessToken, {...filters})
             if (appointList.statusCode === 200) {
-                setAppointments(appointList.response.data)
+                dispatch(setAppointments(appointList.response.data))
                 const {currentPage, lastPage} = appointList.response
-                setPagination({
+                dispatch(setPagination({
                     page: currentPage,
                     totalPages: lastPage
-                })
-                setLoading(false)
+                }))
+                dispatch(setLoading(false))
             }
         })()
-    }, [accessToken, filters]);
+    }, [accessToken, filters, dispatch]);
 
     const handleTabClick = (tab) => {
-        setActiveTab(tab)
-        if (tab > 0) {
-            setLoading(true)
-            setFilters({
-                ...filters,
-                status: tab
-            })
-        } else {
-            setLoading(true)
-            setFilters({
-                ...filters,
-                status: null
-            })
-        }
+        dispatch(setActiveTab(tab));
+        const newFilters = tab > 0 ? {...filters, status: tab} : {...filters, page: 1, status: null};
+        dispatch(setLoading(true));
+        dispatch(setFilters(newFilters));
     }
 
     const handlePageChange = (newPage) => {
         console.log("New page: ", newPage)
-        setLoading(true)
-        setFilters({
+        dispatch(setLoading(true))
+        dispatch(setFilters({
             ...filters,
             page: newPage
-        })
+        }))
     }
 
     const handleSearchChange = (searchValue) => {
-        setLoading(true)
-        setFilters({
+        dispatch(setLoading(true))
+        dispatch(setFilters({
             ...filters,
             page: 1,
             search: searchValue
-        })
+        }))
     }
 
     return (

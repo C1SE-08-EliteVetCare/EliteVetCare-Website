@@ -18,13 +18,17 @@ export const postVerify = async (endPoints, option = {}) => {
     return response;
 };
 
-export const post = async (endPoints, option = {}) => {
-    const response = await instance.post(endPoints, option);
+export const post = async (endPoints, body={}, option = {}) => {
+    const response = await instance.post(endPoints, body, option);
     return response;
 };
 
 export const get = async (endpoint, options = {}) => {
     return await instance.get(endpoint, options);
+};
+
+export const put = async (endpoint, body= {}, options = {}) => {
+    return await instance.put(endpoint, body, options);
 };
 
 export const getAddress = async (endpoint, options = {}) => {
