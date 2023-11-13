@@ -23,7 +23,7 @@ import Revice from "../pages/Admin/ReciveFeedback";
 import AdminLayout from "../layouts/AdminLayout";
 import LoginSuccess from "../pages/LoginSuccess/LoginSuccess";
 
-import VerifyEmail from "../pages/Register/VerifyEmail";
+import VerifyEmail from "../pages/ForgotPassword/VerifyEmail";
 // Public routes
 const publicRoutes = [
     { path: "/", component: Home },

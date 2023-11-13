@@ -130,7 +130,7 @@ const ManageAppointment = () => {
                     </button>
                 </div>
             </div>
-            <ul className="grid grid-cols-12 gap-4 mt-6 py-2 border-b-2">
+            <ul className="grid grid-cols-12 gap-4 mt-6 py-2 border-b-2 bg-gray-50">
                 <li className="col-span-3 font-bold">Họ tên</li>
                 <li className="col-span-2 font-bold">Số điện thoại</li>
                 <li className="col-span-2 font-bold">Ngày</li>
@@ -138,20 +138,22 @@ const ManageAppointment = () => {
                 <li className="col-span-2 font-bold">Trạng thái</li>
                 <li className="col-span-1 font-bold">Chi tiết</li>
             </ul>
-            {listAppointmentExample.map((item) => (<ul key={item.id} data-id={item.id}
-                                                       className="grid grid-cols-12 gap-4 py-2 border-b-2 items-center">
-                <li className="col-span-3">{item.name}</li>
-                <li className="col-span-2">{item.phone}</li>
-                <li className="col-span-2">{item.date}</li>
-                <li className="col-span-2">{item.time}</li>
-                {item.status === 1 ? (<li className="col-span-2 py-1 px-6 bg-green-400 rounded-xl">Đã
-                    nhận</li>) : item.status === 2 ? (
-                    <li className="col-span-2 py-1 px-6 bg-yellow-200 rounded-xl">Đang xử lý</li>) : (
-                    <li className="col-span-2 py-1 px-6 bg-red-400 rounded-xl">Đã hủy</li>)}
-                <motion.li whileHover={{scale: 1.2}} className="text-xl text-gray-400 col-span-1 hover:text-primaryColor">
-                    <FontAwesomeIcon icon={faCircleInfo} onClick={handleShowModal}/></motion.li>
+            {listAppointmentExample.map((item) => (
+                <ul key={item.id} data-id={item.id} className="grid grid-cols-12 gap-4 py-2 border-b items-center even:bg-gray-50">
+                    <li className="text-sm col-span-3">{item.name}</li>
+                    <li className="text-sm col-span-2">{item.phone}</li>
+                    <li className="text-sm col-span-2">{item.date}</li>
+                    <li className="text-sm col-span-2">{item.time}</li>
+                {item.status === 1 ? (
+                    <li className="text-sm col-span-2 py-1 px-6 bg-green-400 rounded-xl">Đã nhận</li>) : item.status === 2 ? (
+                    <li className="text-sm col-span-2 py-1 px-6 bg-yellow-200 rounded-xl">Đang xử lý</li>) : (
+                    <li className="text-sm col-span-2 py-1 px-6 bg-red-400 rounded-xl">Đã hủy</li>)}
+                    <motion.li whileHover={{scale: 1.2}}
+                           className="text-xl text-gray-400 col-span-1 hover:text-primaryColor">
+                        <FontAwesomeIcon icon={faCircleInfo} onClick={handleShowModal}/>
+                    </motion.li>
             </ul>))}
-            {listAppointmentExample.length >= 10 && <Pagination/>}
+            {/*{listAppointmentExample.length >= 10 && <Pagination/>}*/}
         </div>
 
         {/*Modal view detail information*/}

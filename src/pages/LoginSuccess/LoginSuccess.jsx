@@ -20,11 +20,11 @@ const LoginSuccess = () => {
                 const refreshToken = authentication.response.refreshToken;
                 const getUser = await userService.getCurrentUser(accessToken)
 
-                const {email, fullName, avatar, role} = getUser.response
-                setAuth({email, fullName, avatar, role})
+                const {email, fullName, phone, avatar, role} = getUser.response
+                setAuth({email, fullName, phone, avatar, role})
                 localStorage.setItem('access-token', accessToken)
                 localStorage.setItem('refresh-token', refreshToken)
-                localStorage.setItem('auth', JSON.stringify({email, fullName, avatar, role}))
+                localStorage.setItem('auth', JSON.stringify({email, fullName, phone, avatar, role}))
 
                 navigate('/')
                 toast.success('Đăng nhập thành công')

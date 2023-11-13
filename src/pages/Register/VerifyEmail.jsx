@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ban from "../../assets/images/undraw_envelope_re_f5j4.svg";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiamondTurnRight } from "@fortawesome/free-solid-svg-icons";
 import * as authServices from "../../services/authService";
-import AuthContext from "../../context/authProvider";
 import { useNavigate } from "react-router-dom";
 
 const VerifyEmail = () => {
@@ -16,7 +15,6 @@ const VerifyEmail = () => {
     const [otp5, setOtp5] = useState("");
     const [otp6, setOtp6] = useState("");
 
-    const { setAuth } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const [countdown, setCountdown] = useState(300); // Thời gian đếm ngược 5 phút

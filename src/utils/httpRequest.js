@@ -18,13 +18,17 @@ export const postVerify = async (endPoints, option = {}) => {
     return response;
 };
 
-export const post = async (endPoints, option = {}) => {
-    const response = await instance.post(endPoints, option);
+export const post = async (endPoints, body={}, option = {}) => {
+    const response = await instance.post(endPoints, body, option);
     return response;
 };
 
 export const get = async (endpoint, options = {}) => {
     return await instance.get(endpoint, options);
+};
+
+export const put = async (endpoint, body= {}, options = {}) => {
+    return await instance.put(endpoint, body, options);
 };
 
 export const getAddress = async (endpoint, options = {}) => {
@@ -62,8 +66,8 @@ instance.interceptors.response.use(
                 const refreshToken = localStorage.getItem("refresh-token");
 
                 const result = await instance.post(
-                    `${process.env.REACT_APP_SERVER_URL}/auth/refresh-token`,
-                    null,
+                    `/auth/refresh-token`,
+                    {},
                     {
                         headers: { Authorization: `Bearer ${refreshToken}` },
                     }
@@ -71,9 +75,8 @@ instance.interceptors.response.use(
 
                 const accessToken = result.data.accessToken;
                 localStorage.setItem("access-token", accessToken);
-                originalRequest.headers[
-                    "Authorization"
-                ] = `Bearer ${accessToken}`;
+                originalRequest.headers["Authorization"] = `Bearer ${accessToken}`;
+                return Promise.resolve(instance(originalRequest))
             } catch (error) {
                 if (error.response.status === 401) {
                     console.log("Refresh token expired");

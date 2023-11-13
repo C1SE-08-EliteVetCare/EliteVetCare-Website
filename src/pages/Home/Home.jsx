@@ -6,20 +6,10 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMapPin,} from "@fortawesome/free-solid-svg-icons";
 import CommitmentItem from "../../components/CommitmentItem/CommitmentItem";
 import SlideFeedback from "../../components/SlideFeedback/SlideFeedback";
-import React, {useEffect} from "react";
-import * as userService from "../../services/userService";
+import React from "react";
 
 const Home = () => {
-    // useEffect(() => {
-    //     const accessToken = localStorage.getItem('access-token')
-    //     if (accessToken) {
-    //         (async () => {
-    //             const accessToken = localStorage.getItem('access-token')
-    //             const getUser = await userService.getCurrentUser(accessToken)
-    //             console.log(getUser.response)
-    //         })()
-    //     }
-    // }, []);
+
 
     return (
         <main className="container max-w-screen-2xl mx-auto mt-8">
