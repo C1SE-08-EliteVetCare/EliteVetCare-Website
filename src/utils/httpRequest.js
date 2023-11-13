@@ -31,6 +31,24 @@ export const getAddress = async (endpoint, options = {}) => {
     return await requestAddress.get(endpoint, options);
 };
 
+export const put = async (endPoints, body = {}, header = {} ) => {
+    const response = await instance.put(endPoints, body, header);
+    return response;
+};
+
+export const reDelete = async (endPoints, option = {}) => {
+    const response = await instance.delete(endPoints, option);
+    return response;
+};
+
+export const getUser = async (endPoints, option = {}) => {
+    const response = await instance.get(endPoints, option);
+    return response;
+};
+export const postFeedback = async (endPoints, option = {}, header = {}) => {
+    const response = await instance.post(endPoints, option, header);
+    return response;
+};
 let isRefreshing = false;
 instance.interceptors.response.use(
     (res) => res,
