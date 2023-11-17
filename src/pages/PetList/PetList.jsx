@@ -10,7 +10,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectPet, setPetList} from "../../redux/actions/pets";
 
 const PetList = () => {
-    const pets = useSelector((state) => state.pets.petList)
+    const pets = useSelector((state) => state.pet.petList)
     const dispatch = useDispatch()
 
     const [loading, setLoading] = useState(true)
