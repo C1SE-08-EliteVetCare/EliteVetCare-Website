@@ -14,7 +14,7 @@ const AppointmentList = () => {
     const accessToken = localStorage.getItem('access-token')
     const dispatch = useDispatch()
     const {appointments, loading, activeTab, pagination, filters} = useSelector(
-        (state) => state.appointments
+        (state) => state.appointment
     );
 
     useEffect(() => {
@@ -30,7 +30,7 @@ const AppointmentList = () => {
                 dispatch(setLoading(false))
             }
         })()
-    }, [accessToken, filters, dispatch]);
+    }, [accessToken, dispatch, filters]);
 
     const handleTabClick = (tab) => {
         dispatch(setActiveTab(tab));
@@ -101,7 +101,7 @@ const AppointmentList = () => {
                     <div className="w-full h-[75%] flex justify-center items-center flex-col">
                         <img src={noDataImg} alt="anh" className="w-52 h-52 text-primaryColor mr-8"></img>
                         <h2 className="text-xl font-medium mt-6 mb-2">Bạn chưa có một cuộc hẹn nào</h2>
-                        <p className="text-gray-400">Hiện tại bạn chưa có lịch nào nào với bác sĩ, hãy đặt lịch ngay vì
+                        <p className="text-gray-400">Hiện tại bạn chưa có lịch nào với bác sĩ, hãy đặt lịch ngay vì
                             sức
                             khỏe của
                             thú cưng</p>

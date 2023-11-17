@@ -1,23 +1,22 @@
 const initialState = {
-    appointments: [],
+    petTreatments: [],
     loading: true,
-    activeTab: 0,
+    activeTab: 2,
     pagination: {
         page: 1,
         totalPages: 1
     },
     filters: {
-        limit: 3,
+        limit: 6,
         page: 1,
-        status: null,
-        search: null,
+        status: 2,
     },
 }
 
-const appointmentReducer = (state = initialState, action) => {
+const petTreatmentReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SET_APPOINTMENTS':
-            return {...state, appointments: action.payload};
+        case 'SET_PET_TREATMENTS':
+            return {...state, petTreatments: action.payload};
 
         case 'SET_LOADING':
             return {...state, loading: action.payload};
@@ -36,4 +35,4 @@ const appointmentReducer = (state = initialState, action) => {
     }
 }
 
-export default appointmentReducer
+export default petTreatmentReducer

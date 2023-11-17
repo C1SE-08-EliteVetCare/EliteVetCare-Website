@@ -94,7 +94,7 @@ const Home = () => {
                         Thành Phố Đà Nẵng
                     </h1>
                     <span className="text-lg font-normal">Một số phòng khám nổi bật:</span>
-                    <p className="text-primaryColor text-lg font-bold">Love Pet, Hữu Nghị và Thủy Sông Hàn.</p>
+                    <p className="text-primaryColor text-lg font-bold">Love Pet, Hữu Nghị và Thú Y Sông Hàn.</p>
                     <motion.a
                         whileHover={{scale: 1.2}}
                         href="/"
