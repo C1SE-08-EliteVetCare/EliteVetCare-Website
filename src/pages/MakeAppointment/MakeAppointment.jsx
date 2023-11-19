@@ -66,7 +66,7 @@ function MakeAppointment() {
     }, [submit])
 
     return (
-        <div className="wrapper bg-[#E6EBFB] text-white font-bold py-16 px-36 rounded">
+        <div className="wrapper bg-[#E6EBFB] text-white font-bold py-16 px-36 rounded min-w-screen">
             <div
                 className="make bg-white border border-white rounded-lg px-16 h-[calc(100% - 50px)] w-[85%] h-3/4 flex flex-col justify-center mx-auto">
                 <h1 className="flex w-638 h-101 flex-col justify-center flex-shrink-0 text-black text-center text-3xl font-normal font-Kiwi-Maru  leading-normal p-4">

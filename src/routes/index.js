@@ -10,12 +10,12 @@ import AppointmentList from "../pages/AppointmentList/AppointmentList";
 import ChangePassword from "../pages/UserProfile/ChangePassword";
 import PetProfile from "../pages/PetList/PetProfile";
 import ManageAppointment from "../pages/ManageAppointment/ManageAppointment";
-import UpdatePetCondition from "../pages/PetCondition/UpdatePetCondition";
+import PetCondition from "../pages/PetCondition/PetCondition";
 import Feedback from "../pages/Feedback/Feedback";
 import Contact from "../pages/Contact/Contact";
 import PetAdvice from "../pages/TrackingPet/PetAdvice";
 import TrackingPet from "../pages/TrackingPet/TrackingPet";
-import MakeAppointment from "../pages/MakeAppointment/MakeAppointment";
+import MakeAppoiment from "../pages/MakeAppointment/MakeAppointment";
 import Chatbot from "../pages/ChatBot/ChatBot";
 import ManageUserAccount from "../pages/Admin/ManageUserAccoun";
 import DetailUserAccount from "../pages/Admin/DetailUserAccount";
@@ -24,7 +24,6 @@ import AdminLayout from "../layouts/AdminLayout";
 import LoginSuccess from "../pages/LoginSuccess/LoginSuccess";
 
 import VerifyEmail from "../pages/Register/VerifyEmail";
-import PetCondition from "../pages/PetCondition/PetCondition";
 // Public routes
 const publicRoutes = [
     { path: "/", component: Home },
@@ -63,7 +62,7 @@ const publicRoutes = [
     { path: "/vet/pet-advice/:id", component: PetAdvice, layout: UserLayout },
     {
         path: "/make-appointment",
-        component: MakeAppointment,
+        component: MakeAppoiment,
     },
     {
         path: "/chatbot",
@@ -76,7 +75,7 @@ const publicRoutes = [
         layout: AdminLayout,
     },
     {
-        path: "/admin/detailuseraccount",
+        path: "/admin/detailuseraccount/:id",
         component: DetailUserAccount,
         layout: AdminLayout,
     },

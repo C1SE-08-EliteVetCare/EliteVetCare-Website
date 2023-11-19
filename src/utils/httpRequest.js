@@ -28,9 +28,6 @@ export const get = async (endpoint, options = {}) => {
     return await instance.get(endpoint, options);
 };
 
-export const put = async (endpoint, body= {}, options = {}) => {
-    return await instance.put(endpoint, body, options);
-};
 
 export const patch = async (endpoint, body= {}, options = {}) => {
     return await instance.patch(endpoint, body, options);
@@ -40,6 +37,24 @@ export const getAddress = async (endpoint, options = {}) => {
     return await requestAddress.get(endpoint, options);
 };
 
+export const put = async (endPoints, body = {}, header = {} ) => {
+    const response = await instance.put(endPoints, body, header);
+    return response;
+};
+
+export const reDelete = async (endPoints, option = {}) => {
+    const response = await instance.delete(endPoints, option);
+    return response;
+};
+
+export const getUser = async (endPoints, option = {}) => {
+    const response = await instance.get(endPoints, option);
+    return response;
+};
+export const postFeedback = async (endPoints, option = {}, header = {}) => {
+    const response = await instance.post(endPoints, option, header);
+    return response;
+};
 let isRefreshing = false;
 instance.interceptors.response.use(
     (res) => res,
