@@ -15,7 +15,7 @@ import Feedback from "../pages/Feedback/Feedback";
 import Contact from "../pages/Contact/Contact";
 import PetAdvice from "../pages/TrackingPet/PetAdvice";
 import TrackingPet from "../pages/TrackingPet/TrackingPet";
-import MakeAppoiment from "../pages/MakeAppoiment/MakeAppoiment";
+import MakeAppoiment from "../pages/MakeAppointment/MakeAppointment";
 import Chatbot from "../pages/ChatBot/ChatBot";
 import ManageUserAccount from "../pages/Admin/ManageUserAccoun";
 import DetailUserAccount from "../pages/Admin/DetailUserAccount";
@@ -23,7 +23,7 @@ import Revice from "../pages/Admin/ReciveFeedback";
 import AdminLayout from "../layouts/AdminLayout";
 import LoginSuccess from "../pages/LoginSuccess/LoginSuccess";
 
-import VerifyEmail from "../pages/ForgotPassword/VerifyEmail";
+import VerifyEmail from "../pages/Register/VerifyEmail";
 // Public routes
 const publicRoutes = [
     { path: "/", component: Home },
@@ -75,7 +75,7 @@ const publicRoutes = [
         layout: AdminLayout,
     },
     {
-        path: "/admin/detailuseraccount",
+        path: "/admin/detailuseraccount/:id",
         component: DetailUserAccount,
         layout: AdminLayout,
     },

@@ -4,18 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c2f5320b-aea7-496d-8be4-117a66704e4c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/services/adminService.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/feedbackService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/PaginationAdmin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/PaginationAdmin.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CommitmentItem/CommitmentItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommitmentItem/CommitmentItem.jsx" afterDir="false" />
+    <list default="true" id="c2f5320b-aea7-496d-8be4-117a66704e4c" name="Changes" comment="update manageAccount and Reviews">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/layouts/AdminLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/AdminLayout.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Admin/DetailUserAccount.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Admin/DetailUserAccount.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Admin/ManageUserAccoun.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Admin/ManageUserAccoun.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Admin/ReciveFeedback.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Admin/ReciveFeedback.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/ForgotPassword/VerifyEmail.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Home/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home/Home.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/MakeAppointment/MakeAppointment.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/MakeAppointment/MakeAppointment.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/PetCondition/PetCondition.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/PetCondition/PetCondition.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/authService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/authService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/userService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/userService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/adminService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/adminService.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/httpRequest.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/httpRequest.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -79,8 +79,21 @@
       <workItem from="1699533746187" duration="2454000" />
       <workItem from="1699706436923" duration="7567000" />
       <workItem from="1699758303860" duration="15835000" />
-      <workItem from="1699865943693" duration="3872000" />
+      <workItem from="1699865943693" duration="15368000" />
+      <workItem from="1699920525106" duration="3000" />
+      <workItem from="1699925871497" duration="87000" />
+      <workItem from="1700026624082" duration="350000" />
+      <workItem from="1700110230997" duration="9896000" />
     </task>
+    <task id="LOCAL-00001" summary="update manageAccount and Reviews">
+      <option name="closed" value="true" />
+      <created>1699881381673</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1699881381673</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -91,10 +104,26 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="update manageAccount and Reviews" />
+    <option name="LAST_COMMIT_MESSAGE" value="update manageAccount and Reviews" />
   </component>
 </project>

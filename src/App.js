@@ -4,7 +4,8 @@ import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import {publicRoutes} from "./routes";
 import {DefaultLayout} from "./layouts/DefaultLayout";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
-
+import ManageUserAccount from "./pages/Admin/ManageUserAccoun";
+import DetailUserAccount from "./pages/Admin/DetailUserAccount";
 function App() {
     return (
         <Router>
@@ -34,8 +35,13 @@ function App() {
                         );
                     })}
                 </Routes>
+                <Routes>
+                    <Route exact path="/admin/manageuseraccount" component={ManageUserAccount} />
+                    <Route path="/admin/detailuseraccount/:id" component={DetailUserAccount} />
+                </Routes>
             </div>
         </Router>
+
     );
 }
 

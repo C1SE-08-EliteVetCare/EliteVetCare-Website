@@ -3,9 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
-import PaginationAdmin from "../../components/Admin/PaginationAdmin";
-import { Link } from "react-router-dom";
+import { Link,useParams } from "react-router-dom";
 import * as adminService from "../../services/adminService";
+import PaginationAdmin from "../../components/Admin/PaginationAdmin";
+
 
 
 function formatDate(dateString) {
@@ -21,17 +22,41 @@ const ManageUserAccount = () => {
         page: 1,
         totalPages: 1
     })
+    const { id } = useParams();
 
 
-
-
-
+    const [sortBy, setSortBy] = useState("option1"); // Mặc định là "Mới nhất"
+    const [searchValue, setSearchValue] = useState("");
+    const [searchResults, setSearchResults] = useState([]);
+    const [showResults, setShowResults] = useState(false);
     const [filters, setFilters] = useState({
         limit: 3,
         page: 1,
         status: null,
         search: ''
     });
+    const [originalUserList, setOriginalUserList] = useState([]); // Define originalUserList
+
+
+
+    const handleSortChange = (event) => {
+        const selectedValue = event.target.value;
+        setSortBy(selectedValue);
+        let sortedUsers = [...userList];
+        if (selectedValue === "option1") {
+
+            sortedUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        } else {
+
+            sortedUsers.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+        }
+        setUserList(sortedUsers);
+    };
+
+
+
+
+
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -61,31 +86,39 @@ const ManageUserAccount = () => {
 
 
 
-    const handleTabClick = (tab) => {
-        setActiveTab(tab)
-        if (tab > 0) {
-            setLoading(true)
-            setFilters({
-                ...filters,
-                status: tab
-            })
-        } else {
-            setLoading(true)
-            setFilters({
-                ...filters,
-                status: null
-            })
-        }
-    }
 
-    const handlePageChange = (newPage) => {
-        console.log("New page: ", newPage)
-        setLoading(true)
-        setFilters({
-            ...filters,
-            page: newPage
-        })
-    }
+    const handleSearchButton = () => {
+        const filteredUsers = userList.filter((user) => {
+            const searchTerm = searchValue.toLowerCase();
+            return (
+                user.fullName.toLowerCase().includes(searchTerm) ||
+                user.email.toLowerCase().includes(searchTerm)
+            );
+        });
+
+        setSearchResults(filteredUsers);
+        setUserList(filteredUsers);
+        setShowResults(true);
+    };
+
+
+
+    const handleHideResults = () => {
+        setShowResults(false);
+    };
+    const handleSearchOnChange = (event) => {
+        const value = event.target.value; // Preserve the input's case
+        setSearchValue(value);
+
+        const filteredUsers = originalUserList.filter((user) => {
+            const fullName = user.fullName.toLowerCase();
+            return fullName.includes(value.toLowerCase()); // Perform a case-insensitive search
+        });
+
+        setSearchResults(filteredUsers);
+        setShowResults(true);
+    };
+
 
     const ActiveMembers = ["search", "arrange", "export"];
 
@@ -110,14 +143,16 @@ const ManageUserAccount = () => {
                             className="search-box bg-[#F9FAFB] w-[550px] h-[35px] border border-gray-700"
                             style={{ borderRadius: "16px" }}
                         >
-                            <button className="search-button w-1/12 p-1 text-blue-600">
+                            <button className="search-button w-1/12 p-1 text-blue-600" onClick={handleSearchButton}>
                                 <FontAwesomeIcon icon={faSearch} />{" "}
                             </button>
                             <input
-                                className="search-input w-9/12 "
+                                className="search-input w-9/12"
                                 style={{ borderRadius: "16px" }}
                                 type="text"
                                 placeholder=" Tìm kiếm theo họ và tên hoặc tên người dùng..."
+                                value={searchValue}
+                                onChange={handleSearchOnChange}
                             />
                         </div>
                         <div
@@ -128,10 +163,12 @@ const ManageUserAccount = () => {
                             <select
                                 id="select-box"
                                 style={{ borderRadius: "16px" }}
+                                value={sortBy}
+                                onChange={handleSortChange}
                             >
-                                <option  onClick={() => handleTabClick(0)}
+                                <option
                                          value="option1">Mới nhất</option>
-                                <option  onClick={() => handleTabClick(0)} value="option2">Cũ nhất </option>
+                                <option   value="option2">Cũ nhất </option>
                             </select>
                         </div>
                         <div
@@ -147,6 +184,7 @@ const ManageUserAccount = () => {
                     </div>
                 </div>
                 <div className="w-full  mx-4 h-full text-left bg-white rounded-lg shadow-lg">
+
                     <table className="min-w-full border-collapse w-full">
                         <thead>
                             <tr className="text-gray-500">
@@ -214,14 +252,11 @@ const ManageUserAccount = () => {
                                         {user.createdAt ?formatDate (user.createdAt.split('T')[0]) : null}
                                     </td>
                                     <td className="py-2 px-4 border-t border-gray-300">
-                                        <Link
-                                            to="/admin/detailuseraccount"
-                                            className="flex items-center w-full  transition duration-75 rounded-lg pl-5 group hover:bg-gray-100"
-                                        >
-                                            <FontAwesomeIcon
-                                                icon={faCircleInfo}
-                                            />
+
+                                        <Link to={`/admin/detailuseraccount/${user.id}`} className="flex items-center w-full  transition duration-75 rounded-lg pl-5 group hover:bg-gray-100">
+                                            <FontAwesomeIcon icon={faCircleInfo} />
                                         </Link>
+
                                     </td>
                                 </tr>
                             ))}
@@ -229,7 +264,7 @@ const ManageUserAccount = () => {
                     </table>
                 </div>
                 <div className="border border-white py-6">
-                    <PaginationAdmin paginationAdmin={paginationAdmin} onPageChange={handlePageChange}/>
+                    <PaginationAdmin paginationAdmin={paginationAdmin} />
                 </div>
             </div>
         </div>

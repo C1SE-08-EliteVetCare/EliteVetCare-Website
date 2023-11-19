@@ -29,7 +29,7 @@ const Home = () => {
                         và chăm sóc cho thú cưng của bạn như là thành viên gia đình thứ tư. </p>
                     <motion.a
                         whileHover={{scale: 1.2}}
-                        href="/appointment"
+                        href="/make-appointment"
                         className="mt-2 inline-block bg-primaryColor text-white text-lg font-bold px-9 py-1.5 rounded-3xl"
                     >
                         Bắt đầu

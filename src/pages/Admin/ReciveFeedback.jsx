@@ -56,17 +56,6 @@ const ReciveFeedback = () => {
     };
 
 
-    const handleSearchChange = (searchValue) => {
-        setLoading(true)
-        setFilters({
-            ...filters,
-            page: 1,
-            search: searchValue
-        })
-    }
-
-
-
     useEffect(() => {
         const fetchUserData = async () => {
             try {
@@ -102,30 +91,21 @@ const ReciveFeedback = () => {
     }, []);
 
 
-    const handlePageChange = (newPage) => {
-        console.log("New page: ", newPage)
-        setLoading(true)
-        setFilters({
-            ...filters,
-            page: newPage
-        })
-    }
-    const handleTabClick = (tab) => {
-        setActiveTab(tab)
-        if (tab > 0) {
-            setLoading(true)
-            setFilters({
-                ...filters,
-                status: tab
-            })
+    const [sortBy, setSortBy] = useState("option1"); // Mặc định là "Mới nhất"
+
+    const handleSortChange = (event) => {
+        const selectedValue = event.target.value;
+        setSortBy(selectedValue);
+        let sortedUsers = [...feedbackList];
+        if (selectedValue === "option1") {
+
+            sortedUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         } else {
-            setLoading(true)
-            setFilters({
-                ...filters,
-                status: null
-            })
+
+            sortedUsers.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
         }
-    }
+        setFeedBackList(sortedUsers);
+    };
 
     return (
         <div className=" bg-[#F3F7FA] w-full h-full   p-6">
@@ -134,7 +114,7 @@ const ReciveFeedback = () => {
                     <div className="App bg-[#ffff] p-2 flex items-center justify-between">
                         <div style={{ textAlign: "left" }}>
                             <h1>Danh sách người dùng</h1>
-                            <i class="text-green-700" style={{ width: "20%" }}>
+                            <i className="text-green-700" style={{ width: "20%" }}>
                                 Active Members
                             </i>
                         </div>
@@ -160,10 +140,11 @@ const ReciveFeedback = () => {
                             <select
                                 id="select-box"
                                 style={{ borderRadius: "16px" }}
+                                value={sortBy}
+                                onChange={handleSortChange}
                             >
-                                <option  onClick={() => handleTabClick(0)}
-                                          value="option1">Mới nhất</option>
-                                <option  onClick={() => handleTabClick(0)} value="option2">Cũ nhất </option>
+                                <option value="option1">Mới nhất</option>
+                                <option  value="option2">Cũ nhất </option>
                             </select>
                         </div>
                         <div
