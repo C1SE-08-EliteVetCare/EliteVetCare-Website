@@ -2,10 +2,38 @@ import React, {useEffect, useState} from "react";
 import Select from "../Select/Select";
 import {getDistrict, getProvinces, getWard} from "../../services/addressService";
 
-const Address = ({province, setProvince, district, setDistrict, ward, setWard}) => {
+const Address = ({address, setAddress}) => {
     const [provinces, setProvinces] = useState([]);
     const [districts, setDistricts] = useState([]);
     const [wards, setWards] = useState([]);
+
+    const [province, setProvince] = useState('');
+    const [district, setDistrict] = useState('');
+    const [ward, setWard] = useState('');
+
+    useEffect(() => {
+        const province = provinces.length > 0 && (provinces?.find((item) => item.province_name === address.province))
+        setProvince({
+            id: province?.province_id,
+            name: province?.province_name
+        })
+    }, [provinces]);
+
+    useEffect(() => {
+        const district = districts.length > 0 && (districts?.find((item) => item.district_name === address.district))
+        setDistrict({
+            id: district?.district_id,
+            name: district?.district_name
+        })
+    }, [districts]);
+
+    useEffect(() => {
+        const ward = wards.length > 0 && (wards?.find((item) => item.ward_name === address.ward))
+        setWard({
+            id: ward?.ward_id,
+            name: ward?.ward_name
+        })
+    }, [wards]);
 
     useEffect(() => {
         (async () => {
@@ -13,7 +41,6 @@ const Address = ({province, setProvince, district, setDistrict, ward, setWard}) 
             if (response.status === 200) {
                 setProvinces(response.data?.results);
             }
-            // const responseDistrict = await getDistrict("497");
         })();
     }, []);
 
@@ -24,7 +51,7 @@ const Address = ({province, setProvince, district, setDistrict, ward, setWard}) 
                 setDistricts(response.data?.results);
             }
         };
-        province && fetchDistrict();
+        (province.id !== undefined) && fetchDistrict();
     }, [province]);
 
     useEffect(() => {
@@ -34,21 +61,23 @@ const Address = ({province, setProvince, district, setDistrict, ward, setWard}) 
                 setWards(response.data?.results);
             }
         };
-        districts && fetchWard();
-    }, [province, district, districts]);
+        (district.id !== undefined) && fetchWard();
+    }, [province, district]);
+
+    useEffect(() => {
+        setAddress({
+            ...address,
+            province: province?.name,
+            district: district?.name,
+            ward: ward?.name
+        })
+    }, [province, district, ward])
 
     return (
         <>
-            <div className="flex flex-col">
-                <Select type="province" value={province} setValue={setProvince} options={provinces}
-                        label="Tỉnh/Thành phố"/>
-            </div>
-            <div className="flex flex-col">
-                <Select type="district" value={district} setValue={setDistrict} options={districts} label="Quận/Huyện"/>
-            </div>
-            <div className="flex flex-col">
-                <Select type="ward" value={ward} setValue={setWard} options={wards} label="Phường/Xã"/>
-            </div>
+            <Select type="province" value={province} setValue={setProvince} options={provinces} label="Tỉnh/Thành phố"/>
+            <Select type="district" value={district} setValue={setDistrict} options={districts} label="Quận/Huyện"/>
+            <Select type="ward" value={ward} setValue={setWard} options={wards} label="Phường/Xã"/>
         </>
     );
 };

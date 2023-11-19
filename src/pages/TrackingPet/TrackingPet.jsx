@@ -1,159 +1,200 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCircleInfo, faDiamondTurnRight, faMars, faSearch, faVenus, faXmark} from "@fortawesome/free-solid-svg-icons";
+import {faCircleInfo, faDiamondTurnRight, faMars, faVenus, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {motion} from "framer-motion";
 import Pagination from "../../components/Pagination/Pagination";
 import {Link} from "react-router-dom";
+import Search from "../../components/Search/Search";
+import * as petService from "../../services/petService"
+import {useDispatch, useSelector} from "react-redux";
+import {setPetTreatments} from "../../redux/actions/petTreatments";
+import {setActiveTab, setFilters, setLoading, setPagination} from "../../redux/actions/appointments";
+import {Spinner} from "@material-tailwind/react";
+import noDataImg from "../../assets/vectors/no data.svg";
+import {toast} from "sonner";
 
 const TrackingPet = () => {
+    const accessToken = localStorage.getItem('access-token')
+    const dispatch = useDispatch()
+    const [loadingBtn, setLoadingBtn] = useState(false)
+    const {petTreatments, loading, activeTab, pagination, filters} = useSelector(
+        (state) => state.petTreatment
+    );
+
     const [showModal, setShowModal] = useState(false);
-    const [pet, setPet] = useState({})
-    const [tab, setTab] = useState(2)
-    const gender = 1;
-    const listPetExample = [
-        {
-            id: 1,
-            name: "TiTi",
-            breed: "Bulldog",
-            age: "1y 4m",
-            ownerName: "Dương Quang Quốc",
-            image: "https://ph-files.imgix.net/75c2cda9-e2c3-4bcd-a0b1-0595daba1844.png?auto=format&fit=crop",
-            status: 1,
-        },
-        {
-            id: 2,
-            name: "TiTi",
-            breed: "Bulldog",
-            age: "1y 4m",
-            ownerName: "Dương Quang Quốc",
-            image: "https://ph-files.imgix.net/75c2cda9-e2c3-4bcd-a0b1-0595daba1844.png?auto=format&fit=crop",
-            status: 2,
-        },
-        {
-            id: 3,
-            name: "TiTi",
-            breed: "Bulldog",
-            age: "1y 4m",
-            ownerName: "Dương Quang Quốc",
-            image: "https://ph-files.imgix.net/75c2cda9-e2c3-4bcd-a0b1-0595daba1844.png?auto=format&fit=crop",
-            status: 1,
-        },
-        {
-            id: 4,
-            name: "TiTi",
-            breed: "Bulldog",
-            age: "1y 4m",
-            ownerName: "Dương Quang Quốc",
-            image: "https://ph-files.imgix.net/75c2cda9-e2c3-4bcd-a0b1-0595daba1844.png?auto=format&fit=crop",
-            status: 2,
-        },
-        {
-            id: 5,
-            name: "TiTi",
-            breed: "Bulldog",
-            age: "1y 4m",
-            ownerName: "Dương Quang Quốc",
-            image: "https://ph-files.imgix.net/75c2cda9-e2c3-4bcd-a0b1-0595daba1844.png?auto=format&fit=crop",
-            status: 1,
-        },
-        {
-            id: 6,
-            name: "TiTi",
-            breed: "Bulldog",
-            age: "1y 4m",
-            ownerName: "Dương Quang Quốc",
-            image: "https://ph-files.imgix.net/75c2cda9-e2c3-4bcd-a0b1-0595daba1844.png?auto=format&fit=crop",
-            status: 1,
-        }
-    ];
+    const [petTreatment, setPetTreatment] = useState({})
     const handleShowModal = (e) => {
         const id = parseInt(e.target.closest('ul').getAttribute("data-id"))
         setShowModal(!showModal);
-        setPet(listPetExample.filter(item => item.id === id)[0])
+        setPetTreatment(petTreatments.filter(item => item.id === id)[0])
     }
-    const handleApcept = (e) => {
-        const copiedPets = [...listPetExample];
-        const petIndex = listPetExample.findIndex((item) => item.id === pet.id);
-        if (petIndex >= 0) {
-            copiedPets[petIndex] = {...copiedPets[petIndex], status: 2}
-            setPet({...pet, status: 2})
+    const handleAccept = async (treatmentId) => {
+        setLoadingBtn(true)
+        const res = await petService.acceptTreatment(accessToken, treatmentId)
+        if (res.statusCode === 200) {
+            setLoadingBtn(false)
+            setShowModal(!showModal)
+            dispatch(setLoading(true))
+            const now = new Date()
+            toast.message("Thành công", {
+                description: `Hồ sơ đã được tiếp nhận lúc ${now}`
+            })
+        } else {
+            setLoadingBtn(false)
+            toast.error("Có lỗi. Vui lòng thử lại sau")
         }
-        // listPetExample.map((item) => {
-        //     if (item.id === pet.id) {
-        //         return {...pet, status: 2}
-        //     }
-        //     return item;
-        // })
     }
+
+    useEffect(() => {
+        (async () => {
+            const res = await petService.getTreatment(accessToken, {...filters})
+            if (res.statusCode === 200) {
+                dispatch(setPetTreatments(res.response.data))
+                const {currentPage, lastPage} = res.response
+                dispatch(setPagination({
+                    page: currentPage,
+                    totalPages: lastPage
+                }))
+                dispatch(setLoading(false))
+            }
+        })()
+    }, [accessToken, filters, showModal]);
+
+    const handleChangeTab = (tab) => {
+        dispatch(setActiveTab(tab));
+        const newFilters = tab > 0 ? {...filters, status: tab} : {...filters, page: 1, status: 2};
+        dispatch(setLoading(true));
+        dispatch(setFilters(newFilters));
+    }
+    const handlePageChange = (newPage) => {
+        dispatch(setLoading(true))
+        dispatch(setFilters({
+            ...filters,
+            page: newPage
+        }))
+    }
+
+    const handleSearchChange = (searchValue) => {
+        dispatch(setLoading(true))
+        dispatch(setFilters({
+            ...filters,
+            page: 1,
+            search: searchValue
+        }))
+    }
+
+    const handleChangeSelect = (type, value) => {
+        dispatch(setLoading(true))
+        if (value !== "Tất cả") {
+            type === "species" ?
+                dispatch(setFilters({
+                    ...filters,
+                    page: 1,
+                    species: value
+                })) :
+                dispatch(setFilters({
+                    ...filters,
+                    page: 1,
+                    breed: value
+            }))
+        } else {
+            dispatch(setFilters({
+                ...filters,
+                page: 1,
+                species: null,
+                breed: null
+            }))
+        }
+    }
+
     return (
         <>
             <div className="w-[78%] bg-white py-4 px-8 shadow-2xl">
                 <div className="flex justify-between items-center">
-                    <h1 className="text-xl font-medium text-primaryColor text-start mb-4">Hồ sơ thú cưng</h1>
-                    <motion.div whileHover={{scale: 1.1}} className="mx-auto w-fit px-4 py-2 rounded-lg bg-bgColor">
-                        <input type="text" placeholder="Tìm theo tên thú cưng"
-                               className="bg-transparent outline-none px-2"/>
-                        <FontAwesomeIcon icon={faSearch}/>
-                    </motion.div>
+                    <h1 className="text-xl font-medium text-primaryColor text-start mb-4">Hồ sơ điều trị thú cưng</h1>
+                    <Search title="Tìm theo tên thú cưng" handleSearchChange={handleSearchChange}/>
                     <div className="space-x-3">
                         <select
-                            className="px-5 py-2 rounded-lg border-2 border-gray-400 bg-bgColor focus:outline-primaryColor hover:bg-gray-200">
-                            <option>Loại: Tất cả</option>
-                            <option>Chó</option>
-                            <option>Mèo</option>
+                            onChange={e => handleChangeSelect("species", e.target.value)}
+                            className="px-4 py-2 rounded-lg text-sm bg-gray-50 border-2 border-gray-300 focus:outline-primaryColor hover:bg-gray-200">
+                            <option value="Tất cả">Loại: Tất cả</option>
+                            <option value="Chó">Chó</option>
+                            <option value="Mèo">Mèo</option>
                         </select>
                         <select
-                            className="px-5 py-2 rounded-lg border-2 border-gray-400 bg-bgColor focus:outline-primaryColor hover:bg-gray-200">
-                            <option>Giống loài: Tất cả</option>
-                            <option>Bulldog</option>
-                            <option>Alaska</option>
+                            onChange={e => handleChangeSelect("breed", e.target.value)}
+                            className="px-4 py-2 rounded-lg text-sm bg-gray-50 border-2 border-gray-300 focus:outline-primaryColor hover:bg-gray-200">
+                            <option value="Tất cả">Giống loài: Tất cả</option>
+                            <option value="Bulldog">Bulldog</option>
+                            <option value="Alaska">Alaska</option>
+                            <option value="Mèo Ashare">Mèo Ashare</option>
+                            <option value="Siberia">Siberia</option>
+                            <option value="Chihuahua">Chihuahua</option>
+                            <option value="Tam thể">Tam thể</option>
                         </select>
                     </div>
                 </div>
                 <ul className="flex justify-center my-4">
                     <li
-                        className={`${tab === 1 && "border-b-primaryColor"} py-1.5 mr-10 w-40 border-b-4 cursor-pointer hover:border-b-primaryColor hover:transition-all hover:duration-300`}
-                        onClick={() => setTab(1)}>Đang
+                        className={`${activeTab === 1 && "border-b-primaryColor"} py-1.5 mr-10 w-40 border-b-4 cursor-pointer hover:border-b-primaryColor hover:transition-all hover:duration-300`}
+                        onClick={() => handleChangeTab(1)}>Đang
                         chờ duyệt
                     </li>
                     <li
-                        className={`${tab === 2 && "border-b-primaryColor"} py-1.5 mr-10 w-40 border-b-4 cursor-pointer hover:border-b-primaryColor hover:transition-all hover:duration-300`}
-                        onClick={() => setTab(2)}>Đã
+                        className={`${activeTab === 2 && "border-b-primaryColor"} py-1.5 mr-10 w-40 border-b-4 cursor-pointer hover:border-b-primaryColor hover:transition-all hover:duration-300`}
+                        onClick={() => handleChangeTab(2)}>Đã
                         nhận
                     </li>
                 </ul>
 
-                <ul className="grid grid-cols-12 gap-4 mt-6 py-2 border-b-2">
+                <ul className="grid grid-cols-12 gap-4 mt-6 py-2 border-b-2 bg-gray-50">
                     <li className="col-span-2 font-bold">Ảnh</li>
                     <li className="col-span-2 font-bold">Tên thú cưng</li>
-                    <li className="col-span-2 font-bold">Giống loài</li>
-                    <li className="col-span-2 font-bold">Tuổi</li>
+                    <li className="col-span-1 font-bold">Loài</li>
+                    <li className="col-span-2 font-bold">Giống</li>
+                    <li className="col-span-1 font-bold">Tuổi</li>
                     <li className="col-span-3 font-bold">Tên chủ</li>
                     <li className="col-span-1 font-bold">Chi tiết</li>
                 </ul>
-                {listPetExample.map((item, index) => (
-                    item.status === tab &&
-                    <ul
-                        key={item.id}
-                        data-id={item.id}
-                        className="grid grid-cols-12 gap-4 py-2 border-b-2 justify-items-center items-center">
-                        <li className="col-span-2">
-                            <img
-                                src={item.image}
-                                alt="anh thu cung" className="w-16 h-16 object-cover rounded"/>
-                        </li>
-                        <li className="col-span-2">{item.name}</li>
-                        <li className="col-span-2">{item.breed}</li>
-                        <li className="col-span-2">{item.age}</li>
-                        <li className="col-span-3">{item.ownerName}</li>
-                        <motion.li whileHover={{scale: 1.2}}
-                                   className="col-span-1 text-xl text-gray-400 hover:text-primaryColor"
-                                   onClick={handleShowModal}
-                        >
-                            <FontAwesomeIcon icon={faCircleInfo}/></motion.li>
-                    </ul>
-                ))}
-                {listPetExample.length > 6 && <Pagination/>}
+                {loading ? (
+                    <div className="h-full">
+                        <Spinner className="w-10 h-10 mx-auto mt-60" color="blue"/>
+                    </div>
+                ) : (
+                    petTreatments.length > 0 ? (
+                        petTreatments.map((item, index) => (
+                            // item.status === tab &&
+                            <ul
+                                key={item.id}
+                                data-id={item.id}
+                                className="grid grid-cols-12 gap-4 py-2 border-b-2 justify-items-center items-center odd:bg-gray-50">
+                                <li className="col-span-2">
+                                    <img
+                                        src={item?.pet?.avatar}
+                                        alt="anh thu cung" className="w-16 h-16 object-cover rounded"/>
+                                </li>
+                                <li className="col-span-2">{item?.pet?.name}</li>
+                                <li className="col-span-1">{item?.pet?.species}</li>
+                                <li className="col-span-2">{item?.pet?.breed}</li>
+                                <li className="col-span-1">{item?.pet?.age} tháng</li>
+                                <li className="col-span-3">{item?.pet?.owner?.fullName}</li>
+                                <motion.li whileHover={{scale: 1.2}}
+                                           className="col-span-1 text-xl text-gray-400 hover:text-primaryColor"
+                                           onClick={handleShowModal}
+                                >
+                                    <FontAwesomeIcon icon={faCircleInfo}/></motion.li>
+                            </ul>
+                        ))
+                    ) : (
+                        <div className="w-full h-[75%] flex justify-center items-center flex-col">
+                            <img src={noDataImg} alt="anh" className="w-36 h-36 text-primaryColor mr-8"></img>
+                            <h2 className="text-xl font-medium mt-6 mb-2">Không có hồ sơ nào</h2>
+                            <p className="text-gray-400 w-[40%]">Hiện tại phòng khám của bạn chưa có chưa có hồ sơ điều
+                                trị nào của thú cưng được gửi lên</p>
+                        </div>
+                    )
+                )}
+                {petTreatments.length > 0 && <Pagination pagination={pagination} onPageChange={handlePageChange}/>}
             </div>
 
             {/*Modal*/}
@@ -176,15 +217,15 @@ const TrackingPet = () => {
                             <div className="flex justify-around items-center mb-8">
                                 <div>
                                     <div className="p-4">
-                                        <span className="font-medium">Chủ: </span> {pet.ownerName}
+                                        <span className="font-medium">Chủ: </span> {petTreatment?.pet?.owner?.fullName}
                                     </div>
                                     <div className="flex justify-between items-center p-4 shadow-2xl rounded-2xl">
                                         <div className="flex flex-col text-start">
-                                            <span className="text-lg font-bold">{pet.name}</span>
-                                            <p className="w-[300px] text-normal truncate">Loài: Chó</p>
-                                            <p className="w-[300px] text-normal truncate">Tuổi: {pet.age}</p>
+                                            <span className="text-lg font-bold">{petTreatment?.pet?.name}</span>
+                                            <p className="w-[300px] text-normal truncate">Loài: {petTreatment?.pet?.species}</p>
+                                            <p className="w-[300px] text-normal truncate">Tuổi: {petTreatment?.pet?.age} tháng</p>
                                         </div>
-                                        {gender === 1 ? (
+                                        {petTreatment?.pet?.gender === "Đực" ? (
                                             <FontAwesomeIcon className="bg-primaryColor p-2 rounded-md text-white"
                                                              icon={faMars}/>
                                         ) : (
@@ -211,19 +252,27 @@ const TrackingPet = () => {
                                 <div>
                                     <h2 className="text-xl font-medium text-primaryColor p-4">Hình ảnh</h2>
                                     <img className="w-[275px] h-72 object-cover rounded-2xl"
-                                         src={pet.image}
+                                         src={petTreatment?.pet?.avatar}
                                          alt="anh thu cung"/>
                                 </div>
                             </div>
-                            {pet.status === 1 ? (
+                            {petTreatment?.dateAccepted === null ? (
                                 <motion.div whileHover={{scale: 1.1}} className="mb-6">
                                     <button className="py-2 px-4 bg-primaryColor text-white rounded hover:bg-blue-600"
-                                            onClick={handleApcept}>Chấp nhận hồ sơ
+                                            onClick={() => handleAccept(petTreatment?.id)}>
+                                        {loadingBtn ? (
+                                            <div className="flex justify-center items-center">
+                                                <Spinner className="h-6 w-6 mr-4"/>
+                                                Đang xử lý...
+                                            </div>
+                                        ) : (
+                                            <span>Tiếp nhận hồ sơ</span>
+                                        )}
                                     </button>
                                 </motion.div>
                             ) : (
                                 <motion.div whileHover={{scale: 1.1}} className="py-6">
-                                    <Link to="/vet/pet-advice/12345"
+                                    <Link to={`/vet/pet-advice/${petTreatment?.pet?.id}`}
                                           className="text-lg font-medium text-primaryColor hover:text-blue-600">
                                         Xem tình trạng và đánh giá
                                     </Link>

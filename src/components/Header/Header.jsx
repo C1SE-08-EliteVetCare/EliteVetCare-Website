@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from "react";
+import {useContext, useState} from "react";
 import logo from "../../assets/images/logo.png";
 import {Link, useLocation} from "react-router-dom";
 import DropDownUser from "../DropDownUser/DropDownUser";
@@ -7,17 +7,8 @@ import AuthContext from "../../context/authContext";
 
 const Header = () => {
     const {auth} = useContext(AuthContext)
-    const [isLogin, setIsLogin] = useState(false)
     const [isDropDown, setIsDropDown] = useState(false);
     const router = useLocation();
-
-    useEffect(() => {
-        if (Object.keys(auth).length === 0) {
-            setIsLogin(false)
-        } else {
-            setIsLogin(true)
-        }
-    }, [auth]);
 
     return (
         <header className="sticky top-0 left-0 right-0 w-full bg-[#f9f9f9] z-50 shadow-md">
@@ -64,7 +55,7 @@ const Header = () => {
 
                 <div className="h-full flex items-center">
                     {
-                        isLogin ? (
+                        auth ? (
                             <motion.div animate={isDropDown ? "open" : "closed"}>
                                 <button
                                     onClick={() => setIsDropDown(!isDropDown)}

@@ -1,4 +1,5 @@
 import axios from "axios";
+import {toast} from "sonner";
 
 const instance = axios.create({
     baseURL: process.env.REACT_APP_SERVER_URL,
@@ -27,6 +28,10 @@ export const get = async (endpoint, options = {}) => {
     return await instance.get(endpoint, options);
 };
 
+
+export const patch = async (endpoint, body= {}, options = {}) => {
+    return await instance.patch(endpoint, body, options);
+};
 
 export const getAddress = async (endpoint, options = {}) => {
     return await requestAddress.get(endpoint, options);
@@ -75,13 +80,14 @@ instance.interceptors.response.use(
                 originalRequest.headers["Authorization"] = `Bearer ${accessToken}`;
                 return Promise.resolve(instance(originalRequest))
             } catch (error) {
-                if (error.response.status === 401) {
+                // if (error.response.status === 401) {
                     console.log("Refresh token expired");
+                    toast.info("Hết phiên đăng nhập. Vui lòng đăng nhập lại")
                     localStorage.removeItem("access-token");
                     localStorage.removeItem("refresh-token");
                     localStorage.removeItem("auth");
                     window.location.href = "/login";
-                }
+                // }
                 return Promise.reject(error);
             } finally {
                 isRefreshing = false;

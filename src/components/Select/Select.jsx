@@ -23,10 +23,10 @@ const Select = ({label, options, value, setValue, type, reset, name}) => {
 
                 <option value="">--- Chọn {label} ---</option>
                 {options?.map((item, index) => (
-                    <option key={mapType(type, item).id}
-                            data-id={mapType(type, item).id}
-                            value={mapType(type, item).name}
-                    >{mapType(type, item).name}</option>
+                    <option key={mapType(type, item)?.id}
+                            data-id={mapType(type, item)?.id}
+                            value={mapType(type, item)?.name}
+                    >{mapType(type, item)?.name}</option>
                 ))}
             </select>
         </div>
