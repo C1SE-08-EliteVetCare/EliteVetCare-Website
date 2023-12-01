@@ -4,12 +4,16 @@ import {motion} from "framer-motion";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPenToSquare, faXmark} from "@fortawesome/free-solid-svg-icons";
 import Rate from "../../components/Rate/Rate";
+import {Helmet} from "react-helmet";
 
 const Feedback = () => {
     const [showModal, setShowModal] = useState(false)
     const [rating, setRating] = useState(0)
     return (
         <>
+            <Helmet>
+                <title>Đánh giá | EliteVetCare</title>
+            </Helmet>
             <div className="w-full">
                 <img className="w-full h-full object-cover" src={bannerFeedback} alt="banner feedback"/>
                 <div className="max-w-screen-xl mx-auto my-8">

@@ -7,11 +7,10 @@ import {Link} from "react-router-dom";
 import Search from "../../components/Search/Search";
 import * as petService from "../../services/petService"
 import {useDispatch, useSelector} from "react-redux";
-import {setPetTreatments} from "../../redux/actions/petTreatments";
-import {setActiveTab, setFilters, setLoading, setPagination} from "../../redux/actions/appointments";
 import {Spinner} from "@material-tailwind/react";
 import noDataImg from "../../assets/vectors/no data.svg";
 import {toast} from "sonner";
+import petTreatmentSlice from "../../redux/slices/petTreatments";
 
 const TrackingPet = () => {
     const accessToken = localStorage.getItem('access-token')
@@ -20,6 +19,7 @@ const TrackingPet = () => {
     const {petTreatments, loading, activeTab, pagination, filters} = useSelector(
         (state) => state.petTreatment
     );
+    const { setPetTreatments, setPagination, setActiveTab, setFilters, setLoading } = petTreatmentSlice.actions
 
     const [showModal, setShowModal] = useState(false);
     const [petTreatment, setPetTreatment] = useState({})
@@ -96,7 +96,7 @@ const TrackingPet = () => {
                     ...filters,
                     page: 1,
                     breed: value
-            }))
+                }))
         } else {
             dispatch(setFilters({
                 ...filters,
@@ -162,8 +162,7 @@ const TrackingPet = () => {
                     </div>
                 ) : (
                     petTreatments.length > 0 ? (
-                        petTreatments.map((item, index) => (
-                            // item.status === tab &&
+                        petTreatments.map((item) => (
                             <ul
                                 key={item.id}
                                 data-id={item.id}
@@ -194,7 +193,7 @@ const TrackingPet = () => {
                         </div>
                     )
                 )}
-                {petTreatments.length > 0 && <Pagination pagination={pagination} onPageChange={handlePageChange}/>}
+                {(petTreatments.length > 6 && pagination.page !== 1) && <Pagination pagination={pagination} onPageChange={handlePageChange}/>}
             </div>
 
             {/*Modal*/}
@@ -216,8 +215,13 @@ const TrackingPet = () => {
                             </div>
                             <div className="flex justify-around items-center mb-8">
                                 <div>
-                                    <div className="p-4">
-                                        <span className="font-medium">Chủ: </span> {petTreatment?.pet?.owner?.fullName}
+                                    <div className="flex flex-col p-4">
+                                        <p className="font-medium">Chủ: <span
+                                            className="font-normal">{petTreatment?.pet?.owner?.fullName}</span></p>
+                                        <p className="font-medium">Số điện thoại: <span
+                                            className="font-normal">{petTreatment?.pet?.owner?.phone}</span></p>
+                                    </div>
+                                    <div className="">
                                     </div>
                                     <div className="flex justify-between items-center p-4 shadow-2xl rounded-2xl">
                                         <div className="flex flex-col text-start">

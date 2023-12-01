@@ -5,6 +5,7 @@ import {Spinner} from "@material-tailwind/react";
 import bgContact from "../../assets/images/bg-contact.png"
 import {motion} from "framer-motion"
 import Map from "../../components/Map/Map";
+import {Helmet} from "react-helmet";
 
 const Contact = () => {
     const [name, setName] = useState('');
@@ -20,6 +21,9 @@ const Contact = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Liên hệ | EliteVetCare</title>
+            </Helmet>
             <div className="w-full mb-14 mx-auto px-6 md:px-4 lg:px-0">
                 <div className="relative">
                     <img

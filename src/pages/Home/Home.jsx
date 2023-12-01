@@ -7,12 +7,14 @@ import {faMapPin,} from "@fortawesome/free-solid-svg-icons";
 import CommitmentItem from "../../components/CommitmentItem/CommitmentItem";
 import SlideFeedback from "../../components/SlideFeedback/SlideFeedback";
 import React from "react";
+import {Helmet} from "react-helmet";
 
 const Home = () => {
-
-
     return (
         <main className="container max-w-screen-2xl mx-auto mt-8">
+            <Helmet>
+                <title>EliteVetCare</title>
+            </Helmet>
             <div className="relative h-[500px] mt-10 mb-16 p-4 bg-[#E8F0FA] rounded-xl">
                 <img
                     className="h-full w-full object-cover rounded-xl"

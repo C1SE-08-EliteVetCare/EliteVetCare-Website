@@ -10,7 +10,6 @@ import AppointmentList from "../pages/AppointmentList/AppointmentList";
 import ChangePassword from "../pages/UserProfile/ChangePassword";
 import PetProfile from "../pages/PetList/PetProfile";
 import ManageAppointment from "../pages/ManageAppointment/ManageAppointment";
-import UpdatePetCondition from "../pages/PetCondition/UpdatePetCondition";
 import Feedback from "../pages/Feedback/Feedback";
 import Contact from "../pages/Contact/Contact";
 import PetAdvice from "../pages/TrackingPet/PetAdvice";

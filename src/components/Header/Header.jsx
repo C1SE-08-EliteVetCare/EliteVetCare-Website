@@ -55,7 +55,7 @@ const Header = () => {
 
                 <div className="h-full flex items-center">
                     {
-                        auth ? (
+                        Object.keys(auth).length > 0 ? (
                             <motion.div animate={isDropDown ? "open" : "closed"}>
                                 <button
                                     onClick={() => setIsDropDown(!isDropDown)}
