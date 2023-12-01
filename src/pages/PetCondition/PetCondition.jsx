@@ -115,9 +115,9 @@ const PetAdvice = () => {
                             <div className="w-[70%] mx-auto my-8 grid grid-cols-2 gap-x-7 gap-y-4">
                                 <h3 className="mt-4 font-bold col-span-2">Đánh giá từ bác sĩ</h3>
                                 <div className="">
-                                    <h3 className="font-medium text-start p-2">Thức ăn khuyến cáo</h3>
+                                    <h3 className="font-medium text-start p-2">Thức ăn khuyến cáo:</h3>
                                     <div
-                                        className="w-full h-24 rounded-2xl outline-none p-2 shadow-lg border-2 focus:outline-primaryColor"
+                                        className="w-full h-24 rounded-2xl outline-none p-2 shadow-lg border-2 focus:outline-primaryColor overflow-auto"
                                     >
                                         {condition.recommendedMeal || "Đang chờ"}
                                     </div>
@@ -125,7 +125,7 @@ const PetAdvice = () => {
                                 <div>
                                     <h3 className="font-medium text-start p-2">Thuốc Khuyến Cáo:</h3>
                                     <div
-                                        className="w-full h-24 rounded-2xl outline-none p-2 shadow-lg border-2 focus:outline-primaryColor"
+                                        className="w-full h-24 rounded-2xl outline-none p-2 shadow-lg border-2 focus:outline-primaryColor overflow-auto"
                                     >
                                         {condition.recommendedMedicines || "Đang chờ"}
                                     </div>
@@ -133,7 +133,7 @@ const PetAdvice = () => {
                                 <div className="col-span-2">
                                     <h3 className="font-medium text-start p-2">Lời khuyên:</h3>
                                     <div
-                                        className="w-full h-24 rounded-2xl outline-none p-2 shadow-lg border-2 focus:outline-primaryColor">
+                                        className="w-full h-24 rounded-2xl outline-none p-2 shadow-lg border-2 focus:outline-primaryColor overflow-auto">
                                         {condition.vetAdvice || "Đang chờ"}
                                     </div>
                                 </div>

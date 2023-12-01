@@ -1,5 +1,4 @@
 import * as request from "../utils/httpRequest";
-import queryString from "query-string"
 
 export const getPets = async (accessToken) => {
     try {
@@ -110,6 +109,25 @@ export const getTreatment = async (accessToken, params) => {
 export const acceptTreatment = async (accessToken, treatmentId) => {
     try {
         const response = await request.post("/pet/accept-treatment", {treatmentId}, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            },
+        });
+        return {
+            response: response.data,
+            statusCode: response.status,
+        };
+    } catch (error) {
+        return {
+            error: error.response.data,
+            statusCode: error.response.status,
+        };
+    }
+};
+
+export const updateVetAdvice = async (accessToken, body, petId) => {
+    try {
+        const response = await request.put(`/pet/vet-advice/${petId}`, body, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             },

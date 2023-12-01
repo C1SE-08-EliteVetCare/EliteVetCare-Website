@@ -60,7 +60,8 @@ instance.interceptors.response.use(
     (res) => res,
     async (error) => {
         const originalRequest = error.config;
-        if (error.response.status === 401 && !isRefreshing) {
+        console.log(error.response)
+        if (error.response.status === 401 && error.response.data.message === "Unauthorized" && !isRefreshing) {
             console.log("Access token expired");
             isRefreshing = true;
             try {
@@ -80,14 +81,15 @@ instance.interceptors.response.use(
                 originalRequest.headers["Authorization"] = `Bearer ${accessToken}`;
                 return Promise.resolve(instance(originalRequest))
             } catch (error) {
-                // if (error.response.status === 401) {
+                console.log(error)
+                if (error.response.status === 401 || (error.response.status === 403 && error.response.data.message === "Access Denied")) {
                     console.log("Refresh token expired");
                     toast.info("Hết phiên đăng nhập. Vui lòng đăng nhập lại")
                     localStorage.removeItem("access-token");
                     localStorage.removeItem("refresh-token");
                     localStorage.removeItem("auth");
                     window.location.href = "/login";
-                // }
+                }
                 return Promise.reject(error);
             } finally {
                 isRefreshing = false;

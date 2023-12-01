@@ -56,9 +56,11 @@ const UserProfile = () => {
     const handleUpdateAvatar = async () => {
         setLoadingAva(true)
         const newAvatar = fileRef.current.files[0]
+        console.log(newAvatar)
         formData.append("avatar", newAvatar)
 
         const upload = await userService.updateAvatar(accessToken, formData)
+        console.log(upload)
         if (upload.statusCode === 200) {
             toast.success("Thay đổi thành công")
             setUserInfo({...userInfo, avatar: upload.response.url})

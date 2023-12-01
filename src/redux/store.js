@@ -1,15 +1,15 @@
-// store.js
-import {createStore, combineReducers} from 'redux';
-import petReducer from './reducers/pets';
-import appointmentReducer from "./reducers/appointments";
-import petTreatmentReducer from "./reducers/petTreatments";
+// // store.js
+import {configureStore} from "@reduxjs/toolkit"
+import petSlice from "./slices/pet";
+import appointmentSlice from "./slices/appointments";
+import petTreatmentSlice from "./slices/petTreatments";
 
-const rootReducer = combineReducers({
-    pet: petReducer,
-    appointment: appointmentReducer,
-    petTreatment: petTreatmentReducer
-});
+const store = configureStore({
+    reducer: {
+        pet: petSlice.reducer,
+        appointment: appointmentSlice.reducer,
+        petTreatment: petTreatmentSlice.reducer
+    }
+})
 
-const store = createStore(rootReducer);
-
-export default store;
+export default store
