@@ -7,8 +7,6 @@ import { Link,useParams } from "react-router-dom";
 import * as adminService from "../../services/adminService";
 import PaginationAdmin from "../../components/Admin/PaginationAdmin";
 
-
-
 function formatDate(dateString) {
     const [year, month, day] = dateString.split('-');
     return `${day}/${month}/${year}`;
@@ -18,25 +16,18 @@ const ManageUserAccount = () => {
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState(0);
     const accessToken = localStorage.getItem('access-token')
-    const [paginationAdmin, setPaginationAdmin] = useState({
-        page: 1,
-        totalPages: 1
-    })
-    const { id } = useParams();
-
-
-    const [sortBy, setSortBy] = useState("option1"); // Mặc định là "Mới nhất"
+    const [sortBy, setSortBy] = useState("option1");
     const [searchValue, setSearchValue] = useState("");
     const [searchResults, setSearchResults] = useState([]);
     const [showResults, setShowResults] = useState(false);
-    const [filters, setFilters] = useState({
-        limit: 3,
-        page: 1,
-        status: null,
-        search: ''
-    });
-    const [originalUserList, setOriginalUserList] = useState([]); // Define originalUserList
+    const [filters, setFilters] = useState({limit: 3, page: 4, status: null});
+    const [originalUserList, setOriginalUserList] = useState([]);
 
+    const [paginationAdmin, setPaginationAdmin] = useState({
+        page: 1,
+        totalPages: null
+    })
+    const { id,page, limit } = useParams();
 
 
     const handleSortChange = (event) => {
@@ -54,25 +45,24 @@ const ManageUserAccount = () => {
     };
 
 
-
-
-
-
     useEffect(() => {
         const fetchUserData = async () => {
             try {
                 setLoading(true);
-                const accountList = await adminService.getUsers(accessToken);
+
+                // Use the value of the 'limit' parameter, or default to 3
+                const requestedLimit = limit || 3;
+
+                const accountList = await adminService.getUsers(accessToken, { page: 1, limit: requestedLimit });
                 if (accountList.statusCode === 200) {
-                    console.log(accountList.response)
+                    console.log(accountList.response);
                     setUserList(accountList.response.data);
-                    const {currentPage, lastPage} = accountList.response
+                    const { currentPage, lastPage } = accountList.response;
 
                     setPaginationAdmin({
                         page: currentPage,
-                        totalPages: lastPage
-                    })
-                    setLoading(false)
+                        totalPages: lastPage,
+                    });
                 }
             } catch (error) {
                 console.error('Error fetching user data:', error);
@@ -82,10 +72,7 @@ const ManageUserAccount = () => {
         };
 
         fetchUserData();
-    }, []);
-
-
-
+    }, [accessToken, limit]);
 
     const handleSearchButton = () => {
         const filteredUsers = userList.filter((user) => {
@@ -100,8 +87,6 @@ const ManageUserAccount = () => {
         setUserList(filteredUsers);
         setShowResults(true);
     };
-
-
 
     const handleHideResults = () => {
         setShowResults(false);
@@ -119,15 +104,11 @@ const ManageUserAccount = () => {
         setShowResults(true);
     };
 
-
     const ActiveMembers = ["search", "arrange", "export"];
 
     return (
         <div className="bg-[#F3F7FA] w-full h-full  p-8">
-            <div
-                className="bg-[#fff] border border-white p-6"
-                style={{ borderRadius: "10px" }}
-            >
+            <div className=" bg-[#ffff]  mx-auto  border border-white p-2">
                 <div className="bg-[#ffff] mx-auto border border-white p-2">
                     <div className="App p-2 flex items-center justify-between">
                         <div style={{ textAlign: "left" }}>
@@ -167,7 +148,7 @@ const ManageUserAccount = () => {
                                 onChange={handleSortChange}
                             >
                                 <option
-                                         value="option1">Mới nhất</option>
+                                    value="option1">Mới nhất</option>
                                 <option   value="option2">Cũ nhất </option>
                             </select>
                         </div>
@@ -187,79 +168,78 @@ const ManageUserAccount = () => {
 
                     <table className="min-w-full border-collapse w-full">
                         <thead>
-                            <tr className="text-gray-500">
-                                <th className="py-2 px-3 border-t border-gray-300 bg-white">
-                                    Họ và tên
-                                </th>
+                        <tr className="text-gray-500">
+                            <th className="py-2 px-3 border-t border-gray-300 bg-white">
+                                Họ và tên
+                            </th>
 
-                                <th className="py-2 px-3  border-t border-gray-300 bg-white">
-                                    Email
-                                </th>
-                                <th className="py-2 px-3  border-t border-gray-300 bg-white">
-                                    Vai trò
-                                </th>
-                                <th className="py-2 px-3  border-t border-gray-300 bg-white">
-                                    Trạng thái
-                                </th>
-                                <th className="py-2 px-3  border-t border-gray-300 bg-white">
-                                    Ngày đăng ký
-                                </th>
-                                <th className="py-2 px-3  border-t border-gray-300 bg-white">
-                                    Chi tiết
-                                </th>
-                            </tr>
+                            <th className="py-2 px-3  border-t border-gray-300 bg-white">
+                                Email
+                            </th>
+                            <th className="py-2 px-3  border-t border-gray-300 bg-white">
+                                Vai trò
+                            </th>
+                            <th className="py-2 px-3  border-t border-gray-300 bg-white">
+                                Trạng thái
+                            </th>
+                            <th className="py-2 px-3  border-t border-gray-300 bg-white">
+                                Ngày đăng ký
+                            </th>
+                            <th className="py-2 px-3  border-t border-gray-300 bg-white">
+                                Chi tiết
+                            </th>
+                        </tr>
                         </thead>
 
                         <tbody>
-                            {userList.map((user,) => (
-                                <tr key={user.id}>
+                        {userList.map((user,) => (
+                            <tr key={user.id}>
 
-                                    <td className="py-2 px-5 border-t border-gray-300">
-                                        {user.fullName}
-                                    </td>
-                                    <td className="py-2 px-4 border-t border-gray-300">
-                                        {user.email}
-                                    </td>
+                                <td className="py-2 px-5 border-t border-gray-300">
+                                    {user.fullName}
+                                </td>
+                                <td className="py-2 px-4 border-t border-gray-300">
+                                    {user.email}
+                                </td>
 
-                                    <td className="py-2 px-4 border-t border-gray-300">
-                                        <select
-                                            className="py-2 px-4 border-t border-gray-300 bg-gray-100 w-full"
-                                            style={{ borderRadius: "10px" }}
-                                        >
+                                <td className="py-2 px-4 border-t border-gray-300">
+                                    <select
+                                        className="py-2 px-4 border-t border-gray-300 bg-gray-100 w-full"
+                                        style={{ borderRadius: "10px" }}
+                                    >
 
-                                                <>
-                                                    <option value="option1" selected={user.role.id === 3}>
-                                                        Bác sĩ
-                                                    </option>
-                                                    <option value="option2" selected={user.role.id === 1}>
-                                                        Admin
-                                                    </option>
-                                                    <option value="option3" selected={user.role.id === 2}>
-                                                        Chủ thú cưng
-                                                    </option>
-                                                </>
+                                        <>
+                                            <option value="option1" selected={user.role.id === 3}>
+                                                Bác sĩ
+                                            </option>
+                                            <option value="option2" selected={user.role.id === 1}>
+                                                Admin
+                                            </option>
+                                            <option value="option3" selected={user.role.id === 2}>
+                                                Chủ thú cưng
+                                            </option>
+                                        </>
 
-                                        </select>
-                                    </td>
-                                    <td className="py-2 px-4 border-t border-gray-300">
-                                            {user.operatingStatus === true ? (
-                                                <span className="text-green-600">Đã kích hoạt</span>
-                                            ) : (
-                                                <span className="text-red-600">Đã bị khóa</span>
-                                            )}
-                                    </td>
-                                    <td className="py-2 px-4 border-t border-gray-300">
-                                        {user.createdAt ?formatDate (user.createdAt.split('T')[0]) : null}
-                                    </td>
-                                    <td className="py-2 px-4 border-t border-gray-300">
+                                    </select>
+                                </td>
+                                <td className="py-2 px-4 border-t border-gray-300">
+                                    {user.operatingStatus === true ? (
+                                        <span className="text-green-600">Đã kích hoạt</span>
+                                    ) : (
+                                        <span className="text-red-600">Đã bị khóa</span>
+                                    )}
+                                </td>
+                                <td className="py-2 px-4 border-t border-gray-300">
+                                    {user.createdAt ?formatDate (user.createdAt.split('T')[0]) : null}
+                                </td>
+                                <td className="py-2 px-4 border-t border-gray-300">
 
-                                        <Link to={`/admin/detailuseraccount/${user.id}`} className="flex items-center w-full  transition duration-75 rounded-lg pl-5 group hover:bg-gray-100">
-                                            <FontAwesomeIcon icon={faCircleInfo} />
-                                        </Link>
-
-                                    </td>
-                                </tr>
-                            ))}
+                                    <Link to={`/admin/detailuseraccount/${user.id}`} className="flex items-center w-full  transition duration-75 rounded-lg pl-5 group hover:bg-gray-100">
+                                        <FontAwesomeIcon icon={faCircleInfo} />
+                                    </Link>
+                                </td>
+                            </tr>
+                        ))}
                         </tbody>
                     </table>
                 </div>

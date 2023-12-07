@@ -2,7 +2,6 @@ import React, {useEffect, useRef, useState} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
-
 import PaginationAdmin from "../../components/Admin/PaginationAdmin";
 import * as adminService from "../../services/adminService";
 import Rate from "../../components/Rate/Rate";
@@ -225,8 +224,7 @@ const ReciveFeedback = () => {
                         </div>
                         ))}
                     </div>
-                    <PaginationAdmin isPagination={PaginationAdmin} />
-                </div>
+                    <PaginationAdmin paginationAdmin={paginationAdmin} />                </div>
             </div>
         </div>
     );

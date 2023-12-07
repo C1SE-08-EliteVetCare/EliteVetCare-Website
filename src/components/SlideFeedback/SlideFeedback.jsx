@@ -1,14 +1,34 @@
-import React, {useEffect, useState} from 'react';
-import Slider from "react-slick";
-import Feedback from "../Feedback/Feedback";
+import React, { useEffect, useState } from 'react';
+import Slider from 'react-slick';
+import Feedback from '../Feedback/Feedback';
+import * as adminService from '../../services/adminService';
 
 const SlideFeedback = () => {
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true);
+    const [feedbackList, setFeedbackList] = useState([]);
+
     useEffect(() => {
-        setTimeout(() => {
-            setLoading(false)
-        }, 5000)
+        const fetchFeedbackData = async () => {
+            try {
+                const accessToken = localStorage.getItem('access-token');
+                const feedbackResponse = await adminService.getFeedBack(accessToken);
+
+                if (feedbackResponse.statusCode === 200) {
+                    const allFeedbackData = feedbackResponse.response.data;
+                    setFeedbackList(allFeedbackData);
+                }
+            } catch (error) {
+                console.error('Error fetching feedback data:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchFeedbackData();
     }, []);
+
+    console.log(feedbackList)
+
     const settings = {
         dots: true,
         infinite: true,
@@ -26,14 +46,14 @@ const SlideFeedback = () => {
                 breakpoint: 1400,
                 settings: {
                     slidesToShow: 3,
-                    slidesToScroll: 2
+                    slidesToScroll: 2,
                 },
             },
             {
                 breakpoint: 1024,
                 settings: {
                     slidesToShow: 2,
-                    slidesToScroll: 1
+                    slidesToScroll: 1,
                 },
             },
             {
@@ -45,6 +65,7 @@ const SlideFeedback = () => {
             },
         ],
     };
+
     return (
         <div>
             <h1 className="text-4xl font-bold text-primaryColor mb-8">Đánh Giá Của Người Dùng</h1>
@@ -57,10 +78,9 @@ const SlideFeedback = () => {
                 </Slider>
             ) : (
                 <Slider {...settings}>
-                    <Feedback key={1}/>
-                    <Feedback key={2}/>
-                    <Feedback key={3}/>
-                    <Feedback key={4}/>
+                    {feedbackList.map((feedback, index) => (
+                        <Feedback key={index} feedback={feedback} />
+                    ))}
                 </Slider>
             )}
         </div>

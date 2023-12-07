@@ -5,6 +5,7 @@ import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import * as adminService from "../../services/adminService";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Spinner } from "@material-tailwind/react";
 function formatDate(dateString) {
     const [year, month, day] = dateString.split('-');
     return `${day}/${month}/${year}`;
@@ -47,7 +48,9 @@ const DetailUserAccount = () => {
     }, [accessToken, id]);
 
     if (loading) {
-        return <p>Loading...</p>; // You can replace this with a loading spinner or component
+        return <div className="flex items-end gap-8">
+            <Spinner className={"h-16 w-16"} color="blue" />
+        </div>; // You can replace this with a loading spinner or component
     }
 
     if (listUser.length === 0) {

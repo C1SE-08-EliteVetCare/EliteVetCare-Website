@@ -1,91 +1,52 @@
 import * as request from "../utils/httpRequest";
+import {accessToken} from "mapbox-gl";
+import {rating} from "@material-tailwind/react";
 
-const POST_FEEDBACK_ENDPOINT = 'feedback/create-feedback';
-
-export const postFeedback = async (token, comment, prodId) => {
+export const CreateFeedback = async (subject, content,rating) => {
     try {
-        const response = await request.postFeedback(
-            POST_FEEDBACK_ENDPOINT,
-            {
-                rating: 4,
-                comment: comment,
-                prodId: prodId,
-            },
-            {
-                headers: { Authorization: `Bearer ${token}` },
-            },
-        );
+        const response = await request.post("/feedback/create", { subject, content,rating });
         return {
-            message: response.data.message,
+            response: response.data,
             statusCode: response.status,
         };
     } catch (error) {
         return {
-            error: error.response.data.message,
+            error: error.response.data,
             statusCode: error.response.status,
         };
     }
 };
-
-const DELETE_FEEDBACK_ENDPOINT = 'feedback/delete-feedback';
-
-export const deleteFeedback = async (token, prodId) => {
+export const getFeedBack = async (accessToken) => {
     try {
-        const response = await request.reDelete(DELETE_FEEDBACK_ENDPOINT, {
-            headers: { Authorization: `Bearer ${token}` },
-            data: {
-                prodId: prodId,
-            },
+        const response = await request.get('/feedback/feedbacks', {
+            headers: { Authorization: `Bearer ${accessToken}` },
         });
         return {
-            message: response.data.message,
+            response: response.data,
             statusCode: response.status,
         };
-    } catch (error) {
+    } catch (e) {
         return {
-            error: error.response.data.message,
-            statusCode: error.response.status,
+            error: e.response.data,
+            status: e.response.status,
         };
     }
 };
 
-const EDIT_FEEDBACK_ENDPOINT = 'feedback/edit-feedback';
-export const editFeedback = async (token, prodId, comment) => {
+export const getFeedbackById = async (feedbackId, accessToken) => {
     try {
-        const response = await request.put(
-            EDIT_FEEDBACK_ENDPOINT,
-            {
-                rating: 4,
-                prodId: prodId,
-                comment: comment,
-            },
-            {
-                headers: { Authorization: `Bearer ${token}` },
-            },
-        );
-        return {
-            message: response.data.message,
-            statusCode: response.status,
-        };
-    } catch (error) {
-        return {
-            error: error.response.data.message,
-            statusCode: error.response.status,
-        };
-    }
-};
+        const response = await request.get(`/feedback/feedbacks/${feedbackId}`, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+        });
 
-export const getFeedback = async (prodId) => {
-    try {
-        const response = await request.get(`feedback/${prodId}`);
         return {
-            response: response.data.feedbackData,
+            response: response.data,
             statusCode: response.status,
         };
     } catch (error) {
         return {
-            error: error.response.data.message,
-            statusCode: error.status,
+            error: error.response.data,
+            status: error.response.status,
         };
     }
 };

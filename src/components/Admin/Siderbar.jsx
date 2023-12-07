@@ -81,7 +81,7 @@ const Sidebar = () => {
                         >
                             <li>
                                 <Link
-                                    to="/admin/revice"
+                                    to="/admin/reviews"
                                     className="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100"
                                 >
                                     Xem đánh giá

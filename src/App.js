@@ -38,6 +38,8 @@ function App() {
                 <Routes>
                     <Route exact path="/admin/manageuseraccount" component={ManageUserAccount} />
                     <Route path="/admin/detailuseraccount/:id" component={DetailUserAccount} />
+                    <Route path="/manage-user-account/:page?" component={ManageUserAccount} />
+                    <Route path="/manage-user-account/:limit?" component={ManageUserAccount} />
                 </Routes>
             </div>
         </Router>
