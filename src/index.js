@@ -10,30 +10,33 @@ import {ThemeProvider} from "@material-tailwind/react";
 import {AuthProvider} from "./context/authContext";
 import {Provider} from 'react-redux';
 import store from './redux/store'
+import {SocketProvider} from "./context/socketContext";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Provider store={store}>
-        <AuthProvider>
-            <ThemeProvider>
-                <Toaster richColors position="top-right" closeButton duration="2000" toastOptions={{
-                    style: {fontSize: '15px', width: 'fit-content', right: 0}
-                }}/>
-                <ToastContainer
-                    position="top-right"
-                    autoClose={3000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="colored"
-                ></ToastContainer>
-                <App/>
-            </ThemeProvider>
-        </AuthProvider>
+        <SocketProvider>
+            <AuthProvider>
+                <ThemeProvider>
+                    <Toaster richColors position="top-right" closeButton duration="2000" toastOptions={{
+                        style: {fontSize: '15px', width: 'fit-content', right: 0}
+                    }}/>
+                    <ToastContainer
+                        position="top-right"
+                        autoClose={3000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="colored"
+                    ></ToastContainer>
+                    <App/>
+                </ThemeProvider>
+            </AuthProvider>
+        </SocketProvider>
     </Provider>
 );
 

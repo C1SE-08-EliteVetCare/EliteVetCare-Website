@@ -36,11 +36,11 @@ function App() {
                         );
                     })}
                 </Routes>
-                <Routes>
-                    <Route path="conversations" element={<Conversation/>}>
-                        <Route path=":id" element={<ConversationChannel/>}/>
-                    </Route>
-                </Routes>
+                {/*<Routes>*/}
+                {/*    <Route path="conversations" element={<Conversation/>}>*/}
+                {/*        <Route path=":id" element={<ConversationChannel/>}/>*/}
+                {/*    </Route>*/}
+                {/*</Routes>*/}
             </div>
         </Router>
 

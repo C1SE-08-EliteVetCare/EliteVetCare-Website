@@ -34,11 +34,11 @@ const Login = () => {
                     const getUser = await userService.getCurrentUser(
                         accessToken
                     );
-                    const {fullName, avatar, phone, role} = getUser.response;
-                    setAuth({email, fullName, phone, avatar, role});
+                    const {id, fullName, avatar, phone, role} = getUser.response;
+                    setAuth({id, email, fullName, phone, avatar, role});
                     localStorage.setItem(
                         "auth",
-                        JSON.stringify({email, fullName, phone, avatar, role})
+                        JSON.stringify({id, email, fullName, phone, avatar, role})
                     );
 
                     role.id === 1 ? navigate("/admin/manage-account") : navigate("/");

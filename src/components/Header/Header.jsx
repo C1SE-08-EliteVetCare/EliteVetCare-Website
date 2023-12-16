@@ -13,7 +13,7 @@ const Header = () => {
     return (
         <header className="sticky top-0 left-0 right-0 w-full bg-[#f9f9f9] z-50 shadow-md">
             <div
-                className="container mx-auto h-[76px] flex justify-between sm:px-3 md:px-10 lg:px-10 lg:grid lg:grid-flow-col">
+                className="container mx-auto h-[60px] flex justify-between sm:px-3 md:px-10 lg:px-10 lg:grid lg:grid-flow-col">
                 <Link to="/" className="flex items-center">
                     <img src={logo} alt="logo" className="h-11"/>
                     <h1 className="font-chewy text-xl font-medium pl-2 text-primaryColor">EliteVetCare</h1>

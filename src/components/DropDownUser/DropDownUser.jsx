@@ -1,8 +1,8 @@
 import React, {useContext} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCalendarAlt, faDoorOpen, faPaw, faUserAlt} from "@fortawesome/free-solid-svg-icons";
+import {faCalendarAlt, faDoorOpen, faMessage, faPaw, faUserAlt} from "@fortawesome/free-solid-svg-icons";
 import {motion} from 'framer-motion'
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {toast} from "sonner";
 import AuthContext from "../../context/authContext";
 
@@ -41,8 +41,8 @@ const DropDownUser = ({isDropDown}) => {
                     className="flex items-center hover:bg-primaryColor hover:text-white rounded transition-all duration-300 linear">
                     <FontAwesomeIcon className="mx-4" icon={faUserAlt}/>
                     <a href="/profile"
-                       className="block px-1 py-2">Hồ sơ cá
-                        nhân</a>
+                       className="block px-1 py-2">Hồ sơ cá nhân
+                    </a>
                 </li>
                 {
                     auth.role && auth.role.id === 2 ? (
@@ -50,17 +50,17 @@ const DropDownUser = ({isDropDown}) => {
                             <li
                                 className="flex items-center hover:bg-primaryColor hover:text-white rounded transition-all duration-300 linear">
                                 <FontAwesomeIcon className="mx-4" icon={faPaw}/>
-                                <a href="/pet-owner/pets"
+                                <Link to="/pet-owner/pets"
                                    className="block px-1 py-2">Thú cưng của
                                     bạn
-                                </a>
+                                </Link>
                             </li>
                             <li
                                 className="flex items-center hover:bg-primaryColor hover:text-white rounded transition-all duration-300 linear">
                                 <FontAwesomeIcon className="mx-4" icon={faCalendarAlt}/>
-                                <a href="/pet-owner/appointments"
+                                <Link to="/pet-owner/appointments"
                                    className="block px-1 py-2">Danh sách cuộc hẹn
-                                </a>
+                                </Link>
                             </li>
                         </>
                     ) : (
@@ -68,18 +68,26 @@ const DropDownUser = ({isDropDown}) => {
                             <li
                                 className="flex items-center hover:bg-primaryColor hover:text-white rounded transition-all duration-300 linear">
                                 <FontAwesomeIcon className="mx-4" icon={faCalendarAlt}/>
-                                <a href="/vet/manage-appointments"
-                                   className="block px-1 py-2">Quản lý lịch khám</a>
+                                <Link to="/vet/manage-appointments"
+                                   className="block px-1 py-2">Quản lý lịch khám</Link>
                             </li>
                             <li
                                 className="flex items-center hover:bg-primaryColor hover:text-white rounded transition-all duration-300 linear">
                                 <FontAwesomeIcon className="mx-4" icon={faPaw}/>
-                                <a href="/vet/pets"
-                                   className="block px-1 py-2">Quản lý thú cưng</a>
+                                <Link to="/vet/pets"
+                                   className="block px-1 py-2">Quản lý thú cưng</Link>
                             </li>
                         </>
                     )
                 }
+                <li
+                    className="flex items-center hover:bg-primaryColor hover:text-white rounded transition-all duration-300 linear"
+                >
+
+                    <FontAwesomeIcon className="mx-4" icon={faMessage}/>
+                    <Link to="/conversations"
+                       className="block px-1 py-2 cursor-pointer">EliteVetCare Chat</Link>
+                </li>
             </ul>
             <div onClick={handleLogout}
                 className="flex items-center py-2 hover:border-y-rose-700 hover:bg-red-500 hover:text-white rounded transition-all duration-300 linear">
