@@ -22,8 +22,10 @@ import DetailUserAccount from "../pages/Admin/DetailUserAccount";
 import Revice from "../pages/Admin/ReciveFeedback";
 import AdminLayout from "../layouts/AdminLayout";
 import LoginSuccess from "../pages/LoginSuccess/LoginSuccess";
-
 import VerifyEmail from "../pages/Register/VerifyEmail";
+import ConversationChannel from "../components/Conversation/ConversationChannel";
+import Conversation from "../pages/Conversation/Conversation";
+import ConversationPanel from "../components/Conversation/ConversationPanel";
 // Public routes
 const publicRoutes = [
     { path: "/", component: Home },
@@ -88,6 +90,16 @@ const publicRoutes = [
         path: "/login-success/:tokenGoogle",
         component: LoginSuccess,
         layout: null,
+    },
+    {
+        path: "/conversations",
+        component: ConversationPanel,
+        layout: Conversation,
+    },
+    {
+        path: "conversations/:id",
+        component: ConversationChannel,
+        layout: Conversation,
     },
 ];
 

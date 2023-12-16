@@ -4,12 +4,12 @@ import Address from "../../components/Address/Address";
 import AuthContext from "../../context/authContext";
 import LoadingSkeleton from "../../components/LoadingSkeleton/LoadingSkeleton";
 import * as userService from "../../services/userService"
-import {accessToken} from "mapbox-gl";
 import {toast} from "sonner";
 
 const UserProfile = () => {
     const formData = new FormData()
     const {auth, setAuth} = useContext(AuthContext)
+    const accessToken = localStorage.getItem('access-token')
     const [loading, setLoading] = useState(true)
     const [loadingAva, setLoadingAva] = useState(true)
     const [address, setAddress] = useState({})
@@ -39,10 +39,7 @@ const UserProfile = () => {
     const fileRef = useRef();
 
     useEffect(() => {
-        const accessToken = localStorage.getItem('access-token')
-        if (accessToken) {
             (async () => {
-                const accessToken = localStorage.getItem('access-token')
                 const getUser = await userService.getCurrentUser(accessToken)
                 setUserInfo(getUser.response)
                 setUpdateUser(getUser.response)
@@ -50,8 +47,7 @@ const UserProfile = () => {
                 setLoadingAva(false)
                 console.log(getUser.response)
             })()
-        }
-    }, []);
+    }, [accessToken]);
 
     const handleUpdateAvatar = async () => {
         setLoadingAva(true)

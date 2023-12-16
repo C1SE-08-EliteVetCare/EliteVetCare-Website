@@ -97,11 +97,11 @@ const PetAdvice = () => {
                                 <div className="grid grid-cols-2 justify-items-center">
                                     <div className="flex flex-col justify-center">
                                         <ChartTable color="#38C976" chartValue={chartPortion} chartDate={chartDate}/>
-                                        <h3>Biểu đồ cân nặng (kg)</h3>
+                                        <h3>Biểu đồ khẩu phần ăn (g)</h3>
                                     </div>
                                     <div className="flex flex-col justify-center">
                                         <ChartTable color="#FF5E5E" chartValue={chartWeight} chartDate={chartDate}/>
-                                        <h3>Biểu đồ khẩu phần ăn (g)</h3>
+                                        <h3>Biểu đồ cân nặng (kg)</h3>
                                     </div>
                                 </div>
                             </div>
