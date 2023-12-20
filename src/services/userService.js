@@ -106,3 +106,22 @@ export const uploadImage = async (avatar, authToken) => {
         };
     }
 };
+
+export const getAllVet = async (params) => {
+    try {
+        const response = await request.get("/user/vets", {
+            params: {
+                ...params
+            }
+        });
+        return {
+            response: response.data,
+            statusCode: response.status,
+        };
+    } catch (error) {
+        return {
+            error: error.response.data,
+            statusCode: error.response.status,
+        };
+    }
+};

@@ -9,10 +9,9 @@ const Conversation = ({children}) => {
     const dispatch = useDispatch()
     const {conversations} = useSelector((state) => state.conversation)
 
-
     useEffect(() => {
         dispatch(fetchConversationsThunk(accessToken))
-    }, [accessToken]);
+    }, [accessToken, dispatch]);
 
     return (
         <div className="wrapper">

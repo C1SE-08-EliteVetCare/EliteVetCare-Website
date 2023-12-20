@@ -15,6 +15,8 @@ const LoginSuccess = () => {
         (async () => {
             const authentication = await authService.loginGoogleSuccess(params.tokenGoogle)
 
+            console.log(authentication)
+
             if (authentication.statusCode === 200) {
                 const accessToken = authentication.response.accessToken;
                 const refreshToken = authentication.response.refreshToken;

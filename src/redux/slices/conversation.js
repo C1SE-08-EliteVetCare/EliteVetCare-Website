@@ -1,19 +1,18 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import * as chatService from '../../services/chatService'
+import {useState} from "react";
 
 export const fetchConversationsThunk = createAsyncThunk(
     'conversation/fetch',
     async (accessToken, thunkApi) => {
-        console.log(accessToken)
         return chatService.getConversations(accessToken)
     }
 )
 
-export const fetchMessagesThunk = createAsyncThunk(
-    'message/fetch',
-    async ({accessToken, id}, thunkApi) => {
-        console.log(accessToken, id)
-        return chatService.getConversationMessage(accessToken, id)
+export const createConversationsThunk = createAsyncThunk(
+    'conversation/create',
+    async ({accessToken, ...body}, thunkApi) => {
+        return chatService.createConversation(accessToken, body)
     }
 )
 
@@ -21,38 +20,41 @@ const conversationSlice = createSlice({
     name: 'conversation',
     initialState: {
         conversations: [],
-        messages: [],
         loading: true,
     },
     reducers: {
         addConversation: (state, action) => {
             console.log('addConversation')
-            state.conversations = action.payload
+            // state.conversations = action.payload
         },
-        setMessages: (state, action) => {
-            state.messages = [action.payload, ...state.messages]
+        updateConversation: (state, action) => {
+            console.log('Inside updateConversation');
+            const conversation = action.payload;
+            const index = state.conversations.findIndex(
+                (c) => c.id === conversation.id
+            );
+            state.conversations.splice(index, 1);
+            state.conversations.unshift(conversation);
         }
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchConversationsThunk.fulfilled, (state, action) => {
-                state.conversations = action.payload.response
-            })
-            .addCase(fetchMessagesThunk.pending, (state) => {
+            .addCase(fetchConversationsThunk.pending, (state) => {
                 state.loading = true
             })
-            .addCase(fetchMessagesThunk.fulfilled, (state, action) => {
-                console.log(action.payload.response)
-                state.messages = action.payload.response
+            .addCase(fetchConversationsThunk.fulfilled, (state, action) => {
+                state.conversations = action.payload.response
                 state.loading = false
             })
-            .addCase(fetchMessagesThunk.rejected, (state) => {
+            .addCase(fetchConversationsThunk.rejected, (state) => {
                 state.loading = false
             })
-
+            .addCase(createConversationsThunk.fulfilled, (state, action) => {
+                state.conversations.unshift(action.payload.response);
+            })
     }
 })
 
-export const {addConversation, setMessages} = conversationSlice.actions
+export const {addConversation, updateConversation} = conversationSlice.actions
 
 export default conversationSlice

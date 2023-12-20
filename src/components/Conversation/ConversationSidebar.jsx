@@ -1,22 +1,18 @@
 import React, {useContext, useState} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMessage} from "@fortawesome/free-solid-svg-icons";
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
 import CreateConversationForm from "./CreateConversationForm";
 import {motion} from "framer-motion";
 import AuthContext from "../../context/authContext";
 import {format} from "date-fns";
 import {utcToZonedTime} from "date-fns-tz";
-import {useDispatch, useSelector} from "react-redux";
 
 const ConversationSidebar = ({conversations}) => {
-    // const dispatch = useDispatch()
-    // const {conversations} = useSelector((state) => state.conversation)
-    const router = useLocation();
+    const {id} = useParams()
     const {auth} = useContext(AuthContext)
     const navigate = useNavigate()
     const [showModal, setShowModal] = useState(false)
-    console.log(conversations)
     return (
         <>
             {showModal && <CreateConversationForm setShowModal={setShowModal}/>}
@@ -44,7 +40,7 @@ const ConversationSidebar = ({conversations}) => {
                     {conversations && conversations.length > 0 && (
                         conversations.map((item) => (
                             <div
-                                className={`flex items-center gap-[20px] py-[10px] px-[20px] border-b-2 box-border cursor-pointer ${router.pathname.includes(item.id) ? "bg-blue-50" : "hover:bg-gray-100"}`}
+                                className={`flex items-center gap-[20px] py-[10px] px-[20px] border-b-2 box-border cursor-pointer ${item.id === parseInt(id) ? "bg-blue-50" : "hover:bg-gray-100"}`}
                                 key={item.id}
                                 onClick={() => navigate(`/conversations/${item.id}`)}
                             >

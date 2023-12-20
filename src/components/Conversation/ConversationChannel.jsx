@@ -1,11 +1,11 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {useParams} from "react-router-dom";
-import * as chatService from "../../services/chatService";
 import MessagePanel from "../Message/MessagePanel";
 import SocketContext from "../../context/socketContext";
 import AuthContext from "../../context/authContext";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchMessagesThunk, setMessages} from "../../redux/slices/conversation";
+import {fetchMessagesThunk, setMessages} from "../../redux/slices/message";
+import {updateConversation} from "../../redux/slices/conversation";
 
 const ConversationChannel = ({conversations}) => {
     const socket = useContext(SocketContext)
@@ -14,7 +14,7 @@ const ConversationChannel = ({conversations}) => {
     const dispatch = useDispatch()
     const accessToken = localStorage.getItem('access-token')
     let recipient = {}
-    const {messages} = useSelector((state) => state.conversation)
+    const {messages} = useSelector((state) => state.message)
 
     // console.log(conversation.messages)
 
@@ -34,27 +34,36 @@ const ConversationChannel = ({conversations}) => {
     }, [id])
 
     useEffect(() => {
-        socket.on('connect', () => console.log('Connected'))
+        socket.emit('onClientConnect', { conversationId: parseInt(id) })
+        socket.on('connected', (data) => console.log('Connected', data))
         socket.on('onMessage', (payload) => {
-            const {conversation, ...message} = payload
+            const {conversation, message} = payload
             console.log('Message received', message)
+            console.log(conversation)
             console.log(message?.author?.id, auth.id)
             if (message?.author?.id !== auth.id) {
-                dispatch(setMessages(message))
-                // setMessages((prev) => [message, ...prev])
+                dispatch(setMessages({
+                    id: conversation.id,
+                    data: message
+                }))
             }
+            dispatch(updateConversation(conversation))
         })
 
         return () => {
-            socket.off('connect')
+            socket.off('connected')
             socket.off('onMessage')
         }
-    }, [auth.id, dispatch, messages, socket])
+    }, [id])
 
+    const sendTypingStatus = () => {
+        console.log('You are typing')
+        socket.emit('onUserTyping', { conversationId: id})
+    }
 
     return (
         <div className="h-full w-full mt-[60px] overflow-hidden">
-            <MessagePanel recipient={recipient} ></MessagePanel>
+            <MessagePanel sendTypingStatus={sendTypingStatus} recipient={recipient} ></MessagePanel>
         </div>
     );
 };
