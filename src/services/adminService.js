@@ -1,10 +1,10 @@
 import * as request from "../utils/httpRequest";
 
 
-export const getUsers = async (accessToken, { page, limit }) => {
+export const getUsers = async (accessToken, { page, limit,search }) => {
     try {
         const response = await request.get('/user/users', {
-            params: { page, limit },  // Include page and limit as query parameters
+            params: { page, limit,search},  // Include page and limit as query parameters
             headers: { Authorization: `Bearer ${accessToken}` },
         });
 
@@ -20,9 +20,10 @@ export const getUsers = async (accessToken, { page, limit }) => {
     }
 };
 
-export const getFeedBack = async (accessToken) => {
+export const getFeedBack = async (accessToken,{ page, limit , }) => {
     try {
         const response = await request.get('/feedback/feedbacks?rating=5', {
+            params: { page, limit },
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         return {

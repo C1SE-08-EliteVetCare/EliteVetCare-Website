@@ -10,26 +10,40 @@ const PaginationAdmin = ({ paginationAdmin, onPageChange }) => {
             onPageChange(newPage);
         }
     };
-    const handlePageChange = (newPage) => {
-        if (onPageChange) {
-            onPageChange(newPage)
-        }
-    }
+
+    const renderPageNumbers = () => {
+        return Array.from({ length: totalPages }, (_, index) => index + 1).map(
+            (pageNumber) => (
+                <li key={pageNumber}>
+                    <button
+                        onClick={() => handlePageClick(pageNumber)}
+                        className={`flex items-center justify-center px-4 h-6 mr-3 text-base font-medium rounded-lg border ${
+                            page === pageNumber
+                                ? "text-white bg-[#5932EA] border-[#5932EA]"
+                                : "text-gray-500 bg-white border-gray-300 hover:bg-gray-100 hover:text-gray-200 dark:bg-gray-100 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                        }`}
+                    >
+                        {pageNumber}
+                    </button>
+                </li>
+            )
+        );
+    };
 
     return (
         <div className="text-right py-1 mt-2 p-6 bg-[#FFF] border border-white">
             <nav aria-label="Page navigation example">
-                <ul className="inline-flex  text-base h-6 mx-2">
+                <ul className="inline-flex text-base h-6 mx-2">
                     <li>
                         <button
                             onClick={() => handlePageClick(page - 1)}
                             disabled={page === 1}
                         >
                             <a
-                                className={`flex items-center justify-center px-4 h-6 mr-3 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg ${
+                                className={`flex items-center justify-center px-4 h-6 mr-3 text-base font-medium rounded-lg border ${
                                     page <= 1
                                         ? "cursor-not-allowed opacity-60"
-                                        : "hover:bg-gray-100 hover:text-gray-200 dark:bg-gray-100 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                        : "text-gray-500 bg-white border-gray-300 hover:bg-gray-100 hover:text-gray-200 dark:bg-gray-100 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                                 }`}
                             >
                                 <FontAwesomeIcon
@@ -39,17 +53,14 @@ const PaginationAdmin = ({ paginationAdmin, onPageChange }) => {
                             </a>
                         </button>
                     </li>
-                    <div className="mx-4 text-gray-500">
-                        {page} {totalPages}
-                    </div>
-
+                    {renderPageNumbers()}
                     <li>
                         <button
                             onClick={() => handlePageClick(page + 1)}
                             disabled={page === totalPages}
                         >
                             <a
-                                className={`flex items-center justify-center px-4 h-6 ml-3 leading-tight text-blue-600 border border-gray-200 bg-[#5932EA] hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-blue-900 dark:text-white`}
+                                className={`flex items-center justify-center px-4 h-6 mr-3 text-base font-medium rounded-lg border text-gray-500 bg-white border-gray-300 hover:bg-gray-100 hover:text-gray-200 dark:bg-gray-100 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
                             >
                                 <FontAwesomeIcon
                                     className="w-3.5 h-3.5 ml-2"
@@ -65,3 +76,4 @@ const PaginationAdmin = ({ paginationAdmin, onPageChange }) => {
 };
 
 export default PaginationAdmin;
+

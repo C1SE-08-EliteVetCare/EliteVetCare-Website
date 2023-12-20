@@ -12,7 +12,7 @@ const AdminLayout = ({ children }) => {
                 </div>
                 <div className=" w-full h-full sm:col-span-10 text-center  bg-[#F3F7FA]  ">
                     <div className="max-w-screen-xl mx-auto my-1 flex  justify-between">
-                        <div className=" bg-[#F3F7FA] w-full ">{children}l</div>
+                        <div className=" bg-[#F3F7FA] w-full ">{children}</div>
                     </div>
                 </div>
             </div>
