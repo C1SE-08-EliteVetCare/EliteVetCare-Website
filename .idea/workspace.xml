@@ -5,30 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c2f5320b-aea7-496d-8be4-117a66704e4c" name="Changes" comment="update manageAccount and Reviews">
-      <change afterPath="$PROJECT_DIR$/src/components/Message/MessageContainer.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Message/MessageInputField.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Message/MessagePanel.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/context/socketContext.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/redux/slices/conversation.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/chatService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/elitevetcare-fe.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/elitevetcare-fe.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/redux/slices/message.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Conversation/ConversationChannel.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Conversation/ConversationChannel.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Conversation/ConversationSidebar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Conversation/ConversationSidebar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Conversation/Overlay.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Conversation/CreateConversationForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Conversation/CreateConversationForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Conversation/CreateConversationForm.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/DropDownUser/DropDownUser.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DropDownUser/DropDownUser.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/Header.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Message/MessageContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Message/MessageContainer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Message/MessageInputField.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Message/MessageInputField.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Message/MessagePanel.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Message/MessagePanel.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/context/socketContext.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/socketContext.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Conversation/Conversation.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Conversation/Conversation.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Login/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Login/Login.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/LoginSuccess/LoginSuccess.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/LoginSuccess/LoginSuccess.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/PetCondition/PetCondition.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/PetCondition/PetCondition.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/UserProfile/UserProfile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/UserProfile/UserProfile.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/slices/conversation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/slices/conversation.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/store.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/chatService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/chatService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/userService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/userService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,10 +30,38 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitToolBoxStore">
     <option name="projectConfigVersion" value="5" />
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="quangquoc" />
+                    <option name="lastUsedInstant" value="1702726318" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="main" />
+                    <option name="lastUsedInstant" value="1702726317" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -119,6 +141,16 @@
       <workItem from="1702626198722" duration="1197000" />
       <workItem from="1702644059958" duration="628000" />
       <workItem from="1702656971753" duration="14239000" />
+      <workItem from="1702761208746" duration="592000" />
+      <workItem from="1702779888117" duration="7525000" />
+      <workItem from="1702814181160" duration="669000" />
+      <workItem from="1702870584782" duration="18650000" />
+      <workItem from="1702894206821" duration="1347000" />
+      <workItem from="1702897176166" duration="2532000" />
+      <workItem from="1702917663112" duration="594000" />
+      <workItem from="1702980957583" duration="4674000" />
+      <workItem from="1703016610433" duration="16289000" />
+      <workItem from="1703075873291" duration="8449000" />
     </task>
     <task id="LOCAL-00001" summary="update manageAccount and Reviews">
       <option name="closed" value="true" />

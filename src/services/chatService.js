@@ -1,5 +1,21 @@
 import * as request from "../utils/httpRequest";
-import {body} from "@material-tailwind/react/theme/base/typography";
+
+export const createConversation = async (accessToken, body) => {
+    try {
+        const response = await request.post("/conversation", body, {
+            headers: {Authorization: `Bearer ${accessToken}`}
+        });
+        return {
+            response: response.data,
+            statusCode: response.status,
+        };
+    } catch (error) {
+        return {
+            error: error.response.data,
+            statusCode: error.response.status,
+        };
+    }
+};
 
 export const getConversations = async (accessToken) => {
     try {

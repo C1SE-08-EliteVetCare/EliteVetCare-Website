@@ -5,9 +5,9 @@ import {useParams} from "react-router-dom";
 import * as chatService from "../../services/chatService"
 import AuthContext from "../../context/authContext";
 import {useDispatch} from "react-redux";
-import {setMessages} from "../../redux/slices/conversation";
+import {setMessages} from "../../redux/slices/message";
 
-const MessagePanel = ({recipient}) => {
+const MessagePanel = ({recipient, sendTypingStatus}) => {
     const {id} = useParams()
     const {auth} = useContext(AuthContext)
     const accessToken = localStorage.getItem('access-token')
@@ -22,14 +22,17 @@ const MessagePanel = ({recipient}) => {
 
         contentReq = content
         dispatch(setMessages({
-            id: Math.random(),
-            author: {
-                id: auth.id,
-                avatar: auth.avatar,
-                fullName: auth.fullName
-            },
-            content: contentReq,
-            createdAt: new Date()
+            id: parseInt(id),
+            data: {
+                id: Math.random(),
+                author: {
+                    id: auth.id,
+                    avatar: auth.avatar,
+                    fullName: auth.fullName
+                },
+                content: contentReq,
+                createdAt: new Date()
+            }
         }))
         try {
             await Promise.all([
@@ -44,7 +47,7 @@ const MessagePanel = ({recipient}) => {
         }
     }
     return (
-        <div className="fixed top-[60px] bottom-[20px] left-[270px] right-0  bg-inherit  flex flex-col">
+        <div className="fixed top-[60px] bottom-[20px] left-[270px] right-0 bg-inherit flex flex-col">
             <header
                 className="bg-gray-50 text-start border-2 w-full h-[62px] px-[32px] absolute top-0 left-0 right-0 z-20">
                 {recipient && (
@@ -58,7 +61,7 @@ const MessagePanel = ({recipient}) => {
             </header>
             {/*<div className="h-full flex flex-col p-[25px]">*/}
             <MessageContainer/>
-            <MessageInputField content={content} setContent={setContent} sendMessage={sendMessage}/>
+            <MessageInputField content={content} setContent={setContent} sendMessage={sendMessage} sendTypingStatus={sendTypingStatus}/>
             {/*</div>*/}
         </div>
     );
