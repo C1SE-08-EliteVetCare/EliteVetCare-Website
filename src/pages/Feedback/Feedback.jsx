@@ -6,10 +6,9 @@ import {faPenToSquare, faXmark} from "@fortawesome/free-solid-svg-icons";
 import Rate from "../../components/Rate/Rate";
 import * as feedbackService from "../../services/feedbackService";
 import * as adminService from "../../services/adminService";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import {Spinner} from "@material-tailwind/react";
-
-
+import {Helmet} from "react-helmet";
 
 const Feedback = () => {
     const [showModal, setShowModal] = useState(false)
@@ -116,6 +115,9 @@ const Feedback = () => {
 
     return (
         <>
+            <Helmet>
+                <title>Đánh giá | EliteVetCare</title>
+            </Helmet>
             <div className="w-full">
                 <img className="w-full h-full object-cover" src={bannerFeedback} alt="banner feedback"/>
                 <div className="max-w-screen-xl mx-auto my-8">

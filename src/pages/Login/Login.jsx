@@ -34,22 +34,20 @@ const Login = () => {
                     const getUser = await userService.getCurrentUser(
                         accessToken
                     );
-                    const {fullName, avatar, phone, role} = getUser.response;
-                    setAuth({email, fullName, phone, avatar, role});
+                    const {id, fullName, avatar, phone, role} = getUser.response;
+                    setAuth({id, email, fullName, phone, avatar, role});
                     localStorage.setItem(
                         "auth",
-                        JSON.stringify({email, fullName, phone, avatar, role})
+                        JSON.stringify({id, email, fullName, phone, avatar, role})
                     );
 
-                    navigate("/");
+                    role.id === 1 ? navigate("/admin/manage-account") : navigate("/");
                     toast.success("Đăng nhập thành công");
                 } else {
+                    console.log(authentication.error)
                     setLoading(false);
                     setSubmit(false);
-                    if (
-                        authentication.error.message ===
-                        "User not found or not active"
-                    ) {
+                    if (authentication.error.message === "User not found or not active") {
                         toast.error("Người dùng không tồn tại hoặc đã bị khóa");
                     } else {
                         toast.error("Mật khẩu không chính xác");
@@ -63,15 +61,21 @@ const Login = () => {
         const emailRegex = /\S+@\S+\.\S+/;
         const isEmailValid = emailRegex.test(email);
 
+        // email is valid and ends with "@gmail.com"
         if (isEmailValid && email.endsWith("@gmail.com")) {
-            // email is valid and ends with "@gmail.com"
-            setSubmit(true);
-            setLoading(true);
+            if (password.length < 8) {
+                toast.warning("Mật khẩu phải tối thiểu 8 kí tự")
+                setSubmit(false);
+                setLoading(false);
+            } else {
+                setSubmit(true);
+                setLoading(true);
+            }
         } else {
             // email is not valid or does not end with "@gmail.com"
             setSubmit(false);
             setLoading(false);
-            toast.error('Email phải bao gồm đuôi "@gmail.com"');
+            toast.warning('Email phải bao gồm đuôi "@gmail.com"');
         }
     };
     const handleLogin = (e) => {

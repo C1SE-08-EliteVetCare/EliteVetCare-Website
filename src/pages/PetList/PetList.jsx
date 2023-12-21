@@ -7,10 +7,11 @@ import noDataImg from "../../assets/vectors/no data.svg";
 import * as petService from "../../services/petService"
 import LoadingSkeleton from "../../components/LoadingSkeleton/LoadingSkeleton";
 import {useDispatch, useSelector} from "react-redux";
-import {selectPet, setPetList} from "../../redux/actions/pets";
+import petSlice from "../../redux/slices/pet";
 
 const PetList = () => {
     const pets = useSelector((state) => state.pet.petList)
+    const {setPetList, selectPet} = petSlice.actions
     const dispatch = useDispatch()
 
     const [loading, setLoading] = useState(true)

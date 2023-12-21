@@ -5,6 +5,7 @@ import AuthContext from "../../context/authContext";
 import {toast} from "sonner";
 import {Spinner} from "@material-tailwind/react";
 import {format} from "date-fns";
+import {Helmet} from "react-helmet";
 
 function MakeAppointment() {
     const currentTime = new Date().toLocaleTimeString('en-US', {
@@ -27,7 +28,6 @@ function MakeAppointment() {
         (async () => {
             const clinicList = await appointmentService.getClinic()
             if (clinicList.statusCode === 200) {
-                console.log(clinicList.response)
                 setClinics(clinicList.response)
             }
         })()
@@ -66,7 +66,10 @@ function MakeAppointment() {
     }, [submit])
 
     return (
-        <div className="wrapper bg-[#E6EBFB] text-white font-bold py-16 px-36 rounded min-w-screen">
+        <div className="wrapper bg-[#E6EBFB] text-white font-bold py-16 px-36 rounded">
+            <Helmet>
+                <title>Đặt Lịch | EliteVetCare</title>
+            </Helmet>
             <div
                 className="make bg-white border border-white rounded-lg px-16 h-[calc(100% - 50px)] w-[85%] h-3/4 flex flex-col justify-center mx-auto">
                 <h1 className="flex w-638 h-101 flex-col justify-center flex-shrink-0 text-black text-center text-3xl font-normal font-Kiwi-Maru  leading-normal p-4">

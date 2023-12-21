@@ -15,16 +15,18 @@ const LoginSuccess = () => {
         (async () => {
             const authentication = await authService.loginGoogleSuccess(params.tokenGoogle)
 
+            console.log(authentication)
+
             if (authentication.statusCode === 200) {
                 const accessToken = authentication.response.accessToken;
                 const refreshToken = authentication.response.refreshToken;
                 const getUser = await userService.getCurrentUser(accessToken)
 
-                const {email, fullName, phone, avatar, role} = getUser.response
-                setAuth({email, fullName, phone, avatar, role})
+                const {id, email, fullName, phone, avatar, role} = getUser.response
+                setAuth({id, email, fullName, phone, avatar, role})
                 localStorage.setItem('access-token', accessToken)
                 localStorage.setItem('refresh-token', refreshToken)
-                localStorage.setItem('auth', JSON.stringify({email, fullName, phone, avatar, role}))
+                localStorage.setItem('auth', JSON.stringify({id, email, fullName, phone, avatar, role}))
 
                 navigate('/')
                 toast.success('Đăng nhập thành công')

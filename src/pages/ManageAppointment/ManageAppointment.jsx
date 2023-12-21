@@ -4,18 +4,20 @@ import {faCircleInfo, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {motion} from "framer-motion";
 import * as appointmentService from "../../services/appointmentService"
 import {useDispatch, useSelector} from "react-redux";
-import {setAppointments, setFilters, setLoading, setPagination} from "../../redux/actions/appointments";
 import {Spinner} from "@material-tailwind/react";
 import noDataImg from "../../assets/vectors/no data.svg";
 import {format} from "date-fns";
 import Pagination from "../../components/Pagination/Pagination";
 import {toast} from "sonner";
+import appointmentSlice from "../../redux/slices/appointments";
 
 const ManageAppointment = () => {
     const accessToken = localStorage.getItem('access-token')
     const {appointments, loading, pagination, filters} = useSelector(
         (state) => state.appointment
     );
+    const {setAppointments, setFilters, setLoading, setActiveTab, setPagination} = appointmentSlice.actions
+
     const [loadingBtn, setLoadingBtn] = useState({
         action: 0,
         isLoading: false

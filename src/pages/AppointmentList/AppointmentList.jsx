@@ -4,11 +4,11 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import {Link} from "react-router-dom";
 import Pagination from "../../components/Pagination/Pagination";
-import AppointmentItem from "../../components/AppointmentItem/AppointmentItem";
+import Appointments from "../../components/Appointments/Appointments";
 import * as appointmentService from "../../services/appointmentService"
 import Search from "../../components/Search/Search";
 import {useDispatch, useSelector} from "react-redux";
-import {setActiveTab, setAppointments, setFilters, setLoading, setPagination} from "../../redux/actions/appointments";
+import appointmentSlice from "../../redux/slices/appointments";
 
 const AppointmentList = () => {
     const accessToken = localStorage.getItem('access-token')
@@ -16,6 +16,7 @@ const AppointmentList = () => {
     const {appointments, loading, activeTab, pagination, filters} = useSelector(
         (state) => state.appointment
     );
+    const {setAppointments, setFilters, setLoading, setActiveTab, setPagination} = appointmentSlice.actions
 
     useEffect(() => {
         (async () => {
@@ -34,7 +35,7 @@ const AppointmentList = () => {
 
     const handleTabClick = (tab) => {
         dispatch(setActiveTab(tab));
-        const newFilters = tab > 0 ? {...filters, status: tab} : {...filters, page: 1, status: null};
+        const newFilters = tab > 0 ? {...filters, page: 1, status: tab} : {...filters, page: 1, status: null};
         dispatch(setLoading(true));
         dispatch(setFilters(newFilters));
     }
@@ -87,14 +88,14 @@ const AppointmentList = () => {
             </ul>
             {loading ? (
                 <>
-                    <AppointmentItem.Loading/>
-                    <AppointmentItem.Loading/>
-                    <AppointmentItem.Loading/>
+                    <Appointments.Loading/>
+                    <Appointments.Loading/>
+                    <Appointments.Loading/>
                 </>
             ) : (
                 appointments.length > 0 ? (
                     <div>
-                        <AppointmentItem appointments={appointments}/>
+                        <Appointments appointments={appointments}/>
                         <Pagination pagination={pagination} onPageChange={handlePageChange}/>
                     </div>
                 ) : (
