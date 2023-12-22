@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {format, formatRelative} from "date-fns";
 import {Spinner} from "@material-tailwind/react";
 import AuthContext from "../../context/authContext";
@@ -18,7 +18,7 @@ export const FormattedMessage = ({user, message}) => {
             <div className="flex gap-[20px] items-center py-[5px] w-full justify-end pl-[50%]">
                 <div className="flex flex-col items-end">
                     <div className="flex gap-x-2 items-center">
-                        <span className={`${(viewTime.isView && viewTime.id === Number(message.id)) ? "block" : "hidden"} absolute right-[50%] text-[12px] font-medium opacity-50`}>{formatRelative(utcToZonedTime(new Date(message?.createdAt), 'Asia/Ho_Chi_Minh'), new Date(), {locale: vi})}</span>
+                        <span className={`${(viewTime.isView && viewTime.id === Number(message.id)) ? "block" : "hidden"} absolute right-[51%] text-[12px] font-medium opacity-50`}>{formatRelative(utcToZonedTime(new Date(message?.createdAt), 'Asia/Ho_Chi_Minh'), new Date(), {locale: vi})}</span>
                         <span
                             className="text-sm text-start cursor-pointer break-all bg-primaryColor text-white py-2 px-2.5 rounded-b-xl rounded-tl-xl"
                             onMouseMoveCapture={(e) => setViewTime({

@@ -125,3 +125,18 @@ export const getAllVet = async (params) => {
         };
     }
 };
+
+export const getRecommendVet = async () => {
+    try {
+        const response = await request.get("/user/vets/recommend");
+        return {
+            response: response.data,
+            statusCode: response.status,
+        };
+    } catch (error) {
+        return {
+            error: error.response.data,
+            statusCode: error.response.status,
+        };
+    }
+};

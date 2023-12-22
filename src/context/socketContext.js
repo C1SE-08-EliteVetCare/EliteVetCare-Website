@@ -9,7 +9,6 @@ if (accessToken) {
         extraHeaders: {
             Authorization: `Bearer ${accessToken}`
         },
-        // withCredentials: true
     })
 }
 

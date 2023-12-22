@@ -55,7 +55,7 @@ const MessagePanel = ({recipient, sendTypingStatus}) => {
                         <img className="bg-primaryColor h-[40px] w-[40px] rounded-full object-cover"
                              src={recipient?.avatar || "https://vnn-imgs-a1.vgcloud.vn/image1.ictnews.vn/_Files/2020/03/17/trend-avatar-1.jpg"}
                              alt="avatar"/>
-                        <span className="font-bold">{recipient?.id === auth.id ? recipient?.fullName : recipient?.fullName}</span>
+                        <span className="font-bold">{recipient?.fullName}</span>
                     </div>
                 )}
             </header>

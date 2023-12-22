@@ -5,24 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c2f5320b-aea7-496d-8be4-117a66704e4c" name="Changes" comment="update manageAccount and Reviews">
-      <change afterPath="$PROJECT_DIR$/src/redux/slices/message.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Conversation/ConversationChannel.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Conversation/ConversationChannel.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Conversation/ConversationSidebar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Conversation/ConversationSidebar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Conversation/CreateConversationForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Conversation/CreateConversationForm.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/DropDownUser/DropDownUser.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DropDownUser/DropDownUser.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Message/MessageContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Message/MessageContainer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Message/MessageInputField.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Message/MessageInputField.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Message/MessagePanel.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Message/MessagePanel.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/context/socketContext.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/socketContext.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Conversation/Conversation.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Conversation/Conversation.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/LoginSuccess/LoginSuccess.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/LoginSuccess/LoginSuccess.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/slices/conversation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/slices/conversation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/store.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/chatService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/chatService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/userService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/userService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +16,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="phihien" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -48,7 +32,7 @@
                 <list>
                   <RecentBranch>
                     <option name="branchName" value="quangquoc" />
-                    <option name="lastUsedInstant" value="1702726318" />
+                    <option name="lastUsedInstant" value="1703166909" />
                   </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="main" />
