@@ -1,6 +1,5 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import * as chatService from '../../services/chatService'
-import {useState} from "react";
 
 export const fetchConversationsThunk = createAsyncThunk(
     'conversation/fetch',
@@ -20,7 +19,7 @@ const conversationSlice = createSlice({
     name: 'conversation',
     initialState: {
         conversations: [],
-        loading: true,
+        loading: false,
     },
     reducers: {
         addConversation: (state, action) => {
@@ -49,8 +48,15 @@ const conversationSlice = createSlice({
             .addCase(fetchConversationsThunk.rejected, (state) => {
                 state.loading = false
             })
+            .addCase(createConversationsThunk.pending, (state, action) => {
+                state.loading = true
+            })
             .addCase(createConversationsThunk.fulfilled, (state, action) => {
                 state.conversations.unshift(action.payload.response);
+                state.loading = false
+            })
+            .addCase(createConversationsThunk.rejected, (state, action) => {
+                state.loading = false
             })
     }
 })

@@ -3,9 +3,10 @@ import {useParams} from "react-router-dom";
 import MessagePanel from "../Message/MessagePanel";
 import SocketContext from "../../context/socketContext";
 import AuthContext from "../../context/authContext";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {fetchMessagesThunk, setMessages} from "../../redux/slices/message";
 import {updateConversation} from "../../redux/slices/conversation";
+
 
 const ConversationChannel = ({conversations}) => {
     const socket = useContext(SocketContext)
@@ -14,9 +15,6 @@ const ConversationChannel = ({conversations}) => {
     const dispatch = useDispatch()
     const accessToken = localStorage.getItem('access-token')
     let recipient = {}
-    const {messages} = useSelector((state) => state.message)
-
-    // console.log(conversation.messages)
 
     if (conversations && conversations.length > 0) {
         const conversation = conversations.filter((item) => item?.id === Number(id))[0]
