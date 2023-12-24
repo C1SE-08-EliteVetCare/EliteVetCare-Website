@@ -18,6 +18,7 @@ const DetailUserAccount = () => {
     const {id} = useParams()
     const detail = listUser[0];
     const [detailUser, setDetailUser] = useState({});
+    const [selectedRole, setSelectedRole] = useState("");
 
     useEffect(() => {
         if (listUser.length > 0) {
@@ -45,6 +46,11 @@ const DetailUserAccount = () => {
         };
 
         fetchUserData();
+        if (listUser.length > 0) {
+            const result = listUser.filter((item) => item.id === Number(id))[0];
+            setDetailUser(result);
+            setSelectedRole(result.role);
+        }
     }, [accessToken, id]);
 
     if (loading) {
@@ -91,6 +97,29 @@ const DetailUserAccount = () => {
         }
     };
 
+    const handleRoleChange = async () => {
+        try {
+            const response = await adminService.updateUserRole(id, selectedRole);
+
+            if (response.statusCode === 200) {
+                // Update the state with the new user details
+                setDetailUser(response.response.data);
+
+                // Show a success notification
+                toast.success(`Vai trò của tài khoản đã được cập nhật thành công!`, {
+                    // ... (notification options)
+                });
+            }
+        } catch (error) {
+            console.error('Error updating user role:', error);
+
+            // Show an error notification
+            toast.error('Đã có lỗi xảy ra. Vui lòng thử lại sau!', {
+                // ... (notification options)
+            });
+        }
+    };
+
 
     return (
         <div className=" bg-[#F3F7FA] w-full h-full  border border-white p-8">
@@ -119,17 +148,21 @@ const DetailUserAccount = () => {
                                 </h1>
                                 <div className="text-right">
                                     <select
-                                        className=" py-1 px-4 border-t border-gray-600 bg-white w-2/3 h-3/4 text-center"
-                                        style={{borderRadius: "40px"}}
+                                        value={selectedRole}
+                                        onChange={(e) => setSelectedRole(e.target.value)}
+                                        className="py-1 px-4 border-t border-gray-600 bg-white w-2/3 h-2/4 text-center border "
+                                        style={{ borderRadius: "16px" }}
                                     >
-                                        <option value="option1">Bác sĩ</option>
-                                        <option value="option2">
-                                            Chủ phòng khám
-                                        </option>
-                                        <option value="option3">
-                                            Chủ thú cưng
-                                        </option>
+                                        <option value="doctor">Bác sĩ</option>
+                                        <option value="clinicOwner">Admin</option>
+                                        <option value="petOwner">Chủ thú cưng</option>
                                     </select>
+                                    <button
+                                        className="py-2 px-5 my-6 bg-blue-500 hover:bg-blue-700 text-white rounded-sm"
+                                        onClick={handleRoleChange}
+                                    >
+                                        Cập nhật vai trò
+                                    </button>
                                 </div>
                             </div>
                             <div key={detailUser.id}>
