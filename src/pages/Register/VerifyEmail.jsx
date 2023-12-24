@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ban from "../../assets/images/undraw_envelope_re_f5j4.svg";
-
+import {Spinner} from "@material-tailwind/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiamondTurnRight } from "@fortawesome/free-solid-svg-icons";
 import * as authServices from "../../services/authService";
 import { useNavigate } from "react-router-dom";
+import {toast} from "sonner";
 
 const VerifyEmail = () => {
     const [otp1, setOtp1] = useState("");
@@ -14,6 +15,8 @@ const VerifyEmail = () => {
     const [otp4, setOtp4] = useState("");
     const [otp5, setOtp5] = useState("");
     const [otp6, setOtp6] = useState("");
+    const [loading, setLoading] = useState(false);
+
 
     const navigate = useNavigate();
 
@@ -41,13 +44,20 @@ const VerifyEmail = () => {
                 otp
             );
             if (verifyResponse.statusCode === 200) {
+                setLoading(true);
                 localStorage.removeItem("verify-email");
                 navigate("/login");
+                toast.success("Xác nhận đăng ký thành công");
             } else {
+                setLoading(true);
                 console.log("Xác minh không thành công:", verifyResponse.error);
+                toast.error("Người dùng xác nhận không thành công ");
             }
         } catch (error) {
+            setLoading(false);
             console.log("Lỗi khi gửi yêu cầu xác minh:", error);
+            toast.error(" Mã xác nhận không thành công ");
+
         }
     };
 
@@ -182,7 +192,14 @@ const VerifyEmail = () => {
                                 className="bg-primaryColor text-white w-full py-2 mb-2 rounded-3xl hover:bg-blue-600"
                                 onClick={(e) => handleSubmit(e)}
                             >
-                                Xác nhận
+                                {loading ? (
+                                    <div className="flex items-center justify-center">
+                                        <Spinner className="h-6 w-6 mr-4"/>{" "}
+                                        <span>Đang tải....</span>
+                                    </div>
+                                ) : (
+                                    <span> Xác Nhận</span>
+                                )}
                             </button>
                         </form>
                         <div className="mb-10">

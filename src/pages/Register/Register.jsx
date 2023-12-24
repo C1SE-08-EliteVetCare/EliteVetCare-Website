@@ -6,6 +6,8 @@ import banner from "../../assets/images/login-banner.png";
 import AuthContext from "../../context/authContext";
 import * as registerServices from "../../services/registerService";
 import { toast } from "react-toastify";
+import {Spinner} from "@material-tailwind/react";
+
 
 const Register = () => {
     const { setAuth } = useContext(AuthContext);
@@ -63,9 +65,19 @@ const Register = () => {
                         localStorage.setItem("verify-email", email);
                         setLoading(false);
                         navigate("/verify-email");
+                        toast.success("Đăng ký thành công hãy kiểm tra email để xác nhận!")
                     }
                 } catch (error) {
-                    notify("An error occurred during registration.");
+                    if (error.response && error.response.status === 400) {
+                        // Email already registered
+                        notify("Email đã được đăng ký", "error");
+                        toast.error("Người dùng xác nhận không thành công ");
+
+                    } else {
+                        // Other registration error
+                        //notify("Tài khoản email đã tồn tại.", "error");
+                        toast.error("Tài khoản email đã tồn tại. ");
+                    }
                 }
             };
             fetchRegister();
@@ -261,6 +273,7 @@ const Register = () => {
                             >
                                 {loading ? (
                                     <div className="flex items-center justify-center">
+                                        <Spinner className="h-6 w-6 mr-4"/>{" "}
                                         <span>Đang tải....</span>
                                     </div>
                                 ) : (

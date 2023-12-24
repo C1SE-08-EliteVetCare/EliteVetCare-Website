@@ -50,4 +50,45 @@ export const verify = async (email, otp) => {
     }
 };
 
+const FORGOT_PASS_ENDPOINT = "/api/auth/forgot-password"
+
+export const forgotPassword = async (email) => {
+    try {
+        return await request.post(FORGOT_PASS_ENDPOINT,
+            {
+                email: email
+            },
+            {
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                withCredentials: true
+            }
+        );
+    } catch (error) {
+        return error
+    }
+};
+
+const RESET_PASS_ENDPOINT = "/api/auth/reset-password"
+
+export const resetPass = async (password, otp, email) => {
+    try {
+        return await request.post(RESET_PASS_ENDPOINT,
+            {
+                password: password,
+                otp: otp,
+                email: email
+            },
+            {
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                withCredentials: true
+            }
+        );
+    } catch (error) {
+        return error
+    }
+};
 

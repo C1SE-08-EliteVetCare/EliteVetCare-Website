@@ -1,11 +1,13 @@
 import * as request from "../utils/httpRequest";
 
 
-export const getUsers = async (accessToken) => {
+export const getUsers = async (accessToken, { page, limit,search }) => {
     try {
         const response = await request.get('/user/users', {
+            params: { page, limit,search},  // Include page and limit as query parameters
             headers: { Authorization: `Bearer ${accessToken}` },
         });
+
         return {
             response: response.data,
             statusCode: response.status,
@@ -18,9 +20,10 @@ export const getUsers = async (accessToken) => {
     }
 };
 
-export const getFeedBack = async (accessToken) => {
+export const getFeedBack = async (accessToken,{ page, limit , }) => {
     try {
         const response = await request.get('/feedback/feedbacks?rating=5', {
+            params: { page, limit },
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         return {
@@ -55,12 +58,13 @@ export const getDetail = async (accessToken) => {
 
 
 
-export const manageUser = async (id,fullName,email, gender,city,district,ward,avatar,phone,operatingStatus,createdAt,role,clinic) => {
+export const manageUser = async (page,limit,search) => {
     try {
-        const response = await request.post("/user/update-profile", { id,fullName,email, gender,city,district,ward,avatar,phone,operatingStatus,createdAt,role,clinic});
+        const response = await request.post("/user/users?page=2&limit=3", {page,limit,search});
         return {
             response: response.data,
             statusCode: response.status,
+
         };
     } catch (error) {
         return {

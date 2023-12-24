@@ -30,7 +30,7 @@ const HeaderAD = () => {
                         className="mr-4 text-2xl text-  text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-100 dark:border-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                         onClick={() => setShowNotifications(!showNotifications)}
                     >
-                        <FontAwesomeIcon icon={faBell} />
+
                     </button>
                     {isLogin ? (
                         <div>

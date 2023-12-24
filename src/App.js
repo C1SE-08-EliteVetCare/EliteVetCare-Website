@@ -4,8 +4,6 @@ import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import {publicRoutes} from "./routes";
 import {DefaultLayout} from "./layouts/DefaultLayout";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
-import Conversation from "./pages/Conversation/Conversation";
-import ConversationChannel from "./components/Conversation/ConversationChannel";
 
 function App() {
     return (
@@ -36,14 +34,8 @@ function App() {
                         );
                     })}
                 </Routes>
-                {/*<Routes>*/}
-                {/*    <Route path="conversations" element={<Conversation/>}>*/}
-                {/*        <Route path=":id" element={<ConversationChannel/>}/>*/}
-                {/*    </Route>*/}
-                {/*</Routes>*/}
             </div>
         </Router>
-
     );
 }
 
