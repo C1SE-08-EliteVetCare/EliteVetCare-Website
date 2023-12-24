@@ -29,7 +29,7 @@ const Feedback = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const feedbackResponse = await adminService.getFeedBack(accessToken);
+                const feedbackResponse = await feedbackService.getFeedBack(accessToken);
 
                 if (feedbackResponse.statusCode === 200) {
                     const allFeedbackData = feedbackResponse.response.data;

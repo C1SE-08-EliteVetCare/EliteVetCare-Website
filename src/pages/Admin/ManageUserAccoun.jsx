@@ -15,7 +15,7 @@ function formatDate(dateString) {
 const ManageUserAccount = () => {
     const [userList, setUserList] = useState([]);
     const [sortedUserList, setSortedUserList] = useState([]);
-    const accessToken = localStorage.getItem('access-token');
+    const accessToken = localStorage.getItem("access-token");
 
     const [loading, setLoading] = useState(true);
     const [sortBy, setSortBy] = useState("option1");
@@ -64,9 +64,13 @@ const ManageUserAccount = () => {
 
         let sortedList = [...sortedUserList];
         if (selectedValue === "option1") {
-            sortedList.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            sortedList.sort(
+                (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+            );
         } else {
-            sortedList.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+            sortedList.sort(
+                (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+            );
         }
         setSortedUserList(sortedList);
     };
@@ -127,6 +131,31 @@ const ManageUserAccount = () => {
     const handleSearchOnChange = (event) => {
         const value = event.target.value;
         setSearchValue(value);
+    };
+
+    const handleRoleChange = async (userId, newRoleId) => {
+        try {
+            setLoading(true);
+
+            // Call your service to update the user role
+            const response = await adminService.updateUserRole(userId, newRoleId);
+
+            if (response.statusCode === 200) {
+                // Update the state with the new user details
+                const updatedUserList = sortedUserList.map((user) =>
+                    user.id === userId ? response.response.data : user
+                );
+
+                setSortedUserList(updatedUserList);
+
+                // Show a success notification or perform any other necessary action
+            }
+        } catch (error) {
+            console.error("Error updating user role:", error);
+            // Handle error and show an error notification
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (

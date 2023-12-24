@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faCalendarAlt,
@@ -6,8 +6,22 @@ import {
     faPaw,
     faUserAlt,
 } from "@fortawesome/free-solid-svg-icons";
+import {useNavigate} from "react-router-dom";
+import AuthContext from "../../context/authContext";
+import {toast} from "sonner";
+
 
 const DropDownAdmin = ({ isDropDown }) => {
+    const navigate = useNavigate()
+    const {auth, setAuth} = useContext(AuthContext)
+    const handleLogout = () => {
+        setAuth({})
+        localStorage.removeItem('auth')
+        localStorage.removeItem('access-token')
+        localStorage.removeItem('refresh-token')
+        navigate('/login')
+        toast.success("Đăng xuất thành công")
+    }
     const isPetOwner = false;
     return (
         <div
@@ -34,10 +48,10 @@ const DropDownAdmin = ({ isDropDown }) => {
 
             <div className="flex items-center py-2 hover:border-y-rose-700 hover:bg-red-500 hover:text-white rounded transition-all duration-300 linear">
                 <FontAwesomeIcon className="mx-4" icon={faDoorOpen} />
-                <a href="/" className="block px-1 py-2 text-sm">
+                <button onClick={handleLogout} className="block px-1 py-2 text-sm">
                     Đăng xuất
-                </a>
-            </div>
+                </button>
+            </div>as
         </div>
     );
 };

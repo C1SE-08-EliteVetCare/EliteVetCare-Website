@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import Feedback from '../Feedback/Feedback';
-import * as adminService from '../../services/adminService';
+import * as feedbackService from '../../services/feedbackService';
 
 const SlideFeedback = () => {
     const [loading, setLoading] = useState(true);
@@ -11,7 +11,7 @@ const SlideFeedback = () => {
         const fetchFeedbackData = async () => {
             try {
                 const accessToken = localStorage.getItem('access-token');
-                const feedbackResponse = await adminService.getFeedBack(accessToken);
+                const feedbackResponse = await feedbackService.getFeedBack(accessToken);
 
                 if (feedbackResponse.statusCode === 200) {
                     const allFeedbackData = feedbackResponse.response.data;
