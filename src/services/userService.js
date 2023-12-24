@@ -4,11 +4,9 @@ const ROLE_USERS = '/user/users';
 export const getUser = async (accessToken) => {
     try {
         const response = await request.get(ROLE_USERS, {
-            headers: { Authorization: `Bearer ${accessToken}` },
+            headers: {Authorization: `Bearer ${accessToken}`},
         });
-        return {
-
-        };
+        return {};
     } catch (error) {
         return {
             error,
@@ -21,7 +19,7 @@ export const getUser = async (accessToken) => {
 export const getCurrentUser = async (accessToken) => {
     try {
         const response = await request.get("/user/me", {
-            headers: { Authorization: `Bearer ${accessToken}` },
+            headers: {Authorization: `Bearer ${accessToken}`},
         });
         return {
             response: response.data,
@@ -38,7 +36,7 @@ export const getCurrentUser = async (accessToken) => {
 export const updateAvatar = async (accessToken, formData) => {
     try {
         const response = await request.post("/user/upload-avatar", formData, {
-            headers: { Authorization: `Bearer ${accessToken}` },
+            headers: {Authorization: `Bearer ${accessToken}`},
         });
         return {
             response: response.data,
@@ -55,7 +53,7 @@ export const updateAvatar = async (accessToken, formData) => {
 export const updateProfile = async (accessToken, body) => {
     try {
         const response = await request.put("/user/update-profile", body, {
-            headers: { Authorization: `Bearer ${accessToken}` },
+            headers: {Authorization: `Bearer ${accessToken}`},
         });
         return {
             response: response.data,
@@ -68,9 +66,18 @@ export const updateProfile = async (accessToken, body) => {
         };
     }
 };
-export const userprofile = async (fullName, gender,city,district,ward,streetAddress,birthYear,phone) => {
+export const userprofile = async (fullName, gender, city, district, ward, streetAddress, birthYear, phone) => {
     try {
-        const response = await request.post("/user/update-profile", { fullName, gender,city,district,ward,streetAddress,birthYear,phone });
+        const response = await request.post("/user/update-profile", {
+            fullName,
+            gender,
+            city,
+            district,
+            ward,
+            streetAddress,
+            birthYear,
+            phone
+        });
         return {
             response: response.data,
             statusCode: response.status,
@@ -126,9 +133,14 @@ export const getAllVet = async (params) => {
     }
 };
 
-export const getRecommendVet = async () => {
+export const getRecommendVet = async (userId) => {
     try {
-        const response = await request.get("/user/vets/recommend");
+        console.log(userId)
+        const response = await request.get("/user/vets/recommend", {
+            params: {
+                userId
+            },
+        });
         return {
             response: response.data,
             statusCode: response.status,

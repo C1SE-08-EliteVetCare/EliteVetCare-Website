@@ -4,9 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c2f5320b-aea7-496d-8be4-117a66704e4c" name="Changes" comment="update manageAccount and Reviews">
+    <list default="true" id="c2f5320b-aea7-496d-8be4-117a66704e4c" name="Changes" comment="update find vet, recommend vet when create conversation">
+      <change afterPath="$PROJECT_DIR$/src/components/ModalPicture/ModalPicture.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/redux/slices/image.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/context/socketContext.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/socketContext.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Conversation/ConversationChannel.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Conversation/ConversationChannel.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Conversation/ConversationPanel.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Conversation/ConversationPanel.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Conversation/ConversationSidebar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Conversation/ConversationSidebar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Conversation/CreateConversationForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Conversation/CreateConversationForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Message/MessageContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Message/MessageContainer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Message/MessageInputField.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Message/MessageInputField.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Message/MessagePanel.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Message/MessagePanel.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/VetAccountItem/VetAccountItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VetAccountItem/VetAccountItem.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Conversation/Conversation.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Conversation/Conversation.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/PetCondition/PetCondition.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/PetCondition/PetCondition.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/slices/conversation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/slices/conversation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/chatService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/chatService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/userService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/userService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,25 +77,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;quangquoc&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Năm 4/Học Kỳ I/Capstone/EliteVetCare-Website&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\Program Files\\JetBrains\\WebStorm 2023.2.2\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "quangquoc",
+    "last_opened_file_path": "D:/WebstormProjects/elitevetcare-fe/src/redux/slices",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "D:\\Program Files\\JetBrains\\WebStorm 2023.2.2\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\WebstormProjects\elitevetcare-fe\src\redux\slices" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\WebstormProjects\elitevetcare-fe\src\components\SearchVetResult" />
       <recent name="D:\WebstormProjects\elitevetcare-fe\src\pages\Conversation" />
     </key>
   </component>
@@ -135,6 +154,8 @@
       <workItem from="1702980957583" duration="4674000" />
       <workItem from="1703016610433" duration="16289000" />
       <workItem from="1703075873291" duration="8449000" />
+      <workItem from="1703190043905" duration="18054000" />
+      <workItem from="1703387048782" duration="4868000" />
     </task>
     <task id="LOCAL-00001" summary="update manageAccount and Reviews">
       <option name="closed" value="true" />
@@ -144,7 +165,15 @@
       <option name="project" value="LOCAL" />
       <updated>1699881381673</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="update find vet, recommend vet when create conversation">
+      <option name="closed" value="true" />
+      <created>1703257984443</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1703257984443</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -176,6 +205,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update manageAccount and Reviews" />
     <MESSAGE value="update .gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="update .gitignore" />
+    <MESSAGE value="update find vet, recommend vet when create conversation" />
+    <option name="LAST_COMMIT_MESSAGE" value="update find vet, recommend vet when create conversation" />
   </component>
 </project>

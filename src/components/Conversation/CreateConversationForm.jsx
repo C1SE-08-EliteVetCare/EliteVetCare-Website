@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faClose, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {useDispatch, useSelector} from "react-redux";
@@ -10,10 +10,12 @@ import {motion} from "framer-motion";
 import {Spinner} from "@material-tailwind/react";
 import {useNavigate} from "react-router-dom";
 import VetAccountItem from "../VetAccountItem/VetAccountItem";
+import AuthContext from "../../context/authContext";
 
 const CreateConversationForm = ({setShowModal}) => {
     const navigate = useNavigate()
     const accessToken = localStorage.getItem('access-token')
+    const {auth} = useContext(AuthContext)
     const {conversations, loading} = useSelector((state) => state.conversation)
     const dispatch = useDispatch()
     const [searchValue, setSearchValue] = useState('')
@@ -72,7 +74,7 @@ const CreateConversationForm = ({setShowModal}) => {
     const handleRecommendVet = async (e) => {
         e.preventDefault()
         setLoadingSearch(true)
-        const result = await userService.getRecommendVet();
+        const result = await userService.getRecommendVet(auth.id);
         if (result.statusCode === 200) {
             setSearchResult(result.response)
             setShowResult(true)
@@ -144,7 +146,7 @@ const CreateConversationForm = ({setShowModal}) => {
                                     placement="bottom"
                                     render={(attrs) => (
                                         <div tabIndex="-1" {...attrs} className="flex flex-col gap-2 w-full py-2 bg-white drop-shadow-2xl rounded-md">
-                                            <h4 className="px-[12px] pb-2 font-medium border-b-2">Tài khoản</h4>
+                                            <h4 className="px-[12px] pb-2 font-medium border-b-2" key={1}>Tài khoản</h4>
                                             <div className="max-h-[300px] overflow-y-auto">
                                                 {searchResult.map((item) => (
                                                     <VetAccountItem item={item} handleSelectUser={handleSelectUser}/>

@@ -9,7 +9,7 @@ const VetAccountItem = ({item, handleSelectUser}) => {
             render={(attrs) => (
                 <div {...attrs} className="absolute bottom-0 bg-white drop-shadow-2xl rounded-md p-6 w-[400px]">
                     <div className="flex flex-col items-center mb-2.5">
-                        <img src={item?.avatar} alt="avatar"
+                        <img alt="avatar" src={item?.avatar || "https://vnn-imgs-a1.vgcloud.vn/image1.ictnews.vn/_Files/2020/03/17/trend-avatar-1.jpg"}
                              className="w-16 h-16 rounded-full object-cover"/>
                         <h1 className="text-xl font-medium">{item?.fullName}</h1>
                     </div>
@@ -32,7 +32,7 @@ const VetAccountItem = ({item, handleSelectUser}) => {
                 key={item?.id}
                 onClick={() => handleSelectUser(item)}
             >
-                <img src={item?.avatar} alt="avatar"
+                <img src={item?.avatar || "https://vnn-imgs-a1.vgcloud.vn/image1.ictnews.vn/_Files/2020/03/17/trend-avatar-1.jpg"} alt="avatar"
                      className="w-10 h-10 rounded-full object-cover"/>
                 <div className="flex flex-col items-start">
                     <h4 className="font-medium">{item?.fullName}</h4>

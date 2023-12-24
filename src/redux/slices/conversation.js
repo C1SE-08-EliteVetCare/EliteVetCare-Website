@@ -24,7 +24,7 @@ const conversationSlice = createSlice({
     reducers: {
         addConversation: (state, action) => {
             console.log('addConversation')
-            // state.conversations = action.payload
+            state.conversations.unshift(action.payload);
         },
         updateConversation: (state, action) => {
             console.log('Inside updateConversation');

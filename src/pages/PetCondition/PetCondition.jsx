@@ -2,13 +2,12 @@ import React, {useEffect, useState} from 'react';
 import ChartTable from "../../components/Chart/Chart";
 import {Link, useParams} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCircleArrowRight, faEdit, faPlus} from "@fortawesome/free-solid-svg-icons";
+import {faCircleArrowRight, faEdit} from "@fortawesome/free-solid-svg-icons";
 import {motion} from "framer-motion";
 import UpdatePetCondition from "./UpdatePetCondition";
 import * as petService from "../../services/petService"
 import {format} from "date-fns";
 import noCondition from "../../assets/images/undraw_envelope_re_f5j4.svg"
-import {useSelector} from "react-redux";
 import {Spinner} from "@material-tailwind/react";
 import {toast} from "sonner";
 

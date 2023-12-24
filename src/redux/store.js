@@ -5,6 +5,7 @@ import appointmentSlice from "./slices/appointments";
 import petTreatmentSlice from "./slices/petTreatments";
 import conversationSlice from "./slices/conversation";
 import messageSlice from "./slices/message";
+import imageSlice from "./slices/image";
 
 const store = configureStore({
     reducer: {
@@ -12,7 +13,8 @@ const store = configureStore({
         appointment: appointmentSlice.reducer,
         petTreatment: petTreatmentSlice.reducer,
         conversation: conversationSlice.reducer,
-        message: messageSlice.reducer
+        message: messageSlice.reducer,
+        image: imageSlice.reducer
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false}),
     devTools: true

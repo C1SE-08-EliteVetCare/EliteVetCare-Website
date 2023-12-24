@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMessage} from "@fortawesome/free-solid-svg-icons";
 import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
@@ -13,10 +13,54 @@ const ConversationSidebar = ({conversations}) => {
     const {auth} = useContext(AuthContext)
     const navigate = useNavigate()
     const [showModal, setShowModal] = useState(false)
+    const [currentTime, setCurrentTime] = useState(new Date());
+
+    const getName = (fullName) => {
+        const arrStr = fullName.split(' ')
+        return arrStr[arrStr.length - 1]
+    }
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentTime(new Date());
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    const calculateDateDifference = (startDate, endDate) => {
+        const timeDiff = endDate.getTime() - startDate.getTime();
+        const seconds = timeDiff / 1000;
+        let result;
+
+        switch (true) {
+            case seconds >= 7 * 24 * 60 * 60:
+                // More than 7 days difference, return the later date
+                result = `${Math.floor(seconds / (7 * 24 * 60 * 60))} tuần`;
+                break;
+            case seconds >= 24 * 60 * 60:
+                // Less than 7 days difference, return the number of days
+                result = `${Math.floor(seconds / (24 * 60 * 60))} ngày`;
+                break;
+            case seconds >= 60 * 60:
+                // Less than 1 day difference, return the number of hours
+                result = `${Math.floor(seconds / (60 * 60))} giờ`;
+                break;
+            case seconds >= 60:
+                // Less than 1-hour difference, return the number of minutes
+                result = `${Math.floor(seconds / 60)} phút`;
+                break;
+            default:
+                // Less than 1-minute difference, return the number of seconds
+                result = `${Math.floor(seconds)} giây`;
+        }
+        return result;
+    }
+
     return (
         <>
             {showModal && <CreateConversationForm setShowModal={setShowModal}/>}
-            <aside className="fixed top-[61px] left-0 bottom-0 h-full w-[270px] bg-gray-50 border-r-2 overflow-auto">
+            <aside className="fixed top-[61px] left-0 bottom-0 h-full w-[300px] bg-gray-50 border-r-2 overflow-auto">
                 <header className="flex justify-between items-center px-[20px] py-[17px] bg-gray-200">
                     <Link to="/conversations" className="flex items-center gap-x-2">
                         <FontAwesomeIcon icon={faMessage} className="text-primaryColor"/>
@@ -34,7 +78,6 @@ const ConversationSidebar = ({conversations}) => {
                             </g>
                         </svg>
                     </motion.div>
-
                 </header>
                 <div className="">
                     {conversations && conversations.length > 0 && (
@@ -51,10 +94,16 @@ const ConversationSidebar = ({conversations}) => {
                                     <span
                                         className="font-bold w-[145px] truncate text-start">{auth.id === item?.recipient.id ? item?.creator?.fullName : item?.recipient?.fullName}</span>
                                     <div className="flex items-center flex-row justify-between gap-x-2">
-                                        <span
-                                            className="text-[14px] w-[100px] truncate text-start">{item?.lastMessageSent?.content}</span>
+                                        {item?.lastMessageSent.imgUrl !== null ? (
+                                            <span
+                                                className="text-[14px] w-[145px] truncate text-start">{auth.id === item?.lastMessageSent?.author?.id ? "Bạn đã gửi một ảnh" : `${getName(item?.lastMessageSent?.author?.fullName)} đã gửi một ảnh`}</span>
+                                        ) : (
+                                            <span
+                                                className="text-[14px] w-[145px] truncate text-start">{auth.id === item?.lastMessageSent?.author?.id ? `Bạn: ${item?.lastMessageSent?.content}` : item?.lastMessageSent?.content}</span>
+                                        )}
                                         <span className="text-[13px] font-light">{item.lastMessageSent &&
-                                            <span>{format(utcToZonedTime(new Date(item.lastMessageSent.createdAt), 'Asia/Ho_Chi_Minh'), 'hh:mm a')}</span>}</span>
+                                            <span>{calculateDateDifference(new Date(item.lastMessageSent.createdAt), currentTime)}</span>}
+                                        </span>
                                     </div>
                                 </div>
                             </div>

@@ -67,3 +67,20 @@ export const createMessage = async (accessToken, body) => {
         };
     }
 };
+
+export const createMessageWithImage = async (accessToken, body) => {
+    try {
+        const response = await request.post("/message/upload-image", body, {
+            headers: {Authorization: `Bearer ${accessToken}`}
+        });
+        return {
+            response: response.data,
+            statusCode: response.status,
+        };
+    } catch (error) {
+        return {
+            error: error.response.data,
+            statusCode: error.response.status,
+        };
+    }
+};
