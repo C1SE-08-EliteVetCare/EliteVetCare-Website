@@ -8,7 +8,6 @@ import SocketContext from "../../context/socketContext";
 import AuthContext from "../../context/authContext";
 import {useParams} from "react-router-dom";
 import {toast} from "sonner";
-import ModalPicture from "../../components/ModalPicture/ModalPicture";
 
 const Conversation = ({children}) => {
     const socket = useContext(SocketContext)

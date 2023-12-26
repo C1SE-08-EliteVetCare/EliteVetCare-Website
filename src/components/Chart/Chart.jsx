@@ -1,7 +1,7 @@
 import React from 'react';
 import Chart from "react-apexcharts";
 
-const ChartTable = ({color, chartValue, chartDate}) => {
+const ChartTable = ({color, chartValue, chartDate, name}) => {
     const value = {
         options: {
             chart: {
@@ -17,7 +17,7 @@ const ChartTable = ({color, chartValue, chartDate}) => {
         },
         series: [
             {
-                name: "Cân nặng (Kg)",
+                name: name,
                 data: chartValue
             },
 

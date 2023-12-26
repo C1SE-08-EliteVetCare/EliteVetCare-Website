@@ -1,12 +1,10 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMessage} from "@fortawesome/free-solid-svg-icons";
-import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import CreateConversationForm from "./CreateConversationForm";
 import {motion} from "framer-motion";
 import AuthContext from "../../context/authContext";
-import {format} from "date-fns";
-import {utcToZonedTime} from "date-fns-tz";
 
 const ConversationSidebar = ({conversations}) => {
     const {id} = useParams()
