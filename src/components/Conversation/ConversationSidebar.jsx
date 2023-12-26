@@ -13,8 +13,10 @@ const ConversationSidebar = ({conversations, showModal, setShowModal}) => {
     const [currentTime, setCurrentTime] = useState(new Date());
 
     const getName = (fullName) => {
-        const arrStr = fullName.split(' ')
-        return arrStr[arrStr.length - 1]
+        if (fullName) {
+            const arrStr = fullName.split(' ')
+            return arrStr[arrStr.length - 1]
+        }
     }
 
     useEffect(() => {
@@ -91,12 +93,12 @@ const ConversationSidebar = ({conversations, showModal, setShowModal}) => {
                                     <span
                                         className="font-bold w-[145px] truncate text-start">{auth.id === item?.recipient.id ? item?.creator?.fullName : item?.recipient?.fullName}</span>
                                     <div className="flex items-center flex-row justify-between gap-x-2">
-                                        {item?.lastMessageSent.imgUrl !== null ? (
+                                        {item?.lastMessageSent?.imgUrl !== null ? (
                                             <span
-                                                className="text-[14px] w-[145px] truncate text-start">{auth.id === item?.lastMessageSent?.author?.id ? "Bạn đã gửi một ảnh" : `${getName(item?.lastMessageSent?.author?.fullName)} đã gửi một ảnh`}</span>
+                                                className="text-[14px] w-[140px] truncate text-start">{auth.id === item?.lastMessageSent?.author?.id ? "Bạn đã gửi một ảnh" : `${getName(item?.lastMessageSent?.author?.fullName)} đã gửi một ảnh`}</span>
                                         ) : (
                                             <span
-                                                className="text-[14px] w-[145px] truncate text-start">{auth.id === item?.lastMessageSent?.author?.id ? `Bạn: ${item?.lastMessageSent?.content}` : item?.lastMessageSent?.content}</span>
+                                                className="text-[14px] w-[140px] truncate text-start">{auth.id === item?.lastMessageSent?.author?.id ? `Bạn: ${item?.lastMessageSent?.content}` : item?.lastMessageSent?.content}</span>
                                         )}
                                         <span className="text-[13px] font-light">{item.lastMessageSent &&
                                             <span>{calculateDateDifference(new Date(item.lastMessageSent.createdAt), currentTime)}</span>}
