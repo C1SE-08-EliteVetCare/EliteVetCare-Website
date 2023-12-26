@@ -41,10 +41,8 @@ const Login = () => {
                         JSON.stringify({id, email, fullName, phone, avatar, role})
                     );
 
-                    role.id === 1 ? navigate("/admin/manage-account") : navigate("/");
-                    toast.success("Đăng nhập thành công");
+                    role.id === 1 ? window.location.href = '/admin/manage-account' : window.location.href = '/';
                 } else {
-                    console.log(authentication.error)
                     setLoading(false);
                     setSubmit(false);
                     if (authentication.error.message === "User not found or not active") {

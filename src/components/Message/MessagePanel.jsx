@@ -4,12 +4,10 @@ import MessageInputField from "./MessageInputField";
 import {useParams} from "react-router-dom";
 import * as chatService from "../../services/chatService"
 import AuthContext from "../../context/authContext";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setMessages} from "../../redux/slices/message";
-import {createMessageWithImage} from "../../services/chatService";
-import ModalPicture from "../ModalPicture/ModalPicture";
 
-const MessagePanel = ({recipient, sendTypingStatus}) => {
+const MessagePanel = ({recipient, sendTypingStatus, isRecipientTyping}) => {
     const {id} = useParams()
     const {auth} = useContext(AuthContext)
     const accessToken = localStorage.getItem('access-token')
@@ -17,10 +15,9 @@ const MessagePanel = ({recipient, sendTypingStatus}) => {
     const [content, setContent] = useState('')
     const formData = new FormData()
     let contentReq = ''
+
     const sendMessage = async (e) => {
         e.preventDefault()
-        console.log(id)
-        console.log('Sending message', content)
         if(!id || !content) return;
 
         contentReq = content
@@ -92,10 +89,18 @@ const MessagePanel = ({recipient, sendTypingStatus}) => {
                     </div>
                 )}
             </header>
-            {/*<div className="h-full flex flex-col p-[25px]">*/}
             <MessageContainer/>
+            {isRecipientTyping && (
+                <div className="flex flex-row items-center gap-3 ml-[40px] pt-[10px]">
+                    <img src={recipient?.avatar} alt="avatar" className="h-[40px] w-[40px] rounded-full "/>
+                    <div className="is-typing">
+                        <div className="jump1"></div>
+                        <div className="jump2"></div>
+                        <div className="jump3"></div>
+                    </div>
+                </div>
+            )}
             <MessageInputField content={content} setContent={setContent} sendMessage={sendMessage} uploadImg={uploadImg} sendTypingStatus={sendTypingStatus}/>
-            {/*</div>*/}
         </div>
     );
 };

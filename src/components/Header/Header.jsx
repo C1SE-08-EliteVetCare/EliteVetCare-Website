@@ -7,6 +7,7 @@ import AuthContext from "../../context/authContext";
 
 const Header = () => {
     const {auth} = useContext(AuthContext)
+    const accessToken = localStorage.getItem('access-token')
     const [isDropDown, setIsDropDown] = useState(false);
     const router = useLocation();
 
@@ -55,7 +56,7 @@ const Header = () => {
 
                 <div className="h-full flex items-center">
                     {
-                        Object.keys(auth).length > 0 ? (
+                        accessToken ? (
                             <motion.div animate={isDropDown ? "open" : "closed"}>
                                 <button
                                     onClick={() => setIsDropDown(!isDropDown)}

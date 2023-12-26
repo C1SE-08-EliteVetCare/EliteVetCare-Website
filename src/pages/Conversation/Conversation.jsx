@@ -28,7 +28,6 @@ const Conversation = ({children}) => {
     }, [accessToken, dispatch]);
 
     useEffect(() => {
-        socket.emit('onClientConnect', { conversationId: parseInt(id) })
         socket.on('connected', (data) => console.log('Connected', data))
         socket.on('onMessage', (payload) => {
             const {conversation, message} = payload
@@ -49,6 +48,9 @@ const Conversation = ({children}) => {
             toast.info('Bạn có tin nhắn mới từ người lạ')
             dispatch(addConversation(payload));
         });
+        socket.on('onReceiveUserTyping', (payload) => {
+            console.log(payload)
+        })
 
         return () => {
             socket.off('connected')

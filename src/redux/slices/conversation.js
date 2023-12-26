@@ -61,6 +61,12 @@ const conversationSlice = createSlice({
     }
 })
 
+export const getRecipientFromConversation = (conversation, user) => {
+    return user?.id === conversation?.creator.id
+        ? conversation?.recipient
+        : conversation?.creator;
+};
+
 export const {addConversation, updateConversation} = conversationSlice.actions
 
 export default conversationSlice

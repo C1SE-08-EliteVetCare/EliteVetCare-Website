@@ -85,8 +85,8 @@ const DropDownUser = ({isDropDown}) => {
                 >
 
                     <FontAwesomeIcon className="mx-4" icon={faMessage}/>
-                    <a href="/conversations"
-                       className="block px-1 py-2 cursor-pointer">EliteVetCare Chat</a>
+                    <Link to="/conversations"
+                       className="block px-1 py-2 cursor-pointer">EliteVetCare Chat</Link>
                 </li>
             </ul>
             <div onClick={handleLogout}
