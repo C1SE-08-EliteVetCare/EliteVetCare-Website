@@ -6,11 +6,10 @@ import CreateConversationForm from "./CreateConversationForm";
 import {motion} from "framer-motion";
 import AuthContext from "../../context/authContext";
 
-const ConversationSidebar = ({conversations}) => {
+const ConversationSidebar = ({conversations, showModal, setShowModal}) => {
     const {id} = useParams()
     const {auth} = useContext(AuthContext)
     const navigate = useNavigate()
-    const [showModal, setShowModal] = useState(false)
     const [currentTime, setCurrentTime] = useState(new Date());
 
     const getName = (fullName) => {

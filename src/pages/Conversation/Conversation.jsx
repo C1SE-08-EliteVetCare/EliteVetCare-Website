@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Header from "../../components/Header/Header";
 import ConversationSidebar from "../../components/Conversation/ConversationSidebar";
 import {useDispatch, useSelector} from "react-redux";
@@ -16,9 +16,15 @@ const Conversation = ({children}) => {
     const accessToken = localStorage.getItem('access-token')
     const dispatch = useDispatch()
     const {conversations} = useSelector((state) => state.conversation)
+    const [showModal, setShowModal] = useState(false)
 
     useEffect(() => {
-        dispatch(fetchConversationsThunk(accessToken))
+        dispatch(fetchConversationsThunk(accessToken)).unwrap().then((data) => {
+            if (data.response.length === 0) {
+                setShowModal(!showModal)
+                toast.info("Bạn chưa có cuộc trò chuyện nào. Hãy tạo cuộc trò chuyện mới !")
+            }
+        })
     }, [accessToken, dispatch]);
 
     useEffect(() => {
@@ -55,7 +61,7 @@ const Conversation = ({children}) => {
         <div className="wrapper">
             <Header/>
             <div className="h-full w-full flex justify-start items-center overflow-hidden">
-                <ConversationSidebar conversations={conversations}/>
+                <ConversationSidebar conversations={conversations} showModal={showModal} setShowModal={setShowModal}/>
                 {React.Children.map(children, child =>
                     React.cloneElement(child, {conversations: conversations})
                 )}
