@@ -95,11 +95,11 @@ const PetAdvice = () => {
                                 {/*<h3 className="font-medium mb-4">Biểu đồ trực quan</h3>*/}
                                 <div className="grid grid-cols-2 justify-items-center">
                                     <div className="flex flex-col justify-center">
-                                        <ChartTable color="#38C976" chartValue={chartPortion} chartDate={chartDate}/>
+                                        <ChartTable color="#38C976" chartValue={chartPortion} chartDate={chartDate} name="Khẩu phần ăn (g)"/>
                                         <h3>Biểu đồ khẩu phần ăn (g)</h3>
                                     </div>
                                     <div className="flex flex-col justify-center">
-                                        <ChartTable color="#FF5E5E" chartValue={chartWeight} chartDate={chartDate}/>
+                                        <ChartTable color="#FF5E5E" chartValue={chartWeight} chartDate={chartDate} name="Cân nặng (kg)"/>
                                         <h3>Biểu đồ cân nặng (kg)</h3>
                                     </div>
                                 </div>

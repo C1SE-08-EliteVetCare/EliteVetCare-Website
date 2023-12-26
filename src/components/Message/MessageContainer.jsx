@@ -6,7 +6,7 @@ import {utcToZonedTime} from "date-fns-tz";
 import {vi} from "date-fns/locale";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
-import {setShowImage} from "../../redux/slices/image";
+import {setImages, setShowImage} from "../../redux/slices/image";
 
 export const FormattedMessage = ({user, message, viewTime, toggleShowTime, renderImage}) => {
     const currentDate = new Date()
@@ -59,7 +59,7 @@ const MessageContainer = () => {
     const {auth} = useContext(AuthContext)
     const {id} = useParams()
     const {messages, loading} = useSelector((state) => state.message)
-    // const {selectedImage} = useSelector((state) => state.message)
+    const msgs = messages.find((cm) => cm.id === parseInt(id))
     const dispatch = useDispatch()
 
     const [viewTime, setViewTime] = useState({
@@ -80,10 +80,16 @@ const MessageContainer = () => {
     }
 
     const renderImage = (message, toggleShowTime) => {
+        const filterImg = (arr) => {
+            const filterImg = arr.filter(item => item.imgUrl !== null)
+            return filterImg.map(item => item.imgUrl)
+        }
+
         return (
             <img onMouseMoveCapture={(e) => toggleShowTime(e, true)}
                  onMouseOutCapture={(e) => toggleShowTime(e, false)}
                  onClick={(e) => {
+                     dispatch(setImages(filterImg(msgs.data)))
                      dispatch(setShowImage({selectedImage: message.imgUrl, isShowModal: true}))
                  }}
                  data-id={message.id} className="h-auto max-w-xs hover:opacity-90 rounded-xl object-cover cursor-pointer" src={message.imgUrl} alt=""/>
@@ -91,7 +97,6 @@ const MessageContainer = () => {
     }
 
     const formatMessages = () => {
-        const msgs = messages.find((cm) => cm.id === parseInt(id))
         return msgs && msgs.data.map((m, index, arr) => {
             const currentMessage = arr[index];
             const nextMessage = arr[index + 1];
