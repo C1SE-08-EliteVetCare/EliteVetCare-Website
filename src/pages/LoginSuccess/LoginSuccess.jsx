@@ -28,8 +28,7 @@ const LoginSuccess = () => {
                 localStorage.setItem('refresh-token', refreshToken)
                 localStorage.setItem('auth', JSON.stringify({id, email, fullName, phone, avatar, role}))
 
-                navigate('/')
-                toast.success('Đăng nhập thành công')
+                window.location.href = '/'
             } else {
                 if (authentication.statusCode === 400 && authentication.error.message === 'The account has been locked') {
                     navigate('/login')
