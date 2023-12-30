@@ -72,10 +72,7 @@ const DetailUserAccount = () => {
             const response = await adminService.toggleAccountStatus(id, action);
 
             if (response.statusCode === 200) {
-                // Update the state with the new user details
                 setDetailUser(response.response.data);
-
-                // Show a success notification
                 const actionText = detailUser.operatingStatus ? 'mở khóa' : 'kích hoạt';
                 toast.success(`Tài khoản đã được ${actionText} thành công!`, {
                     position: 'top-right',
@@ -88,8 +85,6 @@ const DetailUserAccount = () => {
             }
         } catch (error) {
             console.error('Error toggling account status:', error);
-
-            // Show an error notification
             toast.error('Đã có lỗi xảy ra. Vui lòng thử lại sau!', {
                 position: 'top-right',
                 autoClose: 3000,
@@ -107,25 +102,20 @@ const DetailUserAccount = () => {
             console.log('Updating role for user:', id);
             console.log('Selected role:', selectedRole);
 
-            // Use the new function to update the user role
             const response = await adminService.updateUserRole(id, selectedRole, accessToken); // Pass selectedRole as the roleId
 
             if (response.statusCode === 200) {
-                // setDetailUser(response.response.data);
                 toast.success(`Vai trò của tài khoản đã được cập nhật thành công!`, {
-                    // ... (notification options)
                 });
             } else {
                 console.log(response.response)
                 console.error('Error updating user role:', response);
                 toast.error('Đã có lỗi xảy ra. Vui lòng thử lại sau!', {
-                    // ... (notification options)
                 });
             }
         } catch (error) {
             console.error('Error updating user role:', error);
             toast.error('Đã có lỗi xảy ra. Vui lòng thử lại sau!', {
-                // ... (notification options)
             });
         } finally {
             setLoading(false);
