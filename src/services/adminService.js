@@ -90,14 +90,19 @@ export const toggleAccountStatus = async (userid,action) => {
 
 export const updateUserRole = async (userId, roleId, accessToken) => {
     try {
-        const response = await request.post(`/user/update-role/${userId}`, { userId,roleId }, {
-            headers: { Authorization: `Bearer ${accessToken}` },
-        });
+        const response = await request.patch(
+            `/user/update-role`,  // Include userId in the URL
+            { userId, roleId },
+            {
+                headers: { Authorization: `Bearer ${accessToken}` },
+            }
+        );
         return {
             response: response.data,
             statusCode: response.status,
         };
     } catch (error) {
+        console.error('Error updating user role:', error);
         return {
             error: error.response.data,
             statusCode: error.response.status,

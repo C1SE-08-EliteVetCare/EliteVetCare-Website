@@ -10,8 +10,8 @@ import banner from "../../assets/images/login-banner.png";
 const ResetPassword = () => {
     const location = useLocation();
     const navigate = useNavigate();
+    const email = localStorage.getItem("reset-password")
 
-    const [email, setEmail] = useState(location?.state?.email || "");
     const [password, setPassword] = useState("");
     const [cfPassword, setCfPassword] = useState("");
     const [hiddenPass, setHiddenPass] = useState(true);
@@ -53,43 +53,46 @@ const ResetPassword = () => {
             return;
         }
 
-        try {
             setLoading(true);
-            const verifyResponse = await authService.verifyEmail(localStorage.getItem("verify-email"), combinedOtp);
+            console.log(email)
+            const verifyResponse = await authService.Resetpassword({email, otp: combinedOtp, password});
 
-            console.log("Verify Response:", verifyResponse);
-            console.log("OTP .,", combinedOtp);
+            console.log("OTP: ", combinedOtp);
 
-            if (verifyResponse.statusCode === 200 && verifyResponse.data.isValid) {
-                localStorage.removeItem("verify-email");
+            if (verifyResponse.statusCode === 200) {
+                localStorage.removeItem("reset-password");
                 setPassword("");
                 setCfPassword("");
-
+                setLoading(false)
+                console.log(verifyResponse.response)
+                navigate('/login')
                 toast.success("Đặt lại mật khẩu thành công!");
             } else {
-                console.error("OTP verification failed:", verifyResponse.error);
-
-                if (verifyResponse.error === "Bad Request") {
-                    const errorMessage = Array.isArray(verifyResponse.message)
-                        ? verifyResponse.message[0]
-                        : verifyResponse.message;
-
-                    if (errorMessage === "OTP has expired") {
-                        toast.error("Mã OTP đã hết hạn. Vui lòng yêu cầu mã mới.");
-
-                    } else {
-                        toast.error(errorMessage);
-                    }
+                setLoading(false)
+                if (verifyResponse.statusCode === 400 && verifyResponse.error.message === "Invalid OTP") {
+                    toast.error("Sai OTP. Vui lòng nhập lại")
                 } else {
-                    toast.error("Mã OTP không hợp lệ hoặc đã hết hạn");
+                    toast.error("OTP đã hết hạn")
+                    navigate('/forgot-password')
                 }
+                // console.error("OTP verification failed:", verifyResponse.error);
+                //
+                //
+                // if (verifyResponse.error === "Bad Request") {
+                //     const errorMessage = Array.isArray(verifyResponse.message)
+                //         ? verifyResponse.message[0]
+                //         : verifyResponse.message;
+                //
+                //     if (errorMessage === "OTP has expired") {
+                //         toast.error("Mã OTP đã hết hạn. Vui lòng yêu cầu mã mới.");
+                //
+                //     } else {
+                //         toast.error(errorMessage);
+                //     }
+                // } else {
+                //     toast.error("Mã OTP không hợp lệ hoặc đã hết hạn");
+                // }
             }
-        } catch (error) {
-            console.error("Error resetting password:", error);
-            toast.error("Error resetting password. Vui lòng thử lại sau.");
-        } finally {
-            setLoading(false);
-        }
     };
 
 
@@ -112,12 +115,9 @@ const ResetPassword = () => {
                                     type="text"
                                     className="block w-full mb-6 px-4 py-3 border-2 rounded-lg text-gray-900 shadow-lg bg-gray-200 appearance-none focus:outline-none peer"
                                     placeholder=" "
-                                    onChange={(e) => setEmail(e.target.value)}
                                     value={email}
                                 />
-                                <label className="absolute text-base bg-gray-200 top-2 z-10 px-2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 left-3">
-                                    {email}
-                                </label>
+
                             </div>
                             <div className="grid grid-cols-6 gap-3 mb-6">
                                 {otp.map((digit, index) => (
@@ -198,7 +198,14 @@ const ResetPassword = () => {
                                 onClick={handleResetPassword}
                                 disabled={loading}
                             >
-                                {loading ? <Spinner color="white" size="sm" /> : "Xác nhận"}
+                                {loading ? (
+                                    <div className="flex items-center justify-center">
+                                        <Spinner className="h-6 w-6 mr-4" />
+                                        <span>Đang tải....</span>
+                                    </div>
+                                ) : (
+                                    <span>Xác nhận</span>
+                                )}
                             </button>
                         </form>
                         <div className="mb-10">

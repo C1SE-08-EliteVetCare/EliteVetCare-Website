@@ -51,7 +51,7 @@ const DropDownAdmin = ({ isDropDown }) => {
                 <button onClick={handleLogout} className="block px-1 py-2 text-sm">
                     Đăng xuất
                 </button>
-            </div>as
+            </div>
         </div>
     );
 };
