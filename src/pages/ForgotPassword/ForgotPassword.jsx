@@ -38,15 +38,9 @@ const ForgotPassword = () => {
             const response = await authService.forgotPassword(email);
 
             if (response.statusCode === 200) {
-
-                if (response.data && response.data.email) {
-                    localStorage.setItem("reset-password", email);
-                    toast.error("Email không tồn tại");
-                } else {
-                    console.error("Email does not exist");
-                    navigate("/reset-password");
-                    toast.success("Đã gửi thành công đến email vui lòng kiểm tra!");
-                }
+                localStorage.setItem("reset-password", email);
+                navigate("/reset-password");
+                toast.success("Đã gửi thành công đến email vui lòng kiểm tra!");
             } else {
                 console.error("Error during forgot password:", response);
                 toast.error("Error during forgot password");

@@ -15,16 +15,23 @@ const DetailUserAccount = () => {
     const [listUser, setUserList] = useState([]);
     const [loading, setLoading] = useState(true);
     const accessToken = localStorage.getItem('access-token')
+
     const {id} = useParams()
     const detail = listUser[0];
     const [detailUser, setDetailUser] = useState({});
     const [selectedRole, setSelectedRole] = useState("");
+    const [userId, setuserId] = useState("");
+    const [roleId, setroleID] = useState("");
+
+
+
 
     useEffect(() => {
         if (listUser.length > 0) {
             const result = listUser.filter((item) => item.id === Number(id))[0]
             console.log(result)
             setDetailUser(result)
+            setSelectedRole(result.role.id)
         }
     }, [listUser])
 
@@ -34,9 +41,9 @@ const DetailUserAccount = () => {
         const fetchUserData = async () => {
             try {
                 setLoading(true);
-                const listUser = await adminService.getDetail(accessToken, id);
-                if (listUser.statusCode === 200) {
-                    setUserList(listUser.response.data);
+                const listUserResponse = await adminService.getDetail(accessToken, id);
+                if (listUserResponse.statusCode === 200) {
+                    setUserList(listUserResponse.response.data);
                 }
             } catch (error) {
                 console.error('Error fetching user data:', error);
@@ -46,21 +53,18 @@ const DetailUserAccount = () => {
         };
 
         fetchUserData();
-        if (listUser.length > 0) {
-            const result = listUser.filter((item) => item.id === Number(id))[0];
-            setDetailUser(result);
-            setSelectedRole(result.role);
-        }
     }, [accessToken, id]);
 
     if (loading) {
-        return <div className="flex items-end gap-8">
-            <Spinner className={"h-16 w-16"} color="blue" />
-        </div>; // You can replace this with a loading spinner or component
+        return (
+            <div className="flex items-end gap-8">
+                <Spinner className={"h-16 w-16"} color="blue" />
+            </div>
+        );
     }
 
     if (listUser.length === 0) {
-        return <p>No data found for this user.</p>; // Handle the case where no data is available
+        return <p>No data found for this user.</p>;
     }
     const handleToggleAccountStatus = async () => {
         try {
@@ -99,30 +103,40 @@ const DetailUserAccount = () => {
 
     const handleRoleChange = async () => {
         try {
-            const response = await adminService.updateUserRole(id, selectedRole);
+            setLoading(true);
+            console.log('Updating role for user:', id);
+            console.log('Selected role:', selectedRole);
+
+            // Use the new function to update the user role
+            const response = await adminService.updateUserRole(id, selectedRole, accessToken); // Pass selectedRole as the roleId
 
             if (response.statusCode === 200) {
-                // Update the state with the new user details
-                setDetailUser(response.response.data);
-
-                // Show a success notification
+                // setDetailUser(response.response.data);
                 toast.success(`Vai trò của tài khoản đã được cập nhật thành công!`, {
+                    // ... (notification options)
+                });
+            } else {
+                console.log(response.response)
+                console.error('Error updating user role:', response);
+                toast.error('Đã có lỗi xảy ra. Vui lòng thử lại sau!', {
                     // ... (notification options)
                 });
             }
         } catch (error) {
             console.error('Error updating user role:', error);
-
-            // Show an error notification
             toast.error('Đã có lỗi xảy ra. Vui lòng thử lại sau!', {
                 // ... (notification options)
             });
+        } finally {
+            setLoading(false);
         }
     };
 
 
+
+
     return (
-        <div className=" bg-[#F3F7FA] w-full h-full  border border-white p-8">
+        <div className=" bg-[#F3F7FA] w-full h-full   p-8">
 
             <div>
                 <div className=" bg-[#ffffff] w-full h-ful  p-4">
@@ -146,23 +160,19 @@ const DetailUserAccount = () => {
                                 <h1 className="text-2xl font-medium text-black text-start mb-6">
                                     Thông tin chi tiết
                                 </h1>
-                                <div className="text-right">
+                                <div key={detailUser.id} className="text-right">
                                     <select
                                         value={selectedRole}
                                         onChange={(e) => setSelectedRole(e.target.value)}
-                                        className="py-1 px-4 border-t border-gray-600 bg-white w-2/3 h-2/4 text-center border "
+                                        className="py-1 px-4 border-t border-gray-600 bg-white w-60 h-2/4 text-center border "
                                         style={{ borderRadius: "16px" }}
                                     >
-                                        <option value="doctor">Bác sĩ</option>
-                                        <option value="clinicOwner">Admin</option>
-                                        <option value="petOwner">Chủ thú cưng</option>
+                                        <option value={1}>Admin</option>
+                                        <option value={2}>Chủ thú cưng</option>
+                                        <option value={3}>Bác sĩ</option>
                                     </select>
-                                    <button
-                                        className="py-2 px-5 my-6 bg-blue-500 hover:bg-blue-700 text-white rounded-sm"
-                                        onClick={handleRoleChange}
-                                    >
-                                        Cập nhật vai trò
-                                    </button>
+
+
                                 </div>
                             </div>
                             <div key={detailUser.id}>
@@ -186,18 +196,21 @@ const DetailUserAccount = () => {
                                     <label className="text-gray-700 text-sm font-bold text-left col-span-2">
                                         Năm sinh:
                                     </label>
-                                    <label className="text-gray-700 text-sm font-bold text-left col-span-2">
-                                        {detailUser.birthYear}
+                                    <label className="text-gray-700  text-sm font-bold  col-span-9 text-left" >
+                                        {detailUser && detailUser.birthYear ? detailUser.birthYear : "Chưa nhập năm sinh"}
                                     </label>
                                 </div>
                                  <div className="grid grid-cols-11 border-t border-gray-600 bg-white-200 p-3 mx-6">
                                     <label className="text-gray-700 text-sm font-bold text-left col-span-2">
                                         Giới tính:
                                     </label>
-                                    <label className="text-gray-700 text-sm font-bold text-left col-span-2">
-                                        {detailUser.gender}
-                                    </label>
-                                </div>
+                                     <label className="text-gray-700 text-sm font-bold text-left col-span-2">
+                                         {detailUser && detailUser.gender
+                                             ? detailUser.gender
+                                             : "Chưa chọn giới tính"}
+                                     </label>
+
+                                 </div>
                                  <div className="grid grid-cols-11 border-t border-gray-600 bg-white-200 p-3 mx-6">
                                     <label className="text-gray-700 text-sm font-bold text-left col-span-2">
                                         Số điện thoại:
@@ -210,9 +223,12 @@ const DetailUserAccount = () => {
                                     <label className="text-gray-700 text-sm font-bold text-left col-span-2">
                                         Địa chỉ:
                                     </label>
-                                    <label className="text-gray-700  text-sm font-bold  col-span-9 text-left ">
-                                        {`${detailUser?.streetAddress} ${detailUser.ward} ${detailUser.district} ${detailUser.city}`}
+                                    <label className="text-gray-700 text-sm font-bold col-span-9 text-left">
+                                        {detailUser && detailUser.streetAddress
+                                            ? `${detailUser.streetAddress} ${detailUser.ward} ${detailUser.district} ${detailUser.city}`
+                                            : "Chưa có địa chỉ"}
                                     </label>
+
                                 </div>
                                  <div className="grid grid-cols-11 border-t border-gray-600 bg-white-200 p-3 mx-6">
                                     <label className="text-gray-700 text-sm font-bold text-left col-span-2">
@@ -231,6 +247,13 @@ const DetailUserAccount = () => {
                                     onClick={handleToggleAccountStatus}
                                 >
                                     {detailUser.operatingStatus ? ' Khóa tài khoản' : 'Mở khóa tài khoản'}
+                                </button>
+
+                                <button
+                                    className="py-2 px-5 mx-8 my-6 bg-blue-500 hover:bg-blue-700 text-white rounded-sm"
+                                    onClick={handleRoleChange}                                    disabled={loading} // Disable the button during loading
+                                >
+                                    Cập nhật Vai trò
                                 </button>
                             </div>
 
