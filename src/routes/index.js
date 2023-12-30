@@ -26,7 +26,8 @@ import VerifyEmail from "../pages/Register/VerifyEmail";
 import ConversationChannel from "../components/Conversation/ConversationChannel";
 import Conversation from "../pages/Conversation/Conversation";
 import ConversationPanel from "../components/Conversation/ConversationPanel";
-// Public routes
+import Clinic from "../pages/Clinic/ListofClinics";
+// Public routesClinic
 const publicRoutes = [
     { path: "/", component: Home },
     { path: "/register", component: Register, layout: null },
@@ -37,6 +38,8 @@ const publicRoutes = [
     { path: "/feedback", component: Feedback },
     { path: "/contact", component: Contact },
     { path: "/profile", component: UserProfile },
+    { path: "/clinic", component: Clinic, },
+
     {
         path: "/profile/change-password",
         component: ChangePassword,

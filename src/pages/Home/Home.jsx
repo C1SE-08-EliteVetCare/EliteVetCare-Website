@@ -99,7 +99,7 @@ const Home = () => {
                     <p className="text-primaryColor text-lg font-bold">Love Pet, Hữu Nghị và Thú Y Sông Hàn.</p>
                     <motion.a
                         whileHover={{scale: 1.2}}
-                        href="/"
+                        href="/clinic"
                         className="inline-block text-lg font-medium px-5 py-1 border-2 border-primaryColor rounded-full mt-4 hover:bg-primaryColor hover:text-white"
                     >
                         Xem thêm
