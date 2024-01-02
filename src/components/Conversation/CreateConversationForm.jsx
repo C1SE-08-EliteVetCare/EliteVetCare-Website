@@ -116,7 +116,7 @@ const CreateConversationForm = ({setShowModal}) => {
             ref={divRef}
             onClick={handleOverlayClick}
         >
-            <div className="relative min-w-[40%] max-h-full">
+            <div className="relative w-[60%] lg:w-[40%] max-h-full">
                 <div
                     className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                     <div
@@ -146,7 +146,7 @@ const CreateConversationForm = ({setShowModal}) => {
                                     placement="bottom"
                                     render={(attrs) => (
                                         <div tabIndex="-1" {...attrs} className="flex flex-col gap-2 w-full py-2 bg-white drop-shadow-2xl rounded-md">
-                                            <h4 className="px-[12px] pb-2 font-medium border-b-2" key={1}>Tài khoản</h4>
+                                            <h4 className="px-[12px] pb-2 font-medium border-b-2">Tài khoản</h4>
                                             <div className="max-h-[300px] overflow-y-auto">
                                                 {searchResult.map((item) => (
                                                     <VetAccountItem item={item} handleSelectUser={handleSelectUser}/>

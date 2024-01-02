@@ -1,4 +1,5 @@
 import * as request from "../utils/httpRequest";
+import {accessToken} from "mapbox-gl";
 
 const ROLE_USERS = '/user/users';
 export const getUser = async (accessToken) => {
@@ -141,6 +142,21 @@ export const getRecommendVet = async (userId) => {
                 userId
             },
         });
+        return {
+            response: response.data,
+            statusCode: response.status,
+        };
+    } catch (error) {
+        return {
+            error: error.response.data,
+            statusCode: error.response.status,
+        };
+    }
+};
+
+export const sendContact = async (body) => {
+    try {
+        const response = await request.post("/user/send-contact", body);
         return {
             response: response.data,
             statusCode: response.status,

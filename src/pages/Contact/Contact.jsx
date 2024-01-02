@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faClock, faEnvelope, faLocationDot, faPhone} from "@fortawesome/free-solid-svg-icons";
 import {Spinner} from "@material-tailwind/react";
@@ -6,18 +6,41 @@ import bgContact from "../../assets/images/bg-contact.png"
 import {motion} from "framer-motion"
 import Map from "../../components/Map/Map";
 import {Helmet} from "react-helmet";
+import {toast} from "sonner";
+import * as userService from "../../services/userService"
 
 const Contact = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [message, setMessage] = useState('');
-    // const [submit, setSubmit] = useState(false);
+    const [submit, setSubmit] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const handleSubmit = () => {
-        setLoading(!loading)
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        if (/^\d+$/.test(phone) && phone.length >= 7 && phone.length <= 11) {
+            setLoading(true)
+            setSubmit(true)
+        } else {
+            toast.warning('Lỗi: Số điện thoại phải tối thiểu 7 số, tối đa 11 số')
+        }
     }
+
+    useEffect(() => {
+        submit && (async () => {
+            const contact = await userService.sendContact({fullName: name, email, phone, content: message})
+            if (contact.statusCode === 200) {
+                setLoading(false)
+                setSubmit(false)
+                toast.success("Gửi thành công. Hệ thống sẽ phản hồi đến bạn sớm nhất !")
+            } else {
+                setLoading(false)
+                setSubmit(false)
+                toast.error("Gửi không thành công. Vui lòng thử lại !")
+            }
+        })()
+    }, [submit]);
 
     return (
         <div>
@@ -109,7 +132,7 @@ const Contact = () => {
                     >
                         {loading ? (
                             <div className="flex items-center justify-center">
-                                <Spinner className="h-6 w-6 mr-4"/> <span>Đang tải....</span>
+                                <Spinner className="h-6 w-6 mr-4"/> <span>Đang gửi....</span>
                             </div>
                         ) : (
                             <span>Gửi thông tin</span>

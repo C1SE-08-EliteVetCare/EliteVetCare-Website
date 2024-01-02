@@ -4,7 +4,7 @@ import MessageInputField from "./MessageInputField";
 import {useParams} from "react-router-dom";
 import * as chatService from "../../services/chatService"
 import AuthContext from "../../context/authContext";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {setMessages} from "../../redux/slices/message";
 
 const MessagePanel = ({recipient, sendTypingStatus, isRecipientTyping}) => {
@@ -77,7 +77,7 @@ const MessagePanel = ({recipient, sendTypingStatus, isRecipientTyping}) => {
     }
 
     return (
-        <div className="fixed top-[60px] bottom-[20px] left-[300px] right-0 bg-inherit flex flex-col">
+        <div className="fixed top-[60px] bottom-[20px] lg:left-[300px] left-[80px] right-0 bg-inherit flex flex-col">
             <header
                 className="bg-gray-50 text-start border-2 w-full h-[62px] px-[32px] absolute top-0 left-0 right-0 z-20">
                 {recipient && (

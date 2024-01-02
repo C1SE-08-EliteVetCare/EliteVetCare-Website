@@ -5,6 +5,7 @@ import AuthContext from "../../context/authContext";
 import LoadingSkeleton from "../../components/LoadingSkeleton/LoadingSkeleton";
 import * as userService from "../../services/userService"
 import {toast} from "sonner";
+import {Helmet} from "react-helmet";
 
 const UserProfile = () => {
     const formData = new FormData()
@@ -113,6 +114,7 @@ const UserProfile = () => {
 
     return (
         <div className="max-w-screen-2xl mx-auto my-9 grid grid-flow-col">
+            <Helmet><title>Hồ sơ | EliteVetCare</title></Helmet>
             <Sidebar/>
             <div className="bg-white py-4 px-8 col-span-4 shadow-2xl">
                 <h1 className="text-xl font-medium text-primaryColor text-start mb-4">Hồ sơ của tôi</h1>

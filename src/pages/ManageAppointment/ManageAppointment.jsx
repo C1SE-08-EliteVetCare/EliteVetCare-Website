@@ -10,6 +10,7 @@ import {format} from "date-fns";
 import Pagination from "../../components/Pagination/Pagination";
 import {toast} from "sonner";
 import appointmentSlice from "../../redux/slices/appointments";
+import {Helmet} from "react-helmet";
 
 const ManageAppointment = () => {
     const accessToken = localStorage.getItem('access-token')
@@ -90,6 +91,9 @@ const ManageAppointment = () => {
     }
     return (<>
         <div className="w-[78%] bg-white py-4 px-8 shadow-2xl">
+            <Helmet>
+                <title>Danh sách cuộc hẹn | EliteVetCare</title>
+            </Helmet>
             <div className="flex justify-between items-center">
                 <h1 className="text-2xl font-medium text-primaryColor text-start mb-4">Danh sách cuộc hẹn</h1>
                 <div className="space-x-3">

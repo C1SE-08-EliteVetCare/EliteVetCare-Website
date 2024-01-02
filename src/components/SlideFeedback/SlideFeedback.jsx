@@ -27,8 +27,6 @@ const SlideFeedback = () => {
         fetchFeedbackData();
     }, []);
 
-    console.log(feedbackList)
-
     const settings = {
         dots: true,
         infinite: true,

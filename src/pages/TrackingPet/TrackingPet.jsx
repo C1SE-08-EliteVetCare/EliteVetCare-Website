@@ -11,6 +11,7 @@ import {Spinner} from "@material-tailwind/react";
 import noDataImg from "../../assets/vectors/no data.svg";
 import {toast} from "sonner";
 import petTreatmentSlice from "../../redux/slices/petTreatments";
+import {Helmet} from "react-helmet";
 
 const TrackingPet = () => {
     const accessToken = localStorage.getItem('access-token')
@@ -110,6 +111,7 @@ const TrackingPet = () => {
     return (
         <>
             <div className="w-[78%] bg-white py-4 px-8 shadow-2xl">
+                <Helmet><title>Hồ sơ điều trị | EliteVetCare</title></Helmet>
                 <div className="flex justify-between items-center">
                     <h1 className="text-xl font-medium text-primaryColor text-start mb-4">Hồ sơ điều trị thú cưng</h1>
                     <Search title="Tìm theo tên thú cưng" handleSearchChange={handleSearchChange}/>

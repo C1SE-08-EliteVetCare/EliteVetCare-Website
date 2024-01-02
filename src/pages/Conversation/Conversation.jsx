@@ -8,6 +8,7 @@ import SocketContext from "../../context/socketContext";
 import AuthContext from "../../context/authContext";
 import {useParams} from "react-router-dom";
 import {toast} from "sonner";
+import {Helmet} from "react-helmet";
 
 const Conversation = ({children}) => {
     const socket = useContext(SocketContext)
@@ -61,6 +62,9 @@ const Conversation = ({children}) => {
 
     return (
         <div className="wrapper">
+            <Helmet>
+                <title>Chat | EliteVetCare</title>
+            </Helmet>
             <Header/>
             <div className="h-full w-full flex justify-start items-center overflow-hidden">
                 <ConversationSidebar conversations={conversations} showModal={showModal} setShowModal={setShowModal}/>
