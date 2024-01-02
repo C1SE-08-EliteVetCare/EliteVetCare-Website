@@ -112,6 +112,7 @@ function MakeAppointment() {
                                 value={selectedDate
                                     .toISOString()
                                     .substring(0, 10)}
+                                min={new Date().toISOString().substring(0, 10)}
                                 onChange={(e) =>
                                     setSelectedDate(
                                         new Date(e.target.value)
@@ -129,6 +130,8 @@ function MakeAppointment() {
                                 type="time"
                                 id="time"
                                 value={time}
+                                min="09:00"
+                                max="17:00"
                                 onChange={(e) => setTime(e.target.value)}
                                 required
                                 className="input-field w-full bg-[#FFF] text-black rounded-lg border border-solid px-4 py-2"

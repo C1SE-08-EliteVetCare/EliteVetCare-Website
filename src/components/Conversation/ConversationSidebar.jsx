@@ -59,11 +59,11 @@ const ConversationSidebar = ({conversations, showModal, setShowModal}) => {
     return (
         <>
             {showModal && <CreateConversationForm setShowModal={setShowModal}/>}
-            <aside className="fixed top-[61px] left-0 bottom-0 h-full w-[300px] bg-gray-50 border-r-2 overflow-auto">
-                <header className="flex justify-between items-center px-[20px] py-[17px] bg-gray-200">
+            <aside className="fixed top-[61px] left-0 bottom-0 h-full lg:w-[300px] md:w-[80px] bg-gray-50 border-r-2 overflow-auto">
+                <header className="flex justify-center lg:justify-between items-center px-[20px] py-[17px] bg-gray-200">
                     <Link to="/conversations" className="flex items-center gap-x-2">
-                        <FontAwesomeIcon icon={faMessage} className="text-primaryColor"/>
-                        <h1 className="text-primaryColor font-normal font-chewy">EliteVetCare Chat</h1>
+                        <FontAwesomeIcon icon={faMessage} className="hidden lg:block text-primaryColor"/>
+                        <h1 className="hidden lg:block text-primaryColor font-normal font-chewy">EliteVetCare Chat</h1>
                     </Link>
                     <motion.div whileHover={{scale: 1.3}} onClick={() => setShowModal(!showModal)}>
                         <svg viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000000" className="h-6 w-6">
@@ -82,14 +82,14 @@ const ConversationSidebar = ({conversations, showModal, setShowModal}) => {
                     {conversations && conversations.length > 0 && (
                         conversations.map((item) => (
                             <div
-                                className={`flex items-center gap-[20px] py-[10px] px-[20px] border-b-2 box-border cursor-pointer ${item.id === parseInt(id) ? "bg-blue-50" : "hover:bg-gray-100"}`}
+                                className={`flex items-center justify-center gap-[20px] py-[10px] px-[20px] border-b-2 box-border cursor-pointer ${item.id === parseInt(id) ? "bg-blue-50" : "hover:bg-gray-100"}`}
                                 key={item.id}
                                 onClick={() => navigate(`/conversations/${item.id}`)}
                             >
                                 <img className="h-[40px] w-[40px] rounded-full object-cover"
                                      src={auth.id === item?.recipient.id ? item?.creator?.avatar : item?.recipient?.avatar || "https://vnn-imgs-a1.vgcloud.vn/image1.ictnews.vn/_Files/2020/03/17/trend-avatar-1.jpg"}
                                      alt="avatar"/>
-                                <div className="flex flex-col">
+                                <div className="hidden lg:flex flex-col">
                                     <span
                                         className="font-bold w-[145px] truncate text-start">{auth.id === item?.recipient.id ? item?.creator?.fullName : item?.recipient?.fullName}</span>
                                     <div className="flex items-center flex-row justify-between gap-x-2">

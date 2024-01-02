@@ -9,6 +9,7 @@ import * as authService from "../../services/authService";
 import * as userService from "../../services/userService";
 import authContext from "../../context/authContext";
 import {motion} from "framer-motion";
+import {Helmet} from "react-helmet";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -88,6 +89,7 @@ const Login = () => {
 
     return (
         <div className="h-screen flex items-center bg-[#E6EBFB]">
+            <Helmet><title>Đăng nhập | EliteVetCare</title></Helmet>
             <div
                 className="w-full bg-white sm:w-[80%] lg:w-[75%] lg:grid lg:grid-cols-10 shadow-xl m-auto my-auto rounded-[20px] pb-4 lg:pb-0">
                 <div className="text-center lg:col-span-4">

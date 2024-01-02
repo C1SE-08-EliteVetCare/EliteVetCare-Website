@@ -6,6 +6,7 @@ import * as authService from "../../services/authService";
 import { toast } from "sonner";
 import { Spinner } from "@material-tailwind/react";
 import banner from "../../assets/images/login-banner.png";
+import {Helmet} from "react-helmet";
 
 const ResetPassword = () => {
     const location = useLocation();
@@ -105,6 +106,7 @@ const ResetPassword = () => {
     };
     return (
         <div className="h-screen flex items-center bg-[#E6EBFB]">
+            <Helmet><title>Đặt lại mật khẩu | EliteVetCare</title></Helmet>
             <div className="w-full bg-white sm:w-[80%] lg:w-[75%] lg:grid lg:grid-cols-10 shadow-xl m-auto my-auto rounded-[20px] pb-4 lg:pb-0">
                 <div className="text-center lg:col-span-4">
                     <div className="w-[70%] m-auto">
