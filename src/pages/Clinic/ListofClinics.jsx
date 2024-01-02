@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import defaultImage from "../../assets/images/clinic/TiTi_Pet.png";
+import {Helmet} from "react-helmet";
 
 const clinicImages = {
     'thu-y-geneva-da-nang-703913.jpg': import('../../assets/images/clinic/thu-y-geneva-da-nang-703913.jpg'),
@@ -149,6 +150,7 @@ const ClinicList = () => {
 
     return (
         <div className="container mx-auto mt-8">
+            <Helmet><title>Phòng khám | EliteVetCare</title></Helmet>
             <h1 className="text-4xl text-blue-700 font-bold mb-6">Danh sách các phòng khám</h1>
             <ul className="grid grid-cols-12 gap-6">
                 {clinics.map((clinic) => (
