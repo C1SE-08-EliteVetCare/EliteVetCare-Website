@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import image from "../ChatBot/ChatBot.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import image from "../../assets/images/ChatBot.png";
 
 const ChatBot = () => {
     const [messages, setMessages] = useState([]);

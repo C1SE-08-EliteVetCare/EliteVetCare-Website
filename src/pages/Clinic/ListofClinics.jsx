@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import defaultImage from "../Clinic/img/TiTi_Pet.png";
+import defaultImage from "../../assets/images/clinic/TiTi_Pet.png";
 
 const clinicImages = {
-    'thu-y-geneva-da-nang-703913.jpg': import('../Clinic/img/thu-y-geneva-da-nang-703913.jpg'),
-    'DaNangPet.jpg': import('../Clinic/img/DaNangPet.jpg'),
-    'LovePet.png': import('../Clinic/img/LovePet.png'),
-    '54NguyenPham.png': import('../Clinic/img/54NguyenPham.png'),
-    'Thu_Y_Quoc_Te_Paws.png': import('./img/Thu_Y_Quoc_Te_Paws.png'),
-    'phong-kham-thu-y-bsgiang-529257.jpg': import('../Clinic/img/phong-kham-thu-y-bsgiang-529257.jpg'),
-    'Thu_Y_Truong_Son.png': import('../Clinic/img/Thu_Y_Truong_Son.png'),
-    'TiTi_Pet.png': import('../Clinic/img/TiTi_Pet.png'),
-    'Thu_Y_Tan_Tien_Phat.png': import('../Clinic/img/Thu_Y_Tan_Tien_Phat.png'),
-    'Thu_Y_Thuy_Song_Han.png' :import('../Clinic/img/Thu_Y_Thuy_Song_Han.png'),
+    'thu-y-geneva-da-nang-703913.jpg': import('../../assets/images/clinic/thu-y-geneva-da-nang-703913.jpg'),
+    'DaNangPet.jpg': import('../../assets/images/clinic/DaNangPet.jpg'),
+    'LovePet.png': import('../../assets/images/clinic/LovePet.png'),
+    '54NguyenPham.png': import('../../assets/images/clinic/54NguyenPham.png'),
+    'Thu_Y_Quoc_Te_Paws.png': import('../../assets/images/clinic/Thu_Y_Quoc_Te_Paws.png'),
+    'phong-kham-thu-y-bsgiang-529257.jpg': import('../../assets/images/clinic/phong-kham-thu-y-bsgiang-529257.jpg'),
+    'Thu_Y_Truong_Son.png': import('../../assets/images/clinic/Thu_Y_Truong_Son.png'),
+    'TiTi_Pet.png': import('../../assets/images/clinic/TiTi_Pet.png'),
+    'Thu_Y_Tan_Tien_Phat.png': import('../../assets/images/clinic/Thu_Y_Tan_Tien_Phat.png'),
+    'Thu_Y_Thuy_Song_Han.png' :import('../../assets/images/clinic/Thu_Y_Thuy_Song_Han.png'),
 };
 
 
@@ -48,7 +48,7 @@ const clinics = [
         image: 'LovePet.png',
         email: ' nguyenhoangluan.dvty@gmail.com',
         web: ' https://lovepetdn.com/',
-        fanpage: ' www.facebook.com/Phòng-Khám-Thú-Y-Love-Pet-106530934318189',
+        fanpage: 'https://www.facebook.com/Phòng-Khám-Thú-Y-Love-Pet-106530934318189',
         phone: '0399 133 426',
         address1: '22 Đ. Phạm Như Xương, P. Hoà Khánh Nam, Q. Liên Chiểu, TP. Đà Nẵng.',
         opentime: '8:00 - 21:00',
@@ -59,7 +59,7 @@ const clinics = [
         image: '54NguyenPham.png',
         email: 'danangpet2014@gmail.com',
         web: 'https://phong-kham-thu-y-a-nang.business.site/',
-        fanpage: 'www.facebook.com/BSTY.DangVanHung/',
+        fanpage: 'https://www.facebook.com/BSTY.DangVanHung/',
         phone: '0905 295 336',
         address1: '54 Nguyễn Phẩm, P. Hòa Cường Bắc, Q. Hải Châu, TP. Đà Nẵng. ',
         opentime: '7:30 - 12:00 & 14:00 - 19:00',
@@ -70,7 +70,7 @@ const clinics = [
         image: 'Thu_Y_Quoc_Te_Paws.png',
         email: 'clinic@pawsforcompassion.org',
         web: ' https://pawsclinic.vn/',
-        fanpage: ' www.facebook.com/pawsinternationalvetclinic',
+        fanpage: 'https://www.facebook.com/pawsinternationalvetclinic',
         phone: '0339 325 563',
         address1: '24A Mỹ Đa Đông 8, Bắc Mỹ An, Ngũ Hành Sơn, Đà Nẵng 550000, Việt Nam.',
         opentime: '8:30 - 19:00',
@@ -81,7 +81,7 @@ const clinics = [
         image: 'phong-kham-thu-y-bsgiang-529257.jpg',
         email: 'ngducgiang984@gmail.com',
         web: 'ducgiangpet.com',
-        fanpage: ' www.facebook.com/phongkhamthuypetshopducgiang',
+        fanpage: 'https://www.facebook.com/phongkhamthuypetshopducgiang',
         phone: '0919 250 389',
         address1: '131 Văn Tiến Dũng, P. Hoà Xuân, Q. Cẩm Lệ, TP. Đà Nẵng.',
         opentime: '8:00 - 12:00 & 14:00 - 19:30',
@@ -100,7 +100,7 @@ const clinics = [
         name: 'Phòng khám thú y - Titi Pet Shop ',
         image: 'TiTi_Pet.png',
         email: 'huongduyen1612@gmail.com',
-        fanpage: ' www.facebook.com/tonghuongduyen93/',
+        fanpage: 'https://www.facebook.com/tonghuongduyen93/',
         phone: ' 0775 554 163 &  0979 387 171',
         address1: '330 Nguyễn Đình Tựu, P. Hòa Khê, Q. Thanh Khê, TP. Đà Nẵng ',
         address2: '275 Trường Chinh, P. An Khê, Q. Thanh Khê, TP. Đà Nẵng .',
@@ -112,7 +112,7 @@ const clinics = [
         image: 'Thu_Y_Tan_Tien_Phat.png',
         email: 'danangpet2014@gmail.com',
         web: 'tantienphat.com.vn',
-        fanpage: 'www.facebook.com/goldendogcat',
+        fanpage: 'https://www.facebook.com/goldendogcat',
         phone: '0772 009 008 & 0905 006 996',
         address1: '245 Trường Chinh, An Khê, Thanh Khê, TP. Đà Nẵng.',
         opentime: '24/24',
@@ -122,13 +122,12 @@ const clinics = [
         name: 'Thú Y Geneva Đà Nẵng ',
         image: 'thu-y-geneva-da-nang-703913.jpg',
         email: ' nguyenhoangluan.dvty@gmail.com',
-        fanpage: 'www.facebook.com/bstyNguyenLuan',
+        fanpage: 'https://www.facebook.com/bstyNguyenLuan',
         phone: '0777 770 743',
         web: 'dichvuthuy.com',
         address1: '5 Đ. Lê Duẩn, P. Hải Châu 1,Q. Hải Châu, TP. Đà Nẵng. ',
         address2: '398 Đ. Tôn Đản, P. Hoà An, Q. Cẩm Lệ, TP. Đà Nẵng. ',
     },
-
 ];
 
 const ClinicList = () => {
@@ -139,7 +138,7 @@ const ClinicList = () => {
             const importedImages = {};
             for (const clinic of clinics) {
                 // Use dynamic import() to import the image
-                const importedImage = (await import(`../Clinic/img/${clinic.image}`)).default;
+                const importedImage = (await import(`../../assets/images/clinic/${clinic.image}`)).default;
                 importedImages[clinic.image] = importedImage;
             }
             setClinicImages(importedImages);
@@ -191,12 +190,12 @@ const ClinicList = () => {
                                 )}
                                 {clinic.web && (
                                     <p className="text-left text-gray-700 clinic-details mb-2">
-                                        <strong className="text-left w-1/6"> Website:</strong> {clinic.web}
+                                        <strong className="text-left w-1/6"> Website:</strong> <a href={clinic.web} target="_blank" rel="noreferrer">{clinic.web}</a>
                                     </p>
                                 )}
                                 {clinic.fanpage && (
                                     <p className="text-left text-gray-700 clinic-details mb-2">
-                                        <strong className="text-left w-1/6"> Fanpage:</strong> {clinic.fanpage}
+                                        <strong className="text-left w-1/6"> Fanpage:</strong> <a href={clinic.fanpage} target="_blank" rel="noreferrer">{clinic.fanpage}</a>
                                     </p>
                                 )}
                                 {clinic.opentime && (

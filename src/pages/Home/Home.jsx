@@ -8,6 +8,7 @@ import CommitmentItem from "../../components/CommitmentItem/CommitmentItem";
 import SlideFeedback from "../../components/SlideFeedback/SlideFeedback";
 import React from "react";
 import {Helmet} from "react-helmet";
+import {Link} from "react-router-dom";
 
 const Home = () => {
     return (
@@ -42,7 +43,7 @@ const Home = () => {
             <CommitmentItem/>
 
             {/*<div className="grid grid-flow-col gap-6 mb-16 shadow-2xl p-4 bg-indigo-200">*/}
-            {/*  <img src={imgHome1} alt="home-1" className="col-span-4" />*/}
+            {/*  <clinic src={imgHome1} alt="home-1" className="col-span-4" />*/}
             {/*  <div className="col-span-8 text-center">*/}
             {/*    <h1 className="text-3xl font-normal leading-tight">Chúng tôi đồng hành cùng tình yêu với thú cưng của bạn</h1>*/}
             {/*    <p className="mt-8">Tại đây, chúng tôi cam kết đem lại dịch vụ thú y chất lượng cao, sự quan tâm tận tâm, và*/}
@@ -97,13 +98,12 @@ const Home = () => {
                     </h1>
                     <span className="text-lg font-normal">Một số phòng khám nổi bật:</span>
                     <p className="text-primaryColor text-lg font-bold">Love Pet, Hữu Nghị và Thú Y Sông Hàn.</p>
-                    <motion.a
+                    <motion.span
                         whileHover={{scale: 1.2}}
-                        href="/clinic"
                         className="inline-block text-lg font-medium px-5 py-1 border-2 border-primaryColor rounded-full mt-4 hover:bg-primaryColor hover:text-white"
                     >
-                        Xem thêm
-                    </motion.a>
+                        <Link to="/clinic">Xem thêm</Link>
+                    </motion.span>
                 </div>
             </div>
         </main>
