@@ -24,13 +24,13 @@ const DetailUserAccount = () => {
     const [detailUser, setDetailUser] = useState({});
     const [selectedRole, setSelectedRole] = useState("");
     const [showModal, setShowModal] = useState(false);
+    const [userId, setUserId] = useState([]);
+    const [action, setAction] = useState(true);
 
-    const { userId, action } = useParams();
     const fileRef = useRef();
     useEffect(() => {
         if (listUser.length > 0) {
             const result = listUser.filter((item) => item.id === Number(id))[0];
-            console.log(result);
             setDetailUser({
                 ...result,
                 clinicId: result.clinic ? result.clinic.id : "",
@@ -80,17 +80,22 @@ const DetailUserAccount = () => {
         return <p>No data found for this user.</p>;
     }
     const handleToggleAccountStatus = async () => {
+        console.log(detailUser)
         try {
-            const currentOperatingStatus = detailUser.operatingStatus;
-            const action = currentOperatingStatus ? 'deactivate' : 'activate';
+            setLoading(true);
 
-            const response = await adminService.Toggleactivateuser(accessToken, { userId, action });
-
+            // Determine the action based on the current operating status
+            const action = detailUser.operatingStatus ? 'deactivate' : 'activate';
+            console.log(">>>>>>>>>>>>>>>" + action)
+            console.log(detailUser?.id)
+            console.log(accessToken)
+            const response = await adminService.Toggleactivateuser(accessToken,  detailUser?.id, action );
+            console.log(response)
             if (response.statusCode === 200) {
-                const updatedDetailUser = response.response.data;
+                const updatedDetailUser = response.response;
 
+                console.log(updatedDetailUser)
                 setDetailUser(updatedDetailUser);
-
                 const actionText = updatedDetailUser.operatingStatus ? 'mở khóa' : 'kích hoạt';
                 toast.success(`Tài khoản đã được ${actionText} thành công!`, {
                     position: 'top-right',
@@ -112,6 +117,16 @@ const DetailUserAccount = () => {
                         draggable: true,
                     });
                 }
+            } else {
+                console.error(response.response);
+                toast.error('Đã có lỗi xảy ra. Vui lòng thử lại sau!', {
+                    position: 'top-right',
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                });
             }
         } catch (error) {
             console.error('Error toggling account status:', error);
@@ -123,8 +138,13 @@ const DetailUserAccount = () => {
                 pauseOnHover: true,
                 draggable: true,
             });
+        } finally {
+            setLoading(false);
         }
     };
+
+
+
 
     const handleRoleChange = async () => {
         try {
