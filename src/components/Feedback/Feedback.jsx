@@ -10,14 +10,19 @@ const Feedback = ({ feedback }) => {
         <div className="py-4">
             <div className="py-4 w-290 h-200">
                 <Link to="/">
-                    <div className="w-400 h-[316px] mx-3 bg-white text-center shadow p-4 rounded-xl hover:shadow-xl transform transition-all translate-y-0 hover:-translate-y-2">
+                    <div className="w-350 h-[416px] mx-3 bg-white text-center shadow p-4 rounded-xl hover:shadow-xl transform transition-all translate-y-0 hover:-translate-y-2">
                         <div>
                             <Rate rating={5} classStyle="mx-1.5 py-2" />
                             <LoadingSkeleton />
                         </div>
-                        <span className="block px-4 mb-2 font-medium">{feedback.subject}</span>
+                        <span className="block text-2xl px-4 mb-2 font-medium" >{feedback.clinic ? feedback.clinic.name : 'Unknown Clinic'}</span>
                         <p className="h-[99px]">
-                            <FontAwesomeIcon className="text-primaryColor mr-2 mb-1.5" icon={faQuoteLeft} />
+                            <FontAwesomeIcon className="text-primaryColor block px-4   mr-2 mb-1.5" icon={faQuoteLeft} />
+                            {feedback.subject}
+                            <FontAwesomeIcon className="text-primaryColor ml-1 mb-1" icon={faQuoteRight} />
+                        </p>
+                        <p className="h-[99px]">
+                            <FontAwesomeIcon className="text-primaryColor mr-1 mb-1" icon={faQuoteLeft} />
                             {feedback.content}
                             <FontAwesomeIcon className="text-primaryColor ml-2 mb-1.5" icon={faQuoteRight} />
                         </p>

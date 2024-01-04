@@ -48,12 +48,36 @@ export const reDelete = async (endPoints, option = {}) => {
 };
 
 export const getUser = async (endPoints, option = {}) => {
-    const response = await instance.get(endPoints, option);
-    return response;
+    return await instance.get(endPoints, option);
 };
-export const postFeedback = async (endPoints, option = {}, header = {}) => {
-    const response = await instance.post(endPoints, option, header);
-    return response;
+
+export const postFeedback = async (endPoints, option = {}, p) => {
+    const accessToken = localStorage.getItem('access-token');
+    const headers = {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json', // Set the content type based on your API requirements
+    };
+
+    try {
+        console.log('Request Payload:', option);
+        const result = await instance.post(endPoints, option, { headers });
+        console.log('Response Data:', result.data);
+        return result;
+    } catch (error) {
+        console.error('Error creating feedback:', error);
+        console.log('Error Response:', error.response);
+
+        if (error.response?.status === 401 || (error.response?.status === 403 && error.response.data?.message === 'Access Denied')) {
+            toast.info('Hết phiên đăng nhập. Vui lòng đăng nhập lại');
+            localStorage.removeItem('access-token');
+            localStorage.removeItem('refresh-token');
+            localStorage.removeItem('auth');
+            window.location.href = '/login';
+        }
+
+        return Promise.reject(error);
+    }
+
 };
 let isRefreshing = false;
 instance.interceptors.response.use(

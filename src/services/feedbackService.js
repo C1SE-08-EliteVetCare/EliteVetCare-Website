@@ -1,10 +1,31 @@
 import * as request from "../utils/httpRequest";
-import {accessToken} from "mapbox-gl";
-import {rating} from "@material-tailwind/react";
 
-export const CreateFeedback = async (subject, content,rating) => {
+export const createFeedback = async ( accessToken,type, clinicId, subject, content, rating) => {
     try {
-        const response = await request.post("/feedback/create", { subject, content,rating });
+        const response = await request.post(
+            "/feedback/create",
+            { type, clinicId, subject, content, rating },
+            {
+                headers: { Authorization: `Bearer ${accessToken}` },
+            }
+        );
+
+        return {
+            response: response.data,
+            statusCode: response.status,
+        };
+    } catch (error) {
+        return {
+            error: error.response?.data || 'Unknown error',
+            statusCode: error.response?.status || 500,
+        };
+    }
+};
+
+export const getClinic = async () => {
+    try {
+        const response = await request.get("clinic/clinics");
+
         return {
             response: response.data,
             statusCode: response.status,
@@ -16,6 +37,8 @@ export const CreateFeedback = async (subject, content,rating) => {
         };
     }
 };
+
+
 export const getFeedBack = async (accessToken) => {
     try {
         const response = await request.get('/feedback/feedbacks', {
@@ -50,3 +73,4 @@ export const getFeedbackById = async (feedbackId, accessToken) => {
         };
     }
 };
+

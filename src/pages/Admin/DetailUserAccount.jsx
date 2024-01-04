@@ -1,11 +1,13 @@
 import React, {useEffect, useRef, useState,} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Link, useParams} from 'react-router-dom';
-import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
+import {faArrowLeft, faXmark} from "@fortawesome/free-solid-svg-icons";
 import * as adminService from "../../services/adminService";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Spinner } from "@material-tailwind/react";
+import * as feedbackService from "../../services/feedbackService";
+
 function formatDate(dateString) {
     const [year, month, day] = dateString.split('-');
     return `${day}/${month}/${year}`;
@@ -15,27 +17,27 @@ const DetailUserAccount = () => {
     const [listUser, setUserList] = useState([]);
     const [loading, setLoading] = useState(true);
     const accessToken = localStorage.getItem('access-token')
+    const [clinics, setClinics] = useState([]);
 
     const {id} = useParams()
     const detail = listUser[0];
     const [detailUser, setDetailUser] = useState({});
     const [selectedRole, setSelectedRole] = useState("");
-    const [userId, setuserId] = useState("");
-    const [roleId, setroleID] = useState("");
+    const [showModal, setShowModal] = useState(false);
 
-
-
-
+    const { userId, action } = useParams();
+    const fileRef = useRef();
     useEffect(() => {
         if (listUser.length > 0) {
-            const result = listUser.filter((item) => item.id === Number(id))[0]
-            console.log(result)
-            setDetailUser(result)
-            setSelectedRole(result.role.id)
+            const result = listUser.filter((item) => item.id === Number(id))[0];
+            console.log(result);
+            setDetailUser({
+                ...result,
+                clinicId: result.clinic ? result.clinic.id : "",
+            });
+            setSelectedRole(result.role.id);
         }
-    }, [listUser])
-
-    const fileRef = useRef();
+    }, [listUser]);
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -51,8 +53,20 @@ const DetailUserAccount = () => {
                 setLoading(false);
             }
         };
+        const fetchClinics = async () => {
+            try {
+                const clinicsResponse = await feedbackService.getClinic();
+                console.log(clinicsResponse);
+                if (clinicsResponse.statusCode === 200) {
+                    setClinics(clinicsResponse.response);
+                }
+            } catch (error) {
+                console.error('Error fetching clinics:', error);
+            }
+        };
 
         fetchUserData();
+        fetchClinics();
     }, [accessToken, id]);
 
     if (loading) {
@@ -62,18 +76,22 @@ const DetailUserAccount = () => {
             </div>
         );
     }
-
     if (listUser.length === 0) {
         return <p>No data found for this user.</p>;
     }
     const handleToggleAccountStatus = async () => {
         try {
-            const action = detailUser.operatingStatus ? 'deactivate' : 'activate';
-            const response = await adminService.toggleAccountStatus(id, action);
+            const currentOperatingStatus = detailUser.operatingStatus;
+            const action = currentOperatingStatus ? 'deactivate' : 'activate';
+
+            const response = await adminService.Toggleactivateuser(accessToken, { userId, action });
 
             if (response.statusCode === 200) {
-                setDetailUser(response.response.data);
-                const actionText = detailUser.operatingStatus ? 'mở khóa' : 'kích hoạt';
+                const updatedDetailUser = response.response.data;
+
+                setDetailUser(updatedDetailUser);
+
+                const actionText = updatedDetailUser.operatingStatus ? 'mở khóa' : 'kích hoạt';
                 toast.success(`Tài khoản đã được ${actionText} thành công!`, {
                     position: 'top-right',
                     autoClose: 3000,
@@ -82,6 +100,18 @@ const DetailUserAccount = () => {
                     pauseOnHover: true,
                     draggable: true,
                 });
+
+                // If the account is locked, display an error message
+                if (action === 'deactivate') {
+                    toast.error('Tài khoản đã bị khóa. Không thể đăng nhập!', {
+                        position: 'top-right',
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                    });
+                }
             }
         } catch (error) {
             console.error('Error toggling account status:', error);
@@ -99,24 +129,19 @@ const DetailUserAccount = () => {
     const handleRoleChange = async () => {
         try {
             setLoading(true);
-            console.log('Updating role for user:', id);
-            console.log('Selected role:', selectedRole);
 
-            const response = await adminService.updateUserRole(id, selectedRole, accessToken); // Pass selectedRole as the roleId
+            const response = await adminService.updateUserRole(id, selectedRole, detailUser.clinicId, accessToken);
 
             if (response.statusCode === 200) {
-                toast.success(`Vai trò của tài khoản đã được cập nhật thành công!`, {
-                });
+                toast.success(`Vai trò của tài khoản đã được cập nhật thành công!`, {});
             } else {
-                console.log(response.response)
+                console.log(response.response);
                 console.error('Error updating user role:', response);
-                toast.error('Đã có lỗi xảy ra. Vui lòng thử lại sau!', {
-                });
+                toast.error('Đã có lỗi xảy ra. Vui lòng thử lại sau!', {});
             }
         } catch (error) {
             console.error('Error updating user role:', error);
-            toast.error('Đã có lỗi xảy ra. Vui lòng thử lại sau!', {
-            });
+            toast.error('Đã có lỗi xảy ra. Vui lòng thử lại sau!', {});
         } finally {
             setLoading(false);
         }
@@ -241,7 +266,7 @@ const DetailUserAccount = () => {
 
                                 <button
                                     className="py-2 px-5 mx-8 my-6 bg-blue-500 hover:bg-blue-700 text-white rounded-sm"
-                                    onClick={handleRoleChange}                                    disabled={loading} // Disable the button during loading
+                                    onClick={ () => setShowModal(!showModal)}
                                 >
                                     Cập nhật Vai trò
                                 </button>
@@ -265,8 +290,82 @@ const DetailUserAccount = () => {
                     </div>
                 </div>
             </div>
+            {showModal && (
+                <div className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-gray-900 bg-opacity-50">
+                    <div className="relative min-w-[40%] max-h-full">
+                        <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                            <div className="flex items-start justify-between py-4 px-6 border-b border-gray-300 rounded-t">
+                                <h3 className="text-xl font-medium text-gray-900 dark:text-white">Chọn phòng khám</h3>
+                                <button
+                                    type="button"
+                                    className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center"
+                                    onClick={() => setShowModal(!showModal)}
+                                >
+                                    <FontAwesomeIcon className="text-2xl" icon={faXmark} />
+                                </button>
+                            </div>
+                            <div className="px-6 py-6 lg:px-8">
+                                <form
+                                    action="#"
+                                    className="flex justify-between items-center flex-col space-y-6"
+                                >
+                                    <div className="flex flex-col w-full">
+                                        <label className="font-medium text-start mb-1.5">Phòng khám:</label>
+                                        <select
+                                            value={detailUser.clinicId}
+                                            onChange={(e) =>
+                                                setDetailUser((preClinic) => ({ ...preClinic, clinicId: e.target.value }))
+                                            }
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                            style={{ borderRadius: "16px" }}
+                                        >
+                                            {clinics.length > 0 ? (
+                                                clinics.map((clinic) => (
+                                                    <option key={clinic.id} value={clinic.id}>
+                                                        {clinic.name}
+                                                    </option>
+                                                ))
+                                            ) : (
+                                                <option value="" disabled>
+                                                    No clinics available
+                                                </option>
+                                            )}
+                                        </select>
+                                    </div>
 
+                                    <div className="flex space-x-2 w-full justify-end">
+                                        <button
+                                            className="bg-gray-200 py-1.5 px-4 rounded hover:bg-gray-300"
+                                            onClick={() => setShowModal(!showModal)}
+                                        >
+                                            Hủy
+                                        </button>
+                                        <button
+                                            className="bg-primaryColor text-white py-1.5 px-9 rounded hover:bg-blue-600"
+                                            onClick={async (e) => {
+                                                e.preventDefault();
+                                                await handleRoleChange();
+                                                setShowModal(false); // Tắt modal sau khi xác nhận
+                                            }}
+                                        >
+                                            {loading ? (
+                                                <>
+                                                    <Spinner className="h-6 w-6 mr-2" />
+                                                    Gửi
+                                                </>
+                                            ) : (
+                                                'Xác nhận'
+                                            )}
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
+
 
     );
 };
