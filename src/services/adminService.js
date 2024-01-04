@@ -74,12 +74,9 @@ export const manageUser = async (page,limit,search) => {
         };
     }
 };
-
-
-
-export const Toggleactivateuser = async (accessToken, { userId, action }) => {
+export const Toggleactivateuser = async (accessToken, userId, action ) => {
     try {
-        const response = await request.post("/user/toggle-active?userId=3&action=activate", {
+        const response = await request.post('user/toggle-active', {
             params: { userId, action },
             headers: { Authorization: `Bearer ${accessToken}` },
         });
@@ -95,6 +92,10 @@ export const Toggleactivateuser = async (accessToken, { userId, action }) => {
         };
     }
 };
+
+
+
+
 export const updateUserRole = async (userId, roleId, accessToken) => {
     try {
         const response = await request.patch(

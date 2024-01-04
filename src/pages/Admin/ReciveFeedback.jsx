@@ -262,10 +262,11 @@ const ReceiveFeedback = () => {
                                                 Phòng khám:
                                             </label>
                                             <label className="text-gray-700 text-sm font-bold text-left">
-                                                {feedback.clinic.name}
+                                                {feedback.clinic ? feedback.clinic.name : 'N/A'}
                                             </label>
                                         </div>
                                     )}
+
 
                                     <div className="flex flex-row items-center">
                                         <label className="text-gray-700 text-sm font-bold text-left mr-2">
