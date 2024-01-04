@@ -4,16 +4,14 @@ import Siderbar from "../components/Admin/Siderbar";
 
 const AdminLayout = ({ children }) => {
     return (
-        <div className="wrapper h-full bg-[#F3F7FA] m-0 p-0  ">
+        <div className="min-h-screen bg-[#F3F7FA] m-0 p-0 flex flex-col">
             <Header />
-            <div className=" grid grid-cols-12">
-                <div className=" sm:col-span-2">
+            <div className="flex flex-grow">
+                <div className="sm:w-2/12">
                     <Siderbar />
                 </div>
-                <div className=" w-full h-full sm:col-span-10 text-center  bg-[#F3F7FA]  ">
-                    <div className="max-w-screen-xl mx-auto my-1 flex  justify-between">
-                        <div className=" bg-[#F3F7FA] w-full ">{children}</div>
-                    </div>
+                <div className="flex-1 text-center bg-[#F3F7FA]">
+                    <div className="max-w-screen-xl mx-auto my-1">{children}</div>
                 </div>
             </div>
         </div>

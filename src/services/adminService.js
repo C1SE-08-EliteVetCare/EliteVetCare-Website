@@ -20,12 +20,13 @@ export const getUsers = async (accessToken, { page, limit,search }) => {
     }
 };
 
-export const getFeedBack = async (accessToken,{ page, limit , }) => {
+export const getFeedBack = async (accessToken,{ page, limit,type }) => {
     try {
-        const response = await request.get('/feedback/feedbacks?rating=5', {
-            params: { page, limit },
+        const response = await request.get('/feedback/feedbacks', {
+            params: { page, limit,type },
             headers: { Authorization: `Bearer ${accessToken}` },
         });
+
         return {
             response: response.data,
             statusCode: response.status,
@@ -73,21 +74,27 @@ export const manageUser = async (page,limit,search) => {
         };
     }
 };
-export const toggleAccountStatus = async (userid,action) => {
+
+
+
+export const Toggleactivateuser = async (accessToken, { userId, action }) => {
     try {
-        const response = await request.post("/user/toggle-active?userId=3&action=activate", { userid,action});
+        const response = await request.post("/user/toggle-active?userId=3&action=activate", {
+            params: { userId, action },
+            headers: { Authorization: `Bearer ${accessToken}` },
+        });
+
         return {
             response: response.data,
             statusCode: response.status,
         };
-    } catch (error) {
+    } catch (e) {
         return {
-            error: error.response.data,
-            statusCode: error.response.status,
+            error: e.response.data,
+            status: e.response.status,
         };
     }
 };
-
 export const updateUserRole = async (userId, roleId, accessToken) => {
     try {
         const response = await request.patch(

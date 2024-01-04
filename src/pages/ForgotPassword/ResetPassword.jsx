@@ -58,8 +58,6 @@ const ResetPassword = () => {
             console.log(email)
             const verifyResponse = await authService.Resetpassword({email, otp: combinedOtp, password});
 
-            console.log("OTP: ", combinedOtp);
-
             if (verifyResponse.statusCode === 200) {
                 localStorage.removeItem("reset-password");
                 setPassword("");
@@ -76,23 +74,7 @@ const ResetPassword = () => {
                     toast.error("OTP đã hết hạn")
                     navigate('/forgot-password')
                 }
-                // console.error("OTP verification failed:", verifyResponse.error);
-                //
-                //
-                // if (verifyResponse.error === "Bad Request") {
-                //     const errorMessage = Array.isArray(verifyResponse.message)
-                //         ? verifyResponse.message[0]
-                //         : verifyResponse.message;
-                //
-                //     if (errorMessage === "OTP has expired") {
-                //         toast.error("Mã OTP đã hết hạn. Vui lòng yêu cầu mã mới.");
-                //
-                //     } else {
-                //         toast.error(errorMessage);
-                //     }
-                // } else {
-                //     toast.error("Mã OTP không hợp lệ hoặc đã hết hạn");
-                // }
+
             }
     };
 
