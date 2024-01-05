@@ -15,6 +15,7 @@ const Feedback = ({ feedback }) => {
                         <LoadingSkeleton />
                     </div>
                     <div className="h-[185px] overflow-hidden hover:overflow-auto">
+                        <span className="block px-4 mb-2 font-medium">{feedback.clinic.name}</span>
                         <span className="block px-4 mb-2 font-medium">{feedback.subject}</span>
                         <p className="">
                             <FontAwesomeIcon className="text-primaryColor mr-2 mb-1.5" icon={faQuoteLeft} />
