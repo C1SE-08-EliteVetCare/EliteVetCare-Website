@@ -89,21 +89,16 @@ const DetailUserAccount = () => {
             console.log("Access Token: ", accessToken);
 
             const response = await adminService.Toggleactivateuser(accessToken, detailUser?.id, action);
+            const updatedDetailUser = response.response;
 
             console.log("API Response: ", response);
+            console.log("Updated User: ", updatedDetailUser);
 
-            if (response.statusCode === 201) {
-                const updatedDetailUser = response.response;
-                console.log("Updated User: ", updatedDetailUser);
+            setDetailUser(updatedDetailUser);
 
-                setDetailUser(updatedDetailUser);
-
-                const actionText = updatedDetailUser.operatingStatus ? 'mở khóa' : 'kích hoạt';
-                toast.success(`Tài khoản đã được ${actionText} thành công!`);
-            } else {
-                console.error(response.error);
-                toast.error('Đã có lỗi xảy ra. Vui lòng thử lại sau!');
-            }
+            // Sử dụng biến tạm thời để xác định hành động cụ thể
+            const actionText = action === 'activate' ? 'được mở khóa' : 'bị khóa tài khoá';
+            toast.success(`Tài khoản đã  ${actionText} thành công!`);
         } catch (error) {
             console.error('Error toggling account status:', error);
             toast.error('Đã có lỗi xảy ra. Vui lòng thử lại sau!');
@@ -111,6 +106,7 @@ const DetailUserAccount = () => {
             setLoading(false);
         }
     };
+
 
 
     const handleRoleChange = async () => {

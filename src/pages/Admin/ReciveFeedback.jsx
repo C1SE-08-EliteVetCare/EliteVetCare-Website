@@ -18,15 +18,17 @@ const ReceiveFeedback = () => {
     const [filters, setFilters] = useState({
         limit: 3,
         page: 1,
-        status: null,
-        search: "",
+        rating: 5,
+        search: null,
         type: 1, // Default value
     });
     const [searchValue, setSearchValue] = useState("");
-
+    const accessToken = localStorage.getItem("access-token");
+    const [showResults, setShowResults] = useState(false);
+    const [sortedFeedbackList, setSortedFeedbackList] = useState([]);
     const formatDate = (dateString) => {
         const date = new Date(dateString);
-        date.setHours(date.getHours()); // Adjust for GMT+7
+        date.setHours(date.getHours());
 
         const dateOptions = {
             year: 'numeric',
@@ -55,9 +57,9 @@ const ReceiveFeedback = () => {
             try {
                 setLoading(true);
                 const feedbackResponse = await adminService.getFeedBack(
-                    localStorage.getItem("access-token"),
                     filters
                 );
+                console.log("Feedback response:", feedbackResponse.response);
                 if (feedbackResponse.statusCode === 200) {
                     const feedbackData = feedbackResponse.response.data;
 
@@ -84,7 +86,7 @@ const ReceiveFeedback = () => {
                 setLoading(false);
             }
         };
-
+        handleSearchButton();
         fetchFeedbackData();
     }, [filters]);
 
@@ -110,28 +112,31 @@ const ReceiveFeedback = () => {
 
         setFilters({ ...filters, page: newPage });
     };
-
+    const handleSearchOnChange = (event) => {
+        const value = event.target.value;
+        setSearchValue(value);
+    };
     const handleSearchButton = async () => {
         try {
             setLoading(true);
 
-            const feedbackList = await adminService.getFeedBack(
-                localStorage.getItem("access-token"),
-                {
-                    ...filters,
-                    page: 1,
-                    search: searchValue,
-                }
-            );
+            const feedbackListResponse = await adminService.getFeedBack({
+                ...filters,
+                page: 1,
+                search: searchValue,
+            });
 
-            if (feedbackList.statusCode === 200) {
-                setFeedbackList(feedbackList.response.data);
-                const { currentPage, lastPage } = feedbackList.response;
+            if (feedbackListResponse.statusCode === 200) {
+                const filteredFeedbackList = feedbackListResponse.response.data;
+
+                setFeedbackList(filteredFeedbackList);
 
                 setPaginationAdmin({
-                    page: currentPage,
-                    totalPages: lastPage,
+                    page: feedbackListResponse.response.currentPage,
+                    totalPages: feedbackListResponse.response.lastPage,
                 });
+
+                setShowResults(true);
             }
         } catch (error) {
             console.error("Error fetching feedback data:", error);
@@ -140,10 +145,8 @@ const ReceiveFeedback = () => {
         }
     };
 
-    const handleSearchOnChange = (event) => {
-        const value = event.target.value;
-        setSearchValue(value);
-    };
+
+
 
     const handleTypeChange = (event) => {
         const selectedType = parseInt(event.target.value, 10);
