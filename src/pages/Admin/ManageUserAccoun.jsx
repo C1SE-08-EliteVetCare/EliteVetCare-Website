@@ -11,7 +11,6 @@ function formatDate(dateString) {
     const [year, month, day] = dateString.split("-");
     return `${day}/${month}/${year}`;
 }
-
 const ManageUserAccount = () => {
     const [userList, setUserList] = useState([]);
     const [showResults, setShowResults] = useState(false);
@@ -73,7 +72,6 @@ const ManageUserAccount = () => {
                 setLoading(false);
             }
         };
-
         fetchUserData();
     }, [accessToken, filters]);
 

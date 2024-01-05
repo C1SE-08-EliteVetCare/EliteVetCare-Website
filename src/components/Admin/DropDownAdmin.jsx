@@ -1,11 +1,6 @@
 import React, {useContext} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faCalendarAlt,
-    faDoorOpen,
-    faPaw,
-    faUserAlt,
-} from "@fortawesome/free-solid-svg-icons";
+import {faDoorOpen,} from "@fortawesome/free-solid-svg-icons";
 import {useNavigate} from "react-router-dom";
 import AuthContext from "../../context/authContext";
 import {toast} from "sonner";

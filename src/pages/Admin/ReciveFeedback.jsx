@@ -23,7 +23,6 @@ const ReceiveFeedback = () => {
         type: 1, // Default value
     });
     const [searchValue, setSearchValue] = useState("");
-    const accessToken = localStorage.getItem("access-token");
     const [showResults, setShowResults] = useState(false);
     const [sortedFeedbackList, setSortedFeedbackList] = useState([]);
     const formatDate = (dateString) => {
@@ -128,14 +127,11 @@ const ReceiveFeedback = () => {
 
             if (feedbackListResponse.statusCode === 200) {
                 const filteredFeedbackList = feedbackListResponse.response.data;
-
                 setFeedbackList(filteredFeedbackList);
-
                 setPaginationAdmin({
                     page: feedbackListResponse.response.currentPage,
                     totalPages: feedbackListResponse.response.lastPage,
                 });
-
                 setShowResults(true);
             }
         } catch (error) {
@@ -144,9 +140,6 @@ const ReceiveFeedback = () => {
             setLoading(false);
         }
     };
-
-
-
 
     const handleTypeChange = (event) => {
         const selectedType = parseInt(event.target.value, 10);

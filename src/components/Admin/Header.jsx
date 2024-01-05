@@ -5,9 +5,9 @@ import DropDownAdmin from "./DropDownAdmin";
 import AuthContext from "../../context/authContext";
 
 const HeaderAD = () => {
-    const isLogin = true; // Điều kiện đăng nhập
+    const isLogin = true;
     const [isDropDown, setIsDropDown] = useState(false);
-    const [showNotifications, setShowNotifications] = useState(false); // Trạng thái hiển thị thông báo
+    const [showNotifications, setShowNotifications] = useState(false);
     const router = useLocation();
     const {auth} = useContext(AuthContext)
 
