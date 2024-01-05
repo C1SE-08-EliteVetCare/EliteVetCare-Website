@@ -56,7 +56,8 @@ const DetailUserAccount = () => {
         const fetchClinics = async () => {
             try {
                 const clinicsResponse = await feedbackService.getClinic();
-                if (clinicsResponse.sstatusCode === 200) {
+                console.log(clinicsResponse);
+                if (clinicsResponse.statusCode === 200) {
                     setClinics(clinicsResponse.response);
                 }
             } catch (error) {
@@ -91,53 +92,21 @@ const DetailUserAccount = () => {
 
             console.log("API Response: ", response);
 
-            if (response.statusCode === 200) {
+            if (response.statusCode === 201) {
                 const updatedDetailUser = response.response;
                 console.log("Updated User: ", updatedDetailUser);
 
                 setDetailUser(updatedDetailUser);
 
                 const actionText = updatedDetailUser.operatingStatus ? 'mở khóa' : 'kích hoạt';
-                toast.success(`Tài khoản đã được ${actionText} thành công!`, {
-                    position: 'top-right',
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                });
-
-                if (action === 'deactivate') {
-                    toast.error('Tài khoản đã bị khóa. Không thể đăng nhập!', {
-                        position: 'top-right',
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                    });
-                }
+                toast.success(`Tài khoản đã được ${actionText} thành công!`);
             } else {
-                console.error(response.response);
-                toast.error('Đã có lỗi xảy ra. Vui lòng thử lại sau!', {
-                    position: 'top-right',
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                });
+                console.error(response.error);
+                toast.error('Đã có lỗi xảy ra. Vui lòng thử lại sau!');
             }
         } catch (error) {
             console.error('Error toggling account status:', error);
-            toast.error('Đã có lỗi xảy ra. Vui lòng thử lại sau!', {
-                position: 'top-right',
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-            });
+            toast.error('Đã có lỗi xảy ra. Vui lòng thử lại sau!');
         } finally {
             setLoading(false);
         }

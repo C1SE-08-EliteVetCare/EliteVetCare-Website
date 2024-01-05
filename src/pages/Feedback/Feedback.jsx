@@ -91,8 +91,7 @@ const Feedback = () => {
         try {
             setLoading(true);
             console.log(feedbackForm);
-
-            // Check the type and adjust the clinicId parameter accordingly
+            console.log(clinics)
             const clinicIdParam = feedbackForm.type === 2 ? feedbackForm.clinicId : undefined;
 
             const { response, statusCode } = await feedbackService.createFeedback(
