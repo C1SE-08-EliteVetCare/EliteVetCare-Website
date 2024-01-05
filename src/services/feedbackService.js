@@ -39,10 +39,10 @@ export const getClinic = async () => {
 };
 
 
-export const getFeedBack = async (accessToken) => {
+export const getFeedBack = async (query) => {
     try {
         const response = await request.get('/feedback/feedbacks', {
-            headers: { Authorization: `Bearer ${accessToken}` },
+            params: {...query}
         });
         return {
             response: response.data,

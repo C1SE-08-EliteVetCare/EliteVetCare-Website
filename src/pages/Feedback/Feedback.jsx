@@ -26,7 +26,7 @@ const Feedback = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const feedbackResponse = await feedbackService.getFeedBack(accessToken);
+                const feedbackResponse = await feedbackService.getFeedBack({page: 1, limit: 1, rating: 5});
 
                 if (feedbackResponse.statusCode === 200) {
                     const allFeedbackData = feedbackResponse.response.data;
@@ -201,7 +201,7 @@ const Feedback = () => {
                                 <select
                                     value={feedbackForm.type}
                                     onChange={(e) => setFeedbackForm({ ...feedbackForm, type: parseInt(e.target.value) })}
-                                    className="bg-gray-50 my-5 mx-10 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5"
+                                    className="bg-gray-50 my-5 mx-8 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5"
                                     style={{ borderRadius: "16px" }}
                                 >
                                     <option value={1}>Đánh giá hệ thống</option>
