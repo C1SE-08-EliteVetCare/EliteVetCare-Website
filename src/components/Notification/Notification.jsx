@@ -2,7 +2,7 @@ import React from 'react';
 import {format} from "date-fns";
 import {utcToZonedTime} from "date-fns-tz";
 
-const Notification = ({type, appointment}) => {
+const Notification = ({type, appointment, conversation}) => {
     return (
         <div className="flex">
             <div className="flex-shrink-0">
@@ -10,7 +10,7 @@ const Notification = ({type, appointment}) => {
             </div>
             <div className="ms-4">
                 <h3 className="text-gray-800 font-semibold dark:text-white">
-                    Thông báo mới
+                    {conversation ? "Tin nhắn mới" : "Thông báo mới"}
                 </h3>
                 {type === 'createAppointment' ? (
                     <div>
@@ -25,7 +25,7 @@ const Notification = ({type, appointment}) => {
                             </div>
                         </div>
                     </div>
-                ) : (
+                ) : type === 'statusAppointment' ? (
                     <div>
                         <div className="mt-1 flex flex-col items-start justify-start gap-y-1 text-sm text-gray-600">
                             {appointment.status === 2 ? "Cuộc hẹn của bạn đã được chấp nhận" : "Cuộc hẹn của bạn đã bị từ chối"}
@@ -40,6 +40,16 @@ const Notification = ({type, appointment}) => {
                                     Xem ngay
                                 </a>
                             </div>
+                        </div>
+                    </div>
+                ) : (
+                    <div>
+                        <div className="mt-1 flex flex-col items-start justify-start gap-y-1 text-sm text-gray-600">
+                            <span>{conversation?.lastMessageSent?.author?.fullName}</span>
+                            <p>
+                                <span className="font-medium">Nội dung: </span>
+                                {conversation?.lastMessageSent?.content}
+                            </p>
                         </div>
                     </div>
                 )}

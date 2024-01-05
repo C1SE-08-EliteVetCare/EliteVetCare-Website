@@ -6,11 +6,13 @@ import {addConversation, fetchConversationsThunk, updateConversation} from "../.
 import {setMessages} from "../../redux/slices/message";
 import SocketContext from "../../context/socketContext";
 import AuthContext from "../../context/authContext";
-import {useParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import {toast} from "sonner";
 import {Helmet} from "react-helmet";
+import Notification from "../../components/Notification/Notification";
 
 const Conversation = ({children}) => {
+    const path = useLocation()
     const socket = useContext(SocketContext)
     const {auth} = useContext(AuthContext)
     const {id} = useParams()
@@ -40,6 +42,7 @@ const Conversation = ({children}) => {
                     id: conversation.id,
                     data: message
                 }))
+                !path.pathname.includes(`/conversations/${conversation.id}`) && toast(<Notification type="newMessage" conversation={conversation} />)
             }
             dispatch(updateConversation(conversation))
         })
