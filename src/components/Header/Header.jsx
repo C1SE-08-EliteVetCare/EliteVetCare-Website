@@ -70,7 +70,6 @@ const Header = () => {
                                         className="flex items-center text-sm font-medium text-gray-900 rounded-full hover:text-blue-600 md:mr-0"
                                     >
                                         <span className="sr-only">Open user menu</span>
-                                        {/* eslint-disable-next-line jsx-a11y/clinic-redundant-alt */}
                                         <img
                                             className="w-10 h-10 mr-2 rounded-full object-cover"
                                             src={`${auth?.avatar || "https://vnn-imgs-a1.vgcloud.vn/image1.ictnews.vn/_Files/2020/03/17/trend-avatar-1.jpg"}`}
