@@ -10,12 +10,11 @@ const SlideFeedback = () => {
     useEffect(() => {
         const fetchFeedbackData = async () => {
             try {
-                const accessToken = localStorage.getItem('access-token');
-                const feedbackResponse = await feedbackService.getFeedBack(accessToken);
+                const feedbackResponse = await feedbackService.getFeedBackWithFiveRate({rating: 5});
 
                 if (feedbackResponse.statusCode === 200) {
                     const allFeedbackData = feedbackResponse.response.data;
-                    setFeedbackList(allFeedbackData);
+                    setFeedbackList(allFeedbackData.slice(0, 7));
                 }
             } catch (error) {
                 console.error('Error fetching feedback data:', error);
@@ -34,7 +33,7 @@ const SlideFeedback = () => {
         slidesToShow: 3,
         slidesToScroll: 1,
         initialSlide: 0,
-        autoplay: true,
+        autoplay: false,
         autoplaySpeed: 2000,
         arrows: false,
         cssEase: 'linear',

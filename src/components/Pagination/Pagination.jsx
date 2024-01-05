@@ -4,8 +4,14 @@ import {faArrowLeft, faArrowRight} from "@fortawesome/free-solid-svg-icons";
 
 const Pagination = ({pagination, onPageChange}) => {
     const {page, totalPages} = pagination
+    const displayedPages= 10;
+    let startPage = 1;
     // const nextPage = currentPage + 1 > totalPages ? null : currentPage + 1;
     // const prevPage = currentPage - 1 < 1 ? null : currentPage - 1;
+
+    if (page >= 10) {
+        startPage = startPage + 2;
+    }
 
     const handlePageChange = (newPage) => {
         if (onPageChange) {
@@ -14,7 +20,7 @@ const Pagination = ({pagination, onPageChange}) => {
     }
 
     const numPage = []
-    for (let i = 1; i <= totalPages; i++) {
+    for (let i = startPage; i <= Math.min(totalPages, startPage + displayedPages - 1); i++) {
         const handleClick = (page) => {
             handlePageChange(page)
         }
@@ -23,8 +29,8 @@ const Pagination = ({pagination, onPageChange}) => {
                 <button
                     onClick={() => handleClick(i)}
                     className={`${page === i && "bg-blue-50"} flex items-center justify-center
-                    rounded-lg px-4 h-10 mx-2 text-blue-600 border
-                    border-gray-300 hover:bg-blue-100 hover:text-blue-700`}
+                rounded-lg px-4 h-10 mx-2 text-blue-600 border
+                border-gray-300 hover:bg-blue-100 hover:text-blue-700`}
                 >{i}
                 </button>
             </li>

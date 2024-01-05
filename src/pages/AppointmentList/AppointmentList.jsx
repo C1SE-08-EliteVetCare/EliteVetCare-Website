@@ -9,6 +9,7 @@ import * as appointmentService from "../../services/appointmentService"
 import Search from "../../components/Search/Search";
 import {useDispatch, useSelector} from "react-redux";
 import appointmentSlice from "../../redux/slices/appointments";
+import {Helmet} from "react-helmet";
 
 const AppointmentList = () => {
     const accessToken = localStorage.getItem('access-token')
@@ -60,6 +61,7 @@ const AppointmentList = () => {
 
     return (
         <div className="w-[78%] bg-white py-4 px-8 shadow-2xl">
+            <Helmet><title>Danh sách cuộc hẹn | EliteVetCare</title></Helmet>
             <div className="flex items-center mb-4 justify-between">
                 <h1 className="text-2xl font-medium text-primaryColor text-start mb-4">Danh sách cuộc hẹn</h1>
                 <Search title="Tìm theo gói tên khám" handleSearchChange={handleSearchChange}/>
