@@ -1,16 +1,15 @@
-import React, { useState } from "react";
+import React, {useContext, useState} from "react";
 import logo from "../../assets/images/logo.png";
 import { Link, useLocation } from "react-router-dom";
-import DropDownUser from "../DropDownUser/DropDownUser";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell } from "@fortawesome/free-solid-svg-icons";
 import DropDownAdmin from "./DropDownAdmin";
+import AuthContext from "../../context/authContext";
 
 const HeaderAD = () => {
-    const isLogin = true; // Điều kiện đăng nhập
+    const isLogin = true;
     const [isDropDown, setIsDropDown] = useState(false);
-    const [showNotifications, setShowNotifications] = useState(false); // Trạng thái hiển thị thông báo
+    const [showNotifications, setShowNotifications] = useState(false);
     const router = useLocation();
+    const {auth} = useContext(AuthContext)
 
     return (
         <header className="sticky top-0 left-0 mx-auto co right-0 w-full bg-[#f9f9f9] z-50 shadow-md px-4">
@@ -42,10 +41,11 @@ const HeaderAD = () => {
                                 <span className="sr-only">Open user menu</span>
                                 <img
                                     className="w-10 h-10 mr-2 rounded-full object-cover"
-                                    src="https://vnn-imgs-a1.vgcloud.vn/image1.ictnews.vn/_Files/2020/03/17/trend-avatar-1.jpg"
+                                    src={`${auth?.avatar || "https://vnn-imgs-a1.vgcloud.vn/image1.ictnews.vn/_Files/2020/03/17/trend-avatar-1.jpg"}`}
                                     alt="user photo"
                                 />
-                                quangquoc154
+                                <span
+                                    className="block max-w-[128px] truncate">{auth?.email?.split('@')[0] || null}</span>
                                 <svg
                                     className="w-2.5 h-2.5 ml-2.5"
                                     aria-hidden="true"
@@ -82,16 +82,6 @@ const HeaderAD = () => {
                 </div>
             </div>
 
-            {/* Thêm phần thông báo */}
-            {showNotifications && (
-                <div className="fixed top-16 right-4 w-64 bg-white border border-gray-200 rounded-lg shadow-lg">
-                    <div className="p-3 text-lg font-medium border-b border-gray-200">
-                        Thông báo
-                    </div>
-                    <div className="p-3">Nội dung thông báo 1</div>
-                    <div className="p-3">Nội dung thông báo 2</div>
-                </div>
-            )}
         </header>
     );
 };

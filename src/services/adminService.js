@@ -20,11 +20,10 @@ export const getUsers = async (accessToken, { page, limit,search }) => {
     }
 };
 
-export const getFeedBack = async (accessToken,{ page, limit,type }) => {
+export const getFeedBack = async (filter) => {
     try {
         const response = await request.get('/feedback/feedbacks', {
-            params: { page, limit,type },
-            headers: { Authorization: `Bearer ${accessToken}` },
+            params: { ...filter},
         });
 
         return {
@@ -76,7 +75,7 @@ export const manageUser = async (page,limit,search) => {
 };
 export const Toggleactivateuser = async (accessToken, userId, action ) => {
     try {
-        const response = await request.post('user/toggle-active', null, {
+        const response = await request.post('user/toggle-active', null,{
             params: { userId, action },
             headers: { Authorization: `Bearer ${accessToken}` },
         });

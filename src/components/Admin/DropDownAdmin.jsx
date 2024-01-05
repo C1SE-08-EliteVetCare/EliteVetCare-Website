@@ -1,11 +1,6 @@
 import React, {useContext} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faCalendarAlt,
-    faDoorOpen,
-    faPaw,
-    faUserAlt,
-} from "@fortawesome/free-solid-svg-icons";
+import {faDoorOpen,} from "@fortawesome/free-solid-svg-icons";
 import {useNavigate} from "react-router-dom";
 import AuthContext from "../../context/authContext";
 import {toast} from "sonner";
@@ -31,12 +26,9 @@ const DropDownAdmin = ({ isDropDown }) => {
             } bg-white absolute top-[62px] divide-y divide-gray-100 rounded-lg shadow w-44`}
         >
             <div className="px-4 py-3 text-sm text-gray-900">
-                <div className="font-medium text-primaryColor">
-                    {isPetOwner ? "Chủ thú cưng" : "Admin"}
-                </div>
-                <div className="truncate" data-toggle="dropdown">
-                    Dương Quang Quốc
-                </div>
+                <div className="font-medium text-primaryColor">{auth.role && auth.role.id === 1 ? "Admin" : "User"}</div>
+                <div className="truncate" data-toggle="dropdown">{auth.fullName}</div>
+
                 <div
                     id="tooltip-default"
                     role="tooltip"

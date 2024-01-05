@@ -11,16 +11,15 @@ function formatDate(dateString) {
     const [year, month, day] = dateString.split("-");
     return `${day}/${month}/${year}`;
 }
-
 const ManageUserAccount = () => {
     const [userList, setUserList] = useState([]);
+    const [showResults, setShowResults] = useState(false);
     const [sortedUserList, setSortedUserList] = useState([]);
     const accessToken = localStorage.getItem("access-token");
 
     const [loading, setLoading] = useState(true);
     const [sortBy, setSortBy] = useState("option1");
     const [searchValue, setSearchValue] = useState("");
-    const [showResults, setShowResults] = useState(false);
     const [filters, setFilters] = useState({ limit: 7, page: 1, status: null });
     const [paginationAdmin, setPaginationAdmin] = useState({
         page: 1,
@@ -29,33 +28,12 @@ const ManageUserAccount = () => {
 
     const { id, page, limit } = useParams();
 
-    const handlePageChange = async (newPage) => {
+    const handlePageChange = (newPage) => {
         if (newPage < 1 || newPage > paginationAdmin.totalPages) {
             return;
         }
 
         setFilters({ ...filters, page: newPage });
-        setLoading(true);
-
-        try {
-            const accountList = await adminService.getUsers(accessToken, {
-                ...filters,
-                page: newPage,
-            });
-
-            if (accountList.statusCode === 200) {
-                setSortedUserList(accountList.response.data);
-                setPaginationAdmin({
-                    page: newPage,
-                    totalPages: accountList.response.lastPage,
-                });
-                setShowResults(true);
-            }
-        } catch (error) {
-            console.error("Error fetching user data:", error);
-        } finally {
-            setLoading(false);
-        }
     };
 
     const handleSortChange = (event) => {
@@ -79,7 +57,6 @@ const ManageUserAccount = () => {
         const fetchUserData = async () => {
             try {
                 setLoading(true);
-
                 const accountList = await adminService.getUsers(accessToken, filters);
                 if (accountList.statusCode === 200) {
                     setSortedUserList(accountList.response.data);
@@ -95,7 +72,6 @@ const ManageUserAccount = () => {
                 setLoading(false);
             }
         };
-
         fetchUserData();
     }, [accessToken, filters]);
 
@@ -123,39 +99,9 @@ const ManageUserAccount = () => {
             setLoading(false);
         }
     };
-
-    const handleHideResults = () => {
-        setShowResults(false);
-    };
-
     const handleSearchOnChange = (event) => {
         const value = event.target.value;
         setSearchValue(value);
-    };
-
-    const handleRoleChange = async (userId, newRoleId) => {
-        try {
-            setLoading(true);
-
-            // Call your service to update the user role
-            const response = await adminService.updateUserRole(userId, newRoleId);
-
-            if (response.statusCode === 200) {
-                // Update the state with the new user details
-                const updatedUserList = sortedUserList.map((user) =>
-                    user.id === userId ? response.response.data : user
-                );
-
-                setSortedUserList(updatedUserList);
-
-                // Show a success notification or perform any other necessary action
-            }
-        } catch (error) {
-            console.error("Error updating user role:", error);
-            // Handle error and show an error notification
-        } finally {
-            setLoading(false);
-        }
     };
 
     return (
@@ -243,22 +189,7 @@ const ManageUserAccount = () => {
                                         {user.email}
                                     </td>
                                     <td className="py-2 px-4 border-t border-gray-300">
-                                        <select
-                                            className="py-2 px-4 border-t border-gray-300 bg-gray-100 w-full"
-                                            style={{ borderRadius: "10px" }}
-                                        >
-                                            <>
-                                                <option value="option1" selected={user.role.id === 3}>
-                                                    Bác sĩ
-                                                </option>
-                                                <option value="option2" selected={user.role.id === 1}>
-                                                    Admin
-                                                </option>
-                                                <option value="option3" selected={user.role.id === 2}>
-                                                    Chủ thú cưng
-                                                </option>
-                                            </>
-                                        </select>
+                                        {user.role.id === 1 ? 'Admin' : user.role.id ===2 ? 'Chủ thú cưng' : 'Bác sĩ'}
                                     </td>
                                     <td className="py-2 px-4 border-t border-gray-300">
                                         {user.operatingStatus === true ? (

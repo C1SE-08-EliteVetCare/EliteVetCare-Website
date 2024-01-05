@@ -89,21 +89,14 @@ const DetailUserAccount = () => {
             console.log("Access Token: ", accessToken);
 
             const response = await adminService.Toggleactivateuser(accessToken, detailUser?.id, action);
+            const updatedDetailUser = response.response;
 
             console.log("API Response: ", response);
+            console.log("Updated User: ", updatedDetailUser);
 
-            if (response.statusCode === 201) {
-                const updatedDetailUser = response.response;
-                console.log("Updated User: ", updatedDetailUser);
-
-                setDetailUser(updatedDetailUser);
-
-                const actionText = updatedDetailUser.operatingStatus ? 'mở khóa' : 'kích hoạt';
-                toast.success(`Tài khoản đã được ${actionText} thành công!`);
-            } else {
-                console.error(response.error);
-                toast.error('Đã có lỗi xảy ra. Vui lòng thử lại sau!');
-            }
+            setDetailUser(updatedDetailUser);
+            const actionText = action === 'activate' ? 'được mở khóa' : 'bị khóa tài khoá';
+            toast.success(`Tài khoản đã  ${actionText} thành công!`);
         } catch (error) {
             console.error('Error toggling account status:', error);
             toast.error('Đã có lỗi xảy ra. Vui lòng thử lại sau!');
@@ -111,7 +104,6 @@ const DetailUserAccount = () => {
             setLoading(false);
         }
     };
-
 
     const handleRoleChange = async () => {
         try {
@@ -159,9 +151,6 @@ const DetailUserAccount = () => {
             setLoading(false);
         }
     };
-
-
-
 
     return (
         <div className=" bg-[#F3F7FA] w-full h-full   p-8">
@@ -323,7 +312,6 @@ const DetailUserAccount = () => {
                                     className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center"
                                     onClick={() => setShowModal(!showModal)}
                                 >
-                                    <FontAwesomeIcon className="text-2xl" icon={faXmark} />
                                 </button>
                             </div>
                             <div className="px-6 py-6 lg:px-8">
@@ -388,8 +376,6 @@ const DetailUserAccount = () => {
                 </div>
             )}
         </div>
-
-
     );
 };
 
