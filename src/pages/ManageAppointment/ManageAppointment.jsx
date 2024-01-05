@@ -111,10 +111,6 @@ const ManageAppointment = () => {
                         <option value={2}>Đã nhận</option>
                         <option value={3}>Đã từ chối</option>
                     </select>`
-                    <button
-                        className="px-5 py-2 rounded-lg text-sm border-2 border-gray-400 focus:outline-primaryColor hover:bg-gray-200">Xuất
-                        file
-                    </button>
                 </div>
             </div>
             <ul className="grid grid-cols-12 gap-4 mt-6 py-2 border-b-2 bg-gray-50">

@@ -56,6 +56,23 @@ export const getFeedBack = async (accessToken) => {
     }
 };
 
+export const getFeedBackWithFiveRate = async (params) => {
+    try {
+        const response = await request.get('/feedback/feedbacks', {
+            params: {...params},
+        });
+        return {
+            response: response.data,
+            statusCode: response.status,
+        };
+    } catch (e) {
+        return {
+            error: e.response.data,
+            status: e.response.status,
+        };
+    }
+};
+
 export const getFeedbackById = async (feedbackId, accessToken) => {
     try {
         const response = await request.get(`/feedback/feedbacks/${feedbackId}`, {
