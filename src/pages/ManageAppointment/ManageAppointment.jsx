@@ -6,7 +6,7 @@ import * as appointmentService from "../../services/appointmentService"
 import {useDispatch, useSelector} from "react-redux";
 import {Spinner} from "@material-tailwind/react";
 import noDataImg from "../../assets/vectors/no data.svg";
-import {format} from "date-fns";
+import {format, parse} from "date-fns";
 import Pagination from "../../components/Pagination/Pagination";
 import {toast} from "sonner";
 import appointmentSlice from "../../redux/slices/appointments";
@@ -89,6 +89,20 @@ const ManageAppointment = () => {
             toast.error("Có lỗi khi xử lý")
         }
     }
+
+    const handleCompareCurrentDate = (date, time) => {
+        const appointmentDate = format(new Date(date + " " + time), 'dd/MM/yyyy HH:mm')
+        const formatAppDate = parse(appointmentDate, 'dd/MM/yyyy HH:mm', new Date())
+        const now = new Date()
+        const currentDate = now.getTime()
+        const currentApDate = formatAppDate.getTime()
+
+        console.log(currentDate, currentApDate)
+        return currentDate > currentApDate
+    }
+
+    console.log(handleCompareCurrentDate('2023-01-5', '15:30'))
+
     return (<>
         <div className="w-[78%] bg-white py-4 px-8 shadow-2xl">
             <Helmet>
@@ -97,12 +111,12 @@ const ManageAppointment = () => {
             <div className="flex justify-between items-center">
                 <h1 className="text-2xl font-medium text-primaryColor text-start mb-4">Danh sách cuộc hẹn</h1>
                 <div className="space-x-3">
-                    <select
-                        className="px-4 py-2 rounded-lg text-sm bg-gray-50 border-2 border-gray-300 focus:outline-primaryColor hover:bg-gray-200">
-                        <option>Ngày đặt: Tất cả</option>
-                        <option>Mới nhất</option>
-                        <option>Cũ nhất</option>
-                    </select>
+                    {/*<select*/}
+                    {/*    className="px-4 py-2 rounded-lg text-sm bg-gray-50 border-2 border-gray-300 focus:outline-primaryColor hover:bg-gray-200">*/}
+                    {/*    <option>Ngày đặt: Tất cả</option>*/}
+                    {/*    <option>Mới nhất</option>*/}
+                    {/*    <option>Cũ nhất</option>*/}
+                    {/*</select>*/}
                     <select
                         onChange={(e) => handleChangeStatus(e.target.value)}
                         className="px-4 py-2 rounded-lg text-sm bg-gray-50 border-2 border-gray-300 focus:outline-primaryColor hover:bg-gray-200">
@@ -201,56 +215,71 @@ const ManageAppointment = () => {
                     </ul>
                     <div className="mt-9 text-end px-6 space-x-3 flex items-center justify-end">
                         {appointment.status === 1 ? (
-                            <>
-                                <button className="py-2 px-4 text-white bg-primaryColor rounded hover:bg-blue-600"
-                                        onClick={() => toggleStatus(1, appointment.id)}>
-                                    {loadingBtn.isLoading && loadingBtn.action === 1 ? (
-                                        <div className="flex justify-center items-center">
-                                            <Spinner className="h-6 w-6 mr-2"/>
-                                            <span>Đang xử lý...</span>
-                                        </div>
-                                    ) : (
-                                        <span>Đồng ý cuộc hẹn</span>
-                                    )}
-                                </button>
-                                <button className="py-2 px-4 text-white bg-red-600 rounded hover:bg-red-700"
-                                        onClick={() => toggleStatus(2, appointment.id)}>
-                                    {loadingBtn.isLoading && loadingBtn.action === 2 ? (
-                                        <div className="flex justify-center items-center">
-                                            <Spinner className="h-6 w-6 mr-2"/>
-                                            <span>Đang xử lý...</span>
-                                        </div>
-                                    ) : (
-                                        <span>Hủy cuộc hẹn</span>
-                                    )}
-                                </button>
-                            </>
-                        ) : appointment.status === 2 ? (
-                            <button className="py-2 px-4 text-white bg-red-600 rounded hover:bg-red-700"
-                                    onClick={() => toggleStatus(2, appointment.id)}
-                            >
-                                {loadingBtn.isLoading && loadingBtn.action === 2 ? (
-                                    <div className="flex justify-center items-center">
-                                        <Spinner className="h-6 w-6 mr-2"/>
-                                        <span>Đang xử lý...</span>
-                                    </div>
+                                handleCompareCurrentDate(appointment.appointmentDate, appointment.appointmentTime) ? (
+                                    <span className="mx-auto italic text-primaryColor text-lg">Đã quá hạn</span>
                                 ) : (
-                                    <span>Hủy cuộc hẹn</span>
-                                )}
-                            </button>
-                        ) : (
-                            <button className="py-2 px-4 text-white bg-primaryColor rounded hover:bg-red-700"
-                                    onClick={() => toggleStatus(1, appointment.id)}>
-                                {loadingBtn.isLoading && loadingBtn.action === 1 ? (
-                                    <div className="flex justify-center items-center">
-                                        <Spinner className="h-6 w-6 mr-2"/>
-                                        <span>Đang xử lý...</span>
-                                    </div>
+                                    <>
+                                        <button className="py-2 px-4 text-white bg-primaryColor rounded hover:bg-blue-600"
+                                                onClick={() => toggleStatus(1, appointment.id)}>
+                                            {loadingBtn.isLoading && loadingBtn.action === 1 ? (
+                                                <div className="flex justify-center items-center">
+                                                    <Spinner className="h-6 w-6 mr-2"/>
+                                                    <span>Đang xử lý...</span>
+                                                </div>
+                                            ) : (
+                                                <span>Đồng ý cuộc hẹn</span>
+                                            )}
+                                        </button>
+                                        <button className="py-2 px-4 text-white bg-red-600 rounded hover:bg-red-700"
+                                                onClick={() => toggleStatus(2, appointment.id)}>
+                                            {loadingBtn.isLoading && loadingBtn.action === 2 ? (
+                                                <div className="flex justify-center items-center">
+                                                    <Spinner className="h-6 w-6 mr-2"/>
+                                                    <span>Đang xử lý...</span>
+                                                </div>
+                                            ) : (
+                                                <span>Hủy cuộc hẹn</span>
+                                            )}
+                                        </button>
+                                    </>
+                                )
+                            ) : appointment.status === 2 ? (
+                                    handleCompareCurrentDate(appointment.appointmentDate, appointment.appointmentTime) ? (
+                                        <span className="mx-auto italic text-primaryColor text-lg">Đã diễn ra</span>
+                                    ) : (
+                                        <button className="py-2 px-4 text-white bg-red-600 rounded hover:bg-red-700"
+                                                onClick={() => toggleStatus(2, appointment.id)}
+                                        >
+                                            {loadingBtn.isLoading && loadingBtn.action === 2 ? (
+                                                <div className="flex justify-center items-center">
+                                                    <Spinner className="h-6 w-6 mr-2"/>
+                                                    <span>Đang xử lý...</span>
+                                                </div>
+                                            ) : (
+                                                <span>Hủy cuộc hẹn</span>
+                                            )}
+                                        </button>
+                                    )
+                            ) : (
+                                handleCompareCurrentDate(appointment.appointmentDate, appointment.appointmentTime) ? (
+                                    <span className="mx-auto italic text-primaryColor text-lg">Đã diễn ra</span>
                                 ) : (
-                                    <span>Đồng ý cuộc hẹn</span>
-                                )}
-                            </button>
-                        )}
+                                    <button className="py-2 px-4 text-white bg-primaryColor rounded hover:bg-red-700"
+                                            onClick={() => toggleStatus(1, appointment.id)}>
+                                        {
+                                            loadingBtn.isLoading && loadingBtn.action === 1 ? (
+                                                <div className="flex justify-center items-center">
+                                                    <Spinner className="h-6 w-6 mr-2"/>
+                                                    <span>Đang xử lý...</span>
+                                                </div>
+                                            ) : (
+                                                <span>Chấp nhận lại cuộc hẹn</span>
+                                            )
+                                        }
+                                    </button>
+                                )
+                            )
+                        }
                     </div>
                 </div>
             </div>
