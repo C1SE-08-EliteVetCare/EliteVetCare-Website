@@ -90,21 +90,25 @@ const Feedback = () => {
     const handleCreateFeedback = async () => {
         try {
             setLoading(true);
-            console.log(feedbackForm)
+            console.log(feedbackForm);
+
+            // Check the type and adjust the clinicId parameter accordingly
+            const clinicIdParam = feedbackForm.type === 2 ? feedbackForm.clinicId : undefined;
+
             const { response, statusCode } = await feedbackService.createFeedback(
                 accessToken,
                 feedbackForm.type,
-                feedbackForm.clinicId,
+                clinicIdParam, // Use the clinicIdParam based on the type
                 feedbackForm.subject,
                 feedbackForm.content,
                 feedbackForm.rating
             );
-            console.log({ response, statusCode } )
+            console.log({ response, statusCode });
 
             if (statusCode === 201) {
                 setFeedbackForm({
-                    type: 2,
-                    clinicId: '',
+                    type: 1, // Reset type to 1 after successful submission
+                    clinicId: '', // Reset clinicId to empty
                     subject: '',
                     content: '',
                     rating: 5,
@@ -155,14 +159,13 @@ const Feedback = () => {
                                         <div>
                                             <span>{feedback.user.fullName}</span>
                                             <p className="text-sm text-gray-400 mb-2">
-                                                <span className="font-medium">Phòng khám:</span> {feedback.clinic.name}
+                                                <span className="font-medium">Phòng khám:</span> {feedback.clinic ? feedback.clinic.name : 'N/A'}
                                             </p>
                                             {feedback.subject && (
                                                 <p className="text-sm text-gray-400 mb-2">
                                                     <span className="font-medium">Chủ đề:</span> {feedback.subject}
                                                 </p>
                                             )}
-
                                             <p>{feedback.content}</p>
                                         </div>
                                     </div>
@@ -172,12 +175,13 @@ const Feedback = () => {
                                         <Rate rating={feedback.rating} />
                                     </div>
                                     <span className="text-gray-500">
-                                        {feedback.createdAt ? formatDate(feedback.createdAt) : null}
-                                    </span>
+                    {feedback.createdAt ? formatDate(feedback.createdAt) : null}
+                </span>
                                 </div>
                             </div>
                         </div>
                     ))}
+
                 </div>
             </div>
             {showModal && (
@@ -194,11 +198,19 @@ const Feedback = () => {
                                     <FontAwesomeIcon className="text-2xl" icon={faXmark} />
                                 </button>
                             </div>
-                            <div className="px-6 py-6 lg:px-8">
-                                <form
-                                    action="#"
-                                    className="flex justify-between items-center flex-col space-y-6"
+                            <div className="flex flex-col w-full">
+                                <select
+                                    value={feedbackForm.type}
+                                    onChange={(e) => setFeedbackForm({ ...feedbackForm, type: parseInt(e.target.value) })}
+                                    className="bg-gray-50 my-5 mx-10 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5"
+                                    style={{ borderRadius: "16px" }}
                                 >
+                                    <option value={1}>Đánh giá hệ thống</option>
+                                    <option value={2}>Đánh giá phòng khám </option>
+                                </select>
+                            </div>
+                            <div className="px-6 py-6 lg:px-8">
+                                <form action="#" className="flex justify-between items-center flex-col space-y-6">
                                     <div>
                                         <label className="font-medium mb-1.5">Mức độ hài lòng</label>
                                         <Rate
@@ -207,36 +219,34 @@ const Feedback = () => {
                                             classStyle="text-xl mt-2 px-1"
                                         />
                                     </div>
-                                    <div className="flex flex-col w-full">
-                                        <label className="font-medium text-start mb-1.5">Phòng khám:</label>
-                                        <select
-                                            value={feedbackForm.clinicId}
-                                            onChange={(e) =>
-                                                setFeedbackForm((preFeedbackForm) =>({ ...preFeedbackForm, clinicId: e.target.value }) )
-                                            }
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                            style={{ borderRadius: "16px" }}
-                                        >
-                                            {clinics.length > 0 ? (
-                                                clinics.map((clinic) => (
-                                                    <option key={clinic.id} value={clinic.id}>
-                                                        {clinic.name}
+                                    {feedbackForm.type === 2 && (
+                                        <div className="flex flex-col w-full">
+                                            <label className="font-medium text-start mb-1.5">Phòng khám:</label>
+                                            <select
+                                                value={feedbackForm.clinicId}
+                                                onChange={(e) => setFeedbackForm((preFeedbackForm) => ({ ...preFeedbackForm, clinicId: e.target.value }))}
+                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                                style={{ borderRadius: "16px" }}
+                                            >
+                                                {clinics.length > 0 ? (
+                                                    clinics.map((clinic) => (
+                                                        <option key={clinic.id} value={clinic.id}>
+                                                            {clinic.name}
+                                                        </option>
+                                                    ))
+                                                ) : (
+                                                    <option value="" disabled>
+                                                        No clinics available
                                                     </option>
-                                                ))
-                                            ) : (
-                                                <option value="" disabled>
-                                                    No clinics available
-                                                </option>
-                                            )}
-                                        </select>
-                                    </div>
+                                                )}
+                                            </select>
+                                        </div>
+                                    )}
                                     <div className="flex flex-col w-full">
                                         <label className="font-medium text-start mb-1.5">Chủ đề</label>
                                         <input
                                             value={feedbackForm.subject}
-                                            onChange={(e) =>
-                                                setFeedbackForm({ ...feedbackForm, subject: e.target.value })
-                                            }
+                                            onChange={(e) => setFeedbackForm({ ...feedbackForm, subject: e.target.value })}
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                             placeholder=""
                                         />
@@ -245,9 +255,7 @@ const Feedback = () => {
                                         <label className="font-medium text-start mb-1.5">Nội dung</label>
                                         <textarea
                                             value={feedbackForm.content}
-                                            onChange={(e) =>
-                                                setFeedbackForm({ ...feedbackForm, content: e.target.value })
-                                            }
+                                            onChange={(e) => setFeedbackForm({ ...feedbackForm, content: e.target.value })}
                                             className="h-40 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         />
                                     </div>

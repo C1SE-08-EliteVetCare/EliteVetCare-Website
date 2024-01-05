@@ -117,7 +117,27 @@ export const updateUserRole = async (userId, roleId, accessToken) => {
         };
     }
 };
-
+export const updateClinic = async (userId, clinicId, accessToken) => {
+    try {
+        const response = await request.patch(
+            `/user/update-clinic`,
+            { userId, clinicId },
+            {
+                headers: { Authorization: `Bearer ${accessToken}` },
+            }
+        );
+        return {
+            response: response.data,
+            statusCode: response.status,
+        };
+    } catch (error) {
+        console.error('Error updating user role:', error);
+        return {
+            error: error.response.data,
+            statusCode: error.response.status,
+        };
+    }
+};
 
 
 

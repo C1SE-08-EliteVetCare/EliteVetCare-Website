@@ -56,8 +56,7 @@ const DetailUserAccount = () => {
         const fetchClinics = async () => {
             try {
                 const clinicsResponse = await feedbackService.getClinic();
-                console.log(clinicsResponse);
-                if (clinicsResponse.statusCode === 200) {
+                if (clinicsResponse.sstatusCode === 200) {
                     setClinics(clinicsResponse.response);
                 }
             } catch (error) {
@@ -80,22 +79,24 @@ const DetailUserAccount = () => {
         return <p>No data found for this user.</p>;
     }
     const handleToggleAccountStatus = async () => {
-        console.log(detailUser)
         try {
             setLoading(true);
-
-            // Determine the action based on the current operating status
             const action = detailUser.operatingStatus ? 'deactivate' : 'activate';
-            console.log(">>>>>>>>>>>>>>>" + action)
-            console.log(detailUser?.id)
-            console.log(accessToken)
-            const response = await adminService.Toggleactivateuser(accessToken,  detailUser?.id, action );
-            console.log(response)
+
+            console.log("Action: ", action);
+            console.log("User ID: ", detailUser?.id);
+            console.log("Access Token: ", accessToken);
+
+            const response = await adminService.Toggleactivateuser(accessToken, detailUser?.id, action);
+
+            console.log("API Response: ", response);
+
             if (response.statusCode === 200) {
                 const updatedDetailUser = response.response;
+                console.log("Updated User: ", updatedDetailUser);
 
-                console.log(updatedDetailUser)
                 setDetailUser(updatedDetailUser);
+
                 const actionText = updatedDetailUser.operatingStatus ? 'mở khóa' : 'kích hoạt';
                 toast.success(`Tài khoản đã được ${actionText} thành công!`, {
                     position: 'top-right',
@@ -106,7 +107,6 @@ const DetailUserAccount = () => {
                     draggable: true,
                 });
 
-                // If the account is locked, display an error message
                 if (action === 'deactivate') {
                     toast.error('Tài khoản đã bị khóa. Không thể đăng nhập!', {
                         position: 'top-right',
@@ -144,25 +144,49 @@ const DetailUserAccount = () => {
     };
 
 
-
-
     const handleRoleChange = async () => {
         try {
             setLoading(true);
 
-            const response = await adminService.updateUserRole(id, selectedRole, detailUser.clinicId, accessToken);
+            if (selectedRole === "1" || selectedRole === "2") {
+                const response = await adminService.updateUserRole(id, selectedRole, detailUser.clinicId, accessToken);
 
-            if (response.statusCode === 200) {
-                toast.success(`Vai trò của tài khoản đã được cập nhật thành công!`, {});
+                if (response.statusCode === 200) {
+                    toast.success(`Vai trò của tài khoản đã được cập nhật thành công!`, {});
+                } else {
+                    console.log(response.response);
+                    console.error('Error updating user role:', response);
+                    toast.error('Đã có lỗi xảy ra. Vui lòng thử lại sau!', {});
+                }
+            }
+            else if (selectedRole === "3") {
+                const response = await adminService.updateUserRole(id, selectedRole, detailUser.clinicId, accessToken);
+                if (response.statusCode === 200) {
+                    toast.success(`Vai trò của tài khoản đã được cập nhật thành công!`, {});
+                } else {
+                    console.log(response.response);
+                    console.error('Error updating user role:', response);
+                    toast.error('Đã có lỗi xảy ra. Vui lòng thử lại sau!', {});
+                }
+            }else {
+                setShowModal(true);
+            }
+
+            const clinicResponse = await adminService.updateClinic(id, detailUser.clinicId, accessToken);
+
+            if (clinicResponse.statusCode === 200) {
+                //toast.success(`Phòng khám của tài khoản đã được cập nhật thành công!`, {});
             } else {
-                console.log(response.response);
-                console.error('Error updating user role:', response);
-                toast.error('Đã có lỗi xảy ra. Vui lòng thử lại sau!', {});
+                console.log(clinicResponse.response);
+                console.error('Error updating clinic:', clinicResponse);
+                toast.error('Đã có lỗi xảy ra khi cập nhật phòng khám. Vui lòng thử lại sau!', {});
             }
         } catch (error) {
             console.error('Error updating user role:', error);
             toast.error('Đã có lỗi xảy ra. Vui lòng thử lại sau!', {});
-        } finally {
+
+        }
+        finally {
             setLoading(false);
         }
     };
@@ -285,11 +309,20 @@ const DetailUserAccount = () => {
                                 </button>
 
                                 <button
-                                    className="py-2 px-5 mx-8 my-6 bg-blue-500 hover:bg-blue-700 text-white rounded-sm"
-                                    onClick={ () => setShowModal(!showModal)}
+                                    className={`py-2 px-5 mx-8 my-6 ${
+                                        selectedRole === "3" ? "bg-blue-500 hover:bg-blue-700" : "bg-primaryColor hover:bg-primaryColorDark"
+                                    } text-white rounded-sm`}
+                                    onClick={() => {
+                                        if (selectedRole === "3") {
+                                            setShowModal(!showModal);
+                                        } else {
+                                            handleRoleChange();
+                                        }
+                                    }}
                                 >
-                                    Cập nhật Vai trò
+                                    {selectedRole === "3" ? "Cập nhật vai trò" : "Lưu thay đổi"}
                                 </button>
+
                             </div>
 
                         </div>
@@ -350,6 +383,7 @@ const DetailUserAccount = () => {
                                                     No clinics available
                                                 </option>
                                             )}
+
                                         </select>
                                     </div>
 
